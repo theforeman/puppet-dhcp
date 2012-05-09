@@ -5,6 +5,10 @@ to him for the original work.
 
 Installs and manages a DHCP server.
 
+## Dependencies
+
+* Reworked Concat module (https://github.com/GregSutcliffe/pupmod-concat)
+
 ## Features
 * Multiple subnet support
 * Host reservations

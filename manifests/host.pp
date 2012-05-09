@@ -9,10 +9,8 @@ define dhcp::host (
 
   $dhcp_dir = $dhcp::params::dhcp_dir
 
-  concat::fragment { "dhcp_host_${name}":
-      target  => "${dhcp_dir}/dhcpd.hosts",
-      content => template("dhcp/dhcpd.host.erb"),
-      order   => 10,
+  concat::fragment { "dhcp.hosts+10_${name}.hosts"
+    content => template("dhcp/dhcpd.host.erb"),
   }
-}
 
+}
