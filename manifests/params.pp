@@ -9,11 +9,13 @@ class dhcp::params {
 
     $packagename = $operatingsystem ? {
       darwin  => "dhcp",
+      Ubuntu  => "dhcp3-server",
       default => "isc-dhcp-server",
     }
 
     $servicename = $operatingsystem ? {
       darwin  => "org.macports.dhcpd",
+      Ubuntu  => "dhcp3-server",
       default => "isc-dhcp-server",
     }
 
