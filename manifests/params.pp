@@ -2,7 +2,7 @@ class dhcp::params {
 
     $dhcp_dir = $operatingsystem ? {
         debian  => "/etc/dhcp",
-        ubuntu  => "/etc/dhcp3",
+        ubuntu  => "/etc/dhcp",
         darwin  => "/opt/local/etc/dhcp",
         default => "/etc",
     }
@@ -15,7 +15,7 @@ class dhcp::params {
 
     $servicename = $operatingsystem ? {
       darwin  => "org.macports.dhcpd",
-      Ubuntu  => "dhcp3-server",
+      Ubuntu  => "isc-dhcp-server",
       default => "isc-dhcp-server",
     }
 
