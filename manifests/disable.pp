@@ -10,15 +10,15 @@ class dhcp::disable {
   $logfacility = $dhcp::params::logfacility
 
   package {
-    "isc-dhcp-server":
+    $dhcp::params::packagename:
       ensure => absent;
   }
   service {
-    "isc-dhcp-server":
+    $dhcp::params::servicename:
+      ensure    => stopped,
       enable    => false,
-      ensure    => "stopped",
       hasstatus => true,
-      require   => Package["isc-dhcp-server"];
+      require   => Package[$dhcp::params::packagename];
   }
 
 }
