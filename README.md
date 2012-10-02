@@ -23,7 +23,6 @@ Define the server and the zones it will be responsible for.
         '1.0.10.in-addr.arpa',
         ],
       nameservers  => ['10.0.1.20'],
-      ntpservers   => ['us.pool.ntp.org'],
       interfaces   => ['eth0'],
       dnsupdatekey => "/etc/bind/keys.d/$ddnskeyname",
       require      => Bind::Key[ $ddnskeyname ],

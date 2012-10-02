@@ -4,7 +4,6 @@ class dhcp::disable {
   $dhcp_dir    = $dhcp::params::dhcp_dir
   $dnsdomain   = $dhcp::params::dnsdomain
   $nameservers = $dhcp::params::nameservers
-  $ntpserver   = $dhcp::params::ntpserver
   $pxeserver   = $dhcp::params::pxeserver
   $filename    = $dhcp::params::filename
   $logfacility = $dhcp::params::logfacility

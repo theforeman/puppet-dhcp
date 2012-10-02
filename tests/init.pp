@@ -6,7 +6,6 @@ class { 'dhcp':
     '1.1.10.in-addr.arpa',
     ],
   nameservers  => ['10.1.1.10'],
-  ntpservers   => ['us.pool.ntp.org'],
   interfaces   => ['eth0'],
   dnsupdatekey => "/etc/bind/keys.d/$::ddnskeyname",
   require      => Bind::Key[$::ddnskeyname],

@@ -24,7 +24,6 @@ ddns-update-style none;
 
 option domain-name "<%= dnsdomain.first %>";
 option domain-name-servers <%= nameservers.join( ', ') %>;
-option ntp-servers <%= ntpservers.join( ', ') %>;
 
 allow booting;
 allow bootp;
