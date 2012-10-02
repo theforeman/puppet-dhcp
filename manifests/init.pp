@@ -1,7 +1,6 @@
 class dhcp (
     $dnsdomain,
     $nameservers,
-    $ntpservers,
     $interfaces   = undef,
     $interface    = 'NOTSET',
     $dnsupdatekey = undef,
