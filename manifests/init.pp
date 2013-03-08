@@ -70,7 +70,6 @@ class dhcp (
 
   concat_build { 'dhcp.conf':
     order   => ['*.dhcp'],
-    target  => "${dhcp_dir}/dhcpd.conf",
     require => Package[$packagename],
     notify  => [Service[$servicename],File["${dhcp_dir}/dhcpd.conf"]],
   }
@@ -78,7 +77,8 @@ class dhcp (
     owner   => 'root',
     group   => 'root',
     mode    => '0644',
-    require => Package[$packagename],
+    source  => concat_output('dhcp.conf'),
+    require => [Package[$packagename],Concat_build['dhcp.conf']],
   }
 
   concat_fragment { 'dhcp.conf+01_main.dhcp':
@@ -87,7 +87,6 @@ class dhcp (
 
   concat_build { 'dhcp.hosts':
     order   => ['*.hosts'],
-    target  => "${dhcp_dir}/dhcpd.hosts",
     require => Package[$packagename],
     notify  => [Service[$servicename],File["${dhcp_dir}/dhcpd.hosts"]],
   }
@@ -95,7 +94,8 @@ class dhcp (
     owner   => 'root',
     group   => 'root',
     mode    => '0644',
-    require => Package[$packagename],
+    source  => concat_output('dhcp.hosts'),
+    require => [Package[$packagename],Concat_build['dhcp.hosts']],
   }
 
   concat_fragment { 'dhcp.hosts+01_main.hosts':

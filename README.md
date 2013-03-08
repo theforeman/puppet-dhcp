@@ -7,7 +7,7 @@ Installs and manages a DHCP server.
 
 ## Dependencies
 
-* Reworked Concat module (https://github.com/GregSutcliffe/puppet-concat)
+* Native-type Concat module (https://github.com/onyxpoint/pupmod-concat)
 
 ## Features
 * Multiple subnet support
