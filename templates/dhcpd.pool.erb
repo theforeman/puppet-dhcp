@@ -10,6 +10,8 @@ subnet <%= network %> netmask <%= mask %> {
 <% end -%>
 
   option subnet-mask <%= mask %>;
+<% if gateway -%>
   option routers <%= gateway %>;
+<% end -%>
 }
 

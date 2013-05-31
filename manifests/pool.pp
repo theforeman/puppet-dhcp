@@ -2,7 +2,7 @@ define dhcp::pool (
     $network,
     $mask,
     $range = false,
-    $gateway
+    $gateway = false
   ) {
 
     include dhcp::params
