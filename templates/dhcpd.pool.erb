@@ -1,17 +1,17 @@
 #################################
-# <%= name network mask %>
+# <%= @name %>
 #################################
-subnet <%= network %> netmask <%= mask %> {
-<% if range -%>
+subnet <%= @network %> netmask <%= @mask %> {
+<% if @range -%>
   pool
   {
-    range <%= range %>;
+    range <%= @range %>;
   }
 <% end -%>
 
-  option subnet-mask <%= mask %>;
-<% if gateway -%>
-  option routers <%= gateway %>;
+  option subnet-mask <%= @mask %>;
+<% if @gateway -%>
+  option routers <%= @gateway %>;
 <% end -%>
 }
 
