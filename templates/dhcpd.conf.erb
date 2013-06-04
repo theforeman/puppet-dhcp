@@ -4,26 +4,26 @@ omapi-port 7911;
 default-lease-time 600;
 max-lease-time 7200;
 
-<% if has_variable?( 'dnsupdatekey' ) and dnsupdatekey != :undef -%>
+<% if has_variable?( 'dnsupdatekey' ) and @dnsupdatekey -%>
 ddns-updates on;
 ddns-update-style interim;
 update-static-leases on;
 use-host-decl-names on;
 
 # Key from bind
-include "<%= dnsupdatekey %>";
-<% dnsdomain.each do |dom| -%>
+include "<%= @dnsupdatekey %>";
+<% @dnsdomain.each do |dom| -%>
 zone <%= dom %>. {
-  primary <%= nameservers.first %>;
-  key <%= dnsupdatekey.split('/').last %>;
+  primary <%= @nameservers.first %>;
+  key <%= @dnsupdatekey.split('/').last %>;
 }
 <% end -%>
 <% else %>
 ddns-update-style none;
 <% end -%>
 
-option domain-name "<%= dnsdomain.first %>";
-option domain-name-servers <%= nameservers.join( ', ') %>;
+option domain-name "<%= @dnsdomain.first %>";
+option domain-name-servers <%= @nameservers.join( ', ') %>;
 
 allow booting;
 allow bootp;
@@ -34,10 +34,10 @@ option pxegrub code 150 = text ;
 
 <% if has_variable?( 'pxeserver' ) and has_variable?( 'pxefilename' ) then -%>
 # PXE Handoff.
-next-server <%= pxeserver %>;
-filename "<%= pxefilename %>";
+next-server <%= @pxeserver %>;
+filename "<%= @pxefilename %>";
 <% end -%>
 
-log-facility <%= logfacility %>;
+log-facility <%= @logfacility %>;
 
-include "<%= dhcp_dir %>/dhcpd.hosts";
+include "<%= @dhcp_dir %>/dhcpd.hosts";
