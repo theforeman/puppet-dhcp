@@ -3,6 +3,7 @@ class dhcp (
     $nameservers,
     $interfaces   = undef,
     $interface    = 'NOTSET',
+    $dnskeyname   = 'rndc-key',
     $dnsupdatekey = undef,
     $pxeserver    = undef,
     $pxefilename  = undef,
