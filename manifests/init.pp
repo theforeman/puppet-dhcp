@@ -23,14 +23,14 @@ class dhcp (
   if $interface != 'NOTSET' and $interfaces == undef {
     $dhcp_interfaces = [ $interface ]
   } elsif $interface == 'NOTSET' and $interfaces == undef {
-    fail ("You need to set \$interfaces in $module_name")
+    fail ("You need to set \$interfaces in ${module_name}")
   } else {
     $dhcp_interfaces = $interfaces
   }
 
   package {
     $packagename:
-      ensure => installed,
+      ensure   => installed,
       provider => $::operatingsystem ? {
         default => undef,
         darwin  => macports
