@@ -14,4 +14,3 @@ define dhcp::pool (
     }
 
 }
-
