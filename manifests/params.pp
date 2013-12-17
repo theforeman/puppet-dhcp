@@ -9,7 +9,7 @@ class dhcp::params {
 
   $packagename = $::operatingsystem ? {
     /(redhat|centos|fedora|Scientific)/ => 'dhcp',
-    /(Ubuntu|Debian)/                   => 'dhcp3-server',
+    /(Ubuntu|Debian)/                   => 'isc-dhcp-server',
     darwin                              => 'dhcp',
     default                             => 'dhcp',
   }
