@@ -1,5 +1,5 @@
 name    'theforeman-dhcp'
-version '1.3.0'
+version '1.3.1'
 source 'git://github.com/theforeman/puppet-dhcp'
 author 'ZLeslie, theforeman'
 license 'Apache License Version 2.0'
