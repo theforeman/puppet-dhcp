@@ -13,5 +13,8 @@ subnet <%= @network %> netmask <%= @mask %> {
 <% if @gateway -%>
   option routers <%= @gateway %>;
 <% end -%>
+<% if @pxeserver -%>
+  next-server <%= @pxeserver %>;
+<% end -%>
 }
 
