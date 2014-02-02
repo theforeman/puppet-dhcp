@@ -3,7 +3,7 @@ define dhcp::pool (
     $mask,
     $range = false,
     $gateway = false,
-    $pxeserver = undef
+    $pxeserver = undef,
   ) {
 
     include dhcp::params
