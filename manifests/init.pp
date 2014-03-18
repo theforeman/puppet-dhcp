@@ -1,14 +1,17 @@
 class dhcp (
     $dnsdomain,
     $nameservers,
-    $interfaces   = undef,
-    $interface    = 'NOTSET',
-    $dnskeyname   = 'rndc-key',
-    $dnsupdatekey = undef,
-    $pxeserver    = undef,
-    $pxefilename  = undef,
-    $logfacility  = 'local7',
-    $dhcp_monitor = true
+    $interfaces     = undef,
+    $interface      = 'NOTSET',
+    $dnskeyname     = 'rndc-key',
+    $dnsupdatekey   = undef,
+    $pxeserver      = undef,
+    $pxefilename    = undef,
+    $logfacility    = 'local7',
+    $dhcp_monitor   = true,
+    $omapiport      = undef,
+    $omapialgorithm = undef,
+    $omapisecret    = undef
 ) {
 
   include dhcp::params
