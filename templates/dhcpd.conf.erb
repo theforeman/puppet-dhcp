@@ -40,4 +40,12 @@ filename "<%= @pxefilename %>";
 
 log-facility <%= @logfacility %>;
 
+<% if has_variable?( 'omapiport' ) and has_variable?( 'omapisecret' ) and has_variable?( 'omapialgorithm' ) then -%>
+omapi-port <%= @omapiport %>;
+key omapi_key {
+  algorithm <%= @omapialgorithm %>;
+  secret "<%= @omapisecret %>";
+}
+<% end -%>
+
 include "<%= @dhcp_dir %>/dhcpd.hosts";
