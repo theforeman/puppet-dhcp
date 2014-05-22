@@ -1,24 +1,26 @@
 class dhcp::params {
 
-  $dhcp_dir = $::operatingsystem ? {
-    /(redhat|centos|fedora|Scientific)/ => '/etc/dhcp',
-    /(Ubuntu|Debian)/                   => '/etc/dhcp',
-    darwin                              => '/opt/local/etc/dhcp',
-    default                             => '/etc/dhcp',
+  $dnsdomain = [$::domain]
+
+  $dhcp_dir = $::osfamily ? {
+    'RedHat' => '/etc/dhcp',
+    'Debian' => '/etc/dhcp',
+    'darwin' => '/opt/local/etc/dhcp',
+    default  => '/etc/dhcp',
   }
 
-  $packagename = $::operatingsystem ? {
-    /(redhat|centos|fedora|Scientific)/ => 'dhcp',
-    /(Ubuntu|Debian)/                   => 'isc-dhcp-server',
-    darwin                              => 'dhcp',
-    default                             => 'dhcp',
+  $packagename = $::osfamily ? {
+    'RedHat' => 'dhcp',
+    'Debian' => 'isc-dhcp-server',
+    'darwin' => 'dhcp',
+    default  => 'dhcp',
   }
 
-  $servicename = $::operatingsystem ? {
-    /(redhat|centos|fedora|Scientific)/ => 'dhcpd',
-    /(Ubuntu|Debian)/                   => 'isc-dhcp-server',
-    darwin                              => 'org.macports.dhcpd',
-    default                             => 'dhcpd',
+  $servicename = $::osfamily ? {
+    'RedHat' => 'dhcpd',
+    'Debian' => 'isc-dhcp-server',
+    'darwin' => 'org.macports.dhcpd',
+    default  => 'dhcpd',
   }
 
 }

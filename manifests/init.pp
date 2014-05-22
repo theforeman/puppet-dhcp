@@ -1,21 +1,18 @@
 class dhcp (
-    $dnsdomain,
-    $nameservers,
-    $interfaces   = undef,
-    $interface    = 'NOTSET',
-    $dnskeyname   = 'rndc-key',
-    $dnsupdatekey = undef,
-    $pxeserver    = undef,
-    $pxefilename  = undef,
-    $logfacility  = 'local7',
-    $dhcp_monitor = true
-) {
-
-  include dhcp::params
-
-  $dhcp_dir    = $dhcp::params::dhcp_dir
-  $packagename = $dhcp::params::packagename
-  $servicename = $dhcp::params::servicename
+  $dnsdomain    = $dhcp::params::dnsdomain,
+  $nameservers  = ['8.8.8.8', '8.8.4.4'],
+  $interfaces   = undef,
+  $interface    = 'NOTSET',
+  $dnskeyname   = 'rndc-key',
+  $dnsupdatekey = undef,
+  $pxeserver    = undef,
+  $pxefilename  = undef,
+  $logfacility  = 'local7',
+  $dhcp_monitor = true,
+  $dhcp_dir    = $dhcp::params::dhcp_dir,
+  $packagename = $dhcp::params::packagename,
+  $servicename = $dhcp::params::servicename,
+) inherits dhcp::params {
 
   # Incase people set interface instead of interfaces work around
   # that. If they set both, use interfaces and the user is a unwise
@@ -28,24 +25,24 @@ class dhcp (
     $dhcp_interfaces = $interfaces
   }
 
-  package {
-    $packagename:
-      ensure   => installed,
-      provider => $::operatingsystem ? {
-        default => undef,
-        darwin  => macports
-      }
+  $package_provider = $::operatingsystem ? {
+    darwin  => 'macports',
+    default => undef,
   }
 
-  file {
-      $dhcp_dir:
-          mode    => '0755',
-          require => Package[$packagename],
+  package { $packagename:
+    ensure   => installed,
+    provider => $package_provider,
+  }
+
+  file { $dhcp_dir:
+    mode    => '0755',
+    require => Package[$packagename],
   }
 
   # Only debian and ubuntu have this style of defaults for startup.
-  case $::operatingsystem {
-    'debian','ubuntu': {
+  case $::osfamily {
+    'Debian': {
       file{ '/etc/default/isc-dhcp-server':
         ensure  => present,
         owner   => 'root',
@@ -56,7 +53,7 @@ class dhcp (
         content => template('dhcp/debian/default_isc-dhcp-server'),
       }
     }
-    'redhat','centos','fedora','Scientific': {
+    'RedHat': {
       file{ '/etc/sysconfig/dhcpd':
         ensure  => present,
         owner   => 'root',
@@ -66,6 +63,9 @@ class dhcp (
         notify  => Service[$servicename],
         content => template('dhcp/redhat/sysconfig-dhcpd'),
       }
+    }
+    default: {
+      fail("Unsupported OS family ${::osfamily}")
     }
   }
 
@@ -103,13 +103,12 @@ class dhcp (
     content => "# static DHCP hosts\n",
   }
 
-  service {
-    $servicename:
-      ensure    => running,
-      enable    => true,
-      hasstatus => true,
-      subscribe => File["${dhcp_dir}/dhcpd.hosts", "${dhcp_dir}/dhcpd.conf"],
-      require   => Package[$packagename],
+  service { $servicename:
+    ensure    => running,
+    enable    => true,
+    hasstatus => true,
+    subscribe => File["${dhcp_dir}/dhcpd.hosts", "${dhcp_dir}/dhcpd.conf"],
+    require   => Package[$packagename],
   }
 
 }

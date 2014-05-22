@@ -7,7 +7,7 @@ class { 'dhcp':
     ],
   nameservers  => ['10.1.1.10'],
   interfaces   => ['eth0'],
-  dnsupdatekey => "/etc/bind/keys.d/$::ddnskeyname",
+  dnsupdatekey => "/etc/bind/keys.d/${::ddnskeyname}",
   require      => Bind::Key[$::ddnskeyname],
   pxeserver    => '10.1.1.5',
   pxefilename  => 'pxelinux.0',
