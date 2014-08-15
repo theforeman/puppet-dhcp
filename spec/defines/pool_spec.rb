@@ -25,11 +25,12 @@ describe 'dhcp::pool' do
 
   describe 'full parameters' do
     let :params do {
-      :network   => '10.0.0.0',
-      :mask      => '255.255.255.0',
-      :range     => '10.0.0.10 - 10.0.0.50',
-      :gateway   => '10.0.0.1',
-      :pxeserver => '10.0.0.2',
+      :network     => '10.0.0.0',
+      :mask        => '255.255.255.0',
+      :range       => '10.0.0.10 - 10.0.0.50',
+      :gateway     => '10.0.0.1',
+      :pxeserver   => '10.0.0.2',
+      :domain_name => 'example.com',
     } end
 
     it {
@@ -40,6 +41,7 @@ describe 'dhcp::pool' do
           "  {",
           "    range 10.0.0.10 - 10.0.0.50;",
           "  }",
+          '  option domain-name 'example.com';',
           "  option subnet-mask 255.255.255.0;",
           "  option routers 10.0.0.1;",
           "  next-server 10.0.0.2;",
