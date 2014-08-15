@@ -9,9 +9,9 @@ class dhcp (
   $pxefilename  = undef,
   $logfacility  = 'local7',
   $dhcp_monitor = true,
-  $dhcp_dir    = $dhcp::params::dhcp_dir,
-  $packagename = $dhcp::params::packagename,
-  $servicename = $dhcp::params::servicename,
+  $dhcp_dir     = $dhcp::params::dhcp_dir,
+  $packagename  = $dhcp::params::packagename,
+  $servicename  = $dhcp::params::servicename,
 ) inherits dhcp::params {
 
   # Incase people set interface instead of interfaces work around
