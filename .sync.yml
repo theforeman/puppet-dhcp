@@ -1,4 +1,4 @@
 ---
-Rakefile:
+.puppet-lint.rc:
   extra_disabled_lint_checks:
-    - 'disable_documentation'
+    - 'documentation'
