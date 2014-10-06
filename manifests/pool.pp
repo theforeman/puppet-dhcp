@@ -1,9 +1,10 @@
 define dhcp::pool (
     $network,
     $mask,
-    $range = false,
-    $gateway = false,
-    $pxeserver = undef,
+    $range       = false,
+    $gateway     = false,
+    $pxeserver   = undef,
+    $domain_name = undef,
   ) {
 
     include dhcp::params
