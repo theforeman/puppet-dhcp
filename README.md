@@ -40,6 +40,16 @@ Define the pool attributes
       gateway => '10.0.1.1',
     }
 
+Override global attributes with pool specific
+
+    dhcp::pool{ 'ops.dc1.example.net':
+      network     => '10.0.1.0',
+      mask        => '255.255.255.0',
+      range       => '10.0.1.100 10.0.1.200',
+      gateway     => '10.0.1.1',
+      nameservers => ['10.0.1.2', '10.0.2.2'],
+      pxeserver   => '10.0.1.2',
+    }
 
 ### dhcp::host
 Create host reservations.
