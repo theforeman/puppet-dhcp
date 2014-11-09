@@ -13,6 +13,11 @@ subnet <%= @network %> netmask <%= @mask %> {
 <% if @gateway -%>
   option routers <%= @gateway %>;
 <% end -%>
+<% if @nameservers and @nameservers.is_a? Array -%>
+  option domain-name-servers <%= @nameservers.sort.join(', ') %>;
+<% elsif @nameservers -%>
+  option domain-name-servers <%= @nameservers %>;
+<% end -%>
 <% if @pxeserver -%>
   next-server <%= @pxeserver %>;
 <% end -%>
