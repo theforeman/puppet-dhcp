@@ -14,7 +14,7 @@ describe 'dhcp::pool' do
     } end
 
     it {
-        content = subject.resource('concat_fragment', 'dhcp.conf+70_mypool.dhcp').send(:parameters)[:content]
+        content = catalogue.resource('concat_fragment', 'dhcp.conf+70_mypool.dhcp').send(:parameters)[:content]
         content.split("\n").reject { |c| c =~ /(^\s*#|^$)/ }.should == [
           "subnet 10.0.0.0 netmask 255.255.255.0 {",
           "  option subnet-mask 255.255.255.0;",
@@ -31,7 +31,7 @@ describe 'dhcp::pool' do
     } end
 
     it {
-        content = subject.resource('concat_fragment', 'dhcp.conf+70_mypool.dhcp').send(:parameters)[:content]
+        content = catalogue.resource('concat_fragment', 'dhcp.conf+70_mypool.dhcp').send(:parameters)[:content]
         content.split("\n").reject { |c| c =~ /(^\s*#|^$)/ }.should == [
           "subnet 10.0.0.0 netmask 255.255.255.0 {",
           "  option subnet-mask 255.255.255.0;",
@@ -51,7 +51,7 @@ describe 'dhcp::pool' do
     } end
 
     it {
-        content = subject.resource('concat_fragment', 'dhcp.conf+70_mypool.dhcp').send(:parameters)[:content]
+        content = catalogue.resource('concat_fragment', 'dhcp.conf+70_mypool.dhcp').send(:parameters)[:content]
         content.split("\n").reject { |c| c =~ /(^\s*#|^$)/ }.should == [
           "subnet 10.0.0.0 netmask 255.255.255.0 {",
           "  pool",

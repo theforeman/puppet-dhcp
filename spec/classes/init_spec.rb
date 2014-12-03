@@ -16,7 +16,7 @@ describe 'dhcp' do
         it { should compile.with_all_deps }
 
         it {
-          content = subject.resource('concat_fragment', 'dhcp.conf+01_main.dhcp').send(:parameters)[:content]
+          content = catalogue.resource('concat_fragment', 'dhcp.conf+01_main.dhcp').send(:parameters)[:content]
           content.split("\n").reject { |c| c =~ /(^\s*#|^$)/ }.should == [
             'omapi-port 7911;',
             'default-lease-time 600;',
@@ -51,7 +51,7 @@ describe 'dhcp' do
         it { should compile.with_all_deps }
 
         it {
-          content = subject.resource('concat_fragment', 'dhcp.conf+01_main.dhcp').send(:parameters)[:content]
+          content = catalogue.resource('concat_fragment', 'dhcp.conf+01_main.dhcp').send(:parameters)[:content]
           content.split("\n").reject { |c| c =~ /(^\s*#|^$)/ }.should == [
             'omapi-port 7911;',
             'default-lease-time 600;',
