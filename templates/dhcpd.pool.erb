@@ -2,7 +2,7 @@
 # <%= @name %>
 #################################
 subnet <%= @network %> netmask <%= @mask %> {
-<% if @range -%>
+<% if @range and !@range.empty? -%>
   pool
   {
     range <%= @range %>;

@@ -23,6 +23,23 @@ describe 'dhcp::pool' do
     }
   end
 
+  describe 'with empty string range' do
+    let :params do {
+      :network => '10.0.0.0',
+      :mask    => '255.255.255.0',
+      :range   => '',
+    } end
+
+    it {
+        content = subject.resource('concat_fragment', 'dhcp.conf+70_mypool.dhcp').send(:parameters)[:content]
+        content.split("\n").reject { |c| c =~ /(^\s*#|^$)/ }.should == [
+          "subnet 10.0.0.0 netmask 255.255.255.0 {",
+          "  option subnet-mask 255.255.255.0;",
+          "}",
+        ]
+    }
+  end
+
   describe 'full parameters' do
     let :params do {
       :network     => '10.0.0.0',
