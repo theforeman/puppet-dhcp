@@ -48,6 +48,7 @@ describe 'dhcp::pool' do
       :gateway     => '10.0.0.1',
       :nameservers => ['10.0.0.2', '10.0.0.4'],
       :pxeserver   => '10.0.0.2',
+      :domain_name => 'example.org',
     } end
 
     it {
@@ -58,6 +59,7 @@ describe 'dhcp::pool' do
           "  {",
           "    range 10.0.0.10 - 10.0.0.50;",
           "  }",
+          "  option domain-name example.org;",
           "  option subnet-mask 255.255.255.0;",
           "  option routers 10.0.0.1;",
           "  option domain-name-servers 10.0.0.2, 10.0.0.4;",
