@@ -1,10 +1,12 @@
 define dhcp::pool (
   $network,
   $mask,
-  $range = false,
-  $gateway = false,
+  $gateway     = '',
+  $range       = '',
+  $options     = '',
+  $parameters  = '',
   $nameservers = undef,
-  $pxeserver = undef,
+  $pxeserver   = undef,
 ) {
 
   concat_fragment { "dhcp.conf+70_${name}.dhcp":
