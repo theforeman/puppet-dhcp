@@ -19,8 +19,8 @@ describe 'dhcp' do
           content = catalogue.resource('concat_fragment', 'dhcp.conf+01_main.dhcp').send(:parameters)[:content]
           content.split("\n").reject { |c| c =~ /(^\s*#|^$)/ }.should == [
             'omapi-port 7911;',
-            'default-lease-time 600;',
-            'max-lease-time 7200;',
+            'default-lease-time 43200;',
+            'max-lease-time 86400;',
             'ddns-update-style none;',
             'option domain-name "example.org";',
             'option domain-name-servers 8.8.8.8, 8.8.4.4;',
@@ -54,8 +54,8 @@ describe 'dhcp' do
           content = catalogue.resource('concat_fragment', 'dhcp.conf+01_main.dhcp').send(:parameters)[:content]
           content.split("\n").reject { |c| c =~ /(^\s*#|^$)/ }.should == [
             'omapi-port 7911;',
-            'default-lease-time 600;',
-            'max-lease-time 7200;',
+            'default-lease-time 43200;',
+            'max-lease-time 86400;',
             'ddns-updates on;',
             'ddns-update-style interim;',
             'update-static-leases on;',
