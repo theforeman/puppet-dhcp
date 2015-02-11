@@ -22,7 +22,9 @@ zone <%= dom %>. {
 ddns-update-style none;
 <% end -%>
 
+<% unless @dnsdomain.nil? || @dnsdomain.empty? -%>
 option domain-name "<%= @dnsdomain.first %>";
+<% end -%>
 option domain-name-servers <%= @nameservers.join( ', ') %>;
 
 allow booting;
