@@ -22,7 +22,7 @@ zone <%= dom %>. {
 ddns-update-style none;
 <% end -%>
 
-<% if @dhcp_use_option_domain -%>
+<% unless @dnsdomain.nil? || @dnsdomain.empty? -%>
 option domain-name "<%= @dnsdomain.first %>";
 <% end -%>
 option domain-name-servers <%= @nameservers.join( ', ') %>;
