@@ -20,14 +20,14 @@ subnet <%= @network %> netmask <%= @mask %> {
 <%   @options.each do |opt| -%>
   option <%= opt %>;
 <%   end -%>
-<% elsif @options != '' -%>
+<% elsif @options and !@options.empty? -%>
   option <%= @options %>;
 <% end -%>
 <% if @parameters.is_a? Array -%>
 <%   @parameters.each do |param| -%>
   <%= param %>;
 <%   end -%>
-<% elsif @parameters != '' -%>
+<% elsif @parameters and !@parameters.empty? -%>
   <%= @parameters %>;
 <% end -%>
 <% if @nameservers and @nameservers.is_a? Array -%>

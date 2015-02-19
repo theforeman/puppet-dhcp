@@ -26,7 +26,7 @@ class dhcp (
   }
 
   $package_provider = $::operatingsystem ? {
-    darwin  => 'macports',
+    'darwin'  => 'macports',
     default => undef,
   }
 
@@ -44,7 +44,7 @@ class dhcp (
   case $::osfamily {
     'Debian': {
       file{ '/etc/default/isc-dhcp-server':
-        ensure  => present,
+        ensure  => file,
         owner   => 'root',
         group   => 'root',
         mode    => '0644',
@@ -55,7 +55,7 @@ class dhcp (
     }
     'RedHat': {
       file{ '/etc/sysconfig/dhcpd':
-        ensure  => present,
+        ensure  => file,
         owner   => 'root',
         group   => 'root',
         mode    => '0644',
