@@ -2,32 +2,32 @@
 # <%= @name %>
 #################################
 subnet <%= @network %> netmask <%= @mask %> {
-<% if @range and !@range.empty? -%>
+<% if @range && !@range.strip.empty? -%>
   pool
   {
     range <%= @range %>;
   }
 <% end -%>
 
-<% if @domain_name and !@domain_name.empty? -%>
+<% if @domain_name && !@domain_name.strip.empty? -%>
   option domain-name <%= @domain_name %>;
 <% end -%>
   option subnet-mask <%= @mask %>;
-<% if @gateway and !@gateway.empty? -%>
+<% if @gateway && !@gateway.strip.empty? -%>
   option routers <%= @gateway %>;
 <% end -%>
 <% if @options.is_a? Array -%>
 <%   @options.each do |opt| -%>
   option <%= opt %>;
 <%   end -%>
-<% elsif @options and !@options.empty? -%>
+<% elsif @options && !@options.strip.empty? -%>
   option <%= @options %>;
 <% end -%>
 <% if @parameters.is_a? Array -%>
 <%   @parameters.each do |param| -%>
   <%= param %>;
 <%   end -%>
-<% elsif @parameters and !@parameters.empty? -%>
+<% elsif @parameters && !@parameters.strip.empty? -%>
   <%= @parameters %>;
 <% end -%>
 <% if @nameservers and @nameservers.is_a? Array -%>
