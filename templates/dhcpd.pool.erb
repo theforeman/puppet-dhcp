@@ -10,11 +10,17 @@ subnet <%= @network %> netmask <%= @mask %> {
 <% end -%>
 
 <% if @domain_name && !@domain_name.strip.empty? -%>
-  option domain-name <%= @domain_name %>;
+  option domain-name "<%= @domain_name %>";
 <% end -%>
   option subnet-mask <%= @mask %>;
 <% if @gateway && !@gateway.strip.empty? -%>
   option routers <%= @gateway %>;
+<% end -%>
+<% if @static_routes
+  @static_routes.each do |static_route| -%>
+  option rfc3442-classless-static-routes <%= static_route['mask'] %>, <%= static_route['network'].split('.').join(', ') %>, <%= static_route['gateway'].split('.').join(', ') %>;
+  option ms-classless-static-routes  <%= static_route['mask'] %>, <%= static_route['network'].split('.').join(', ') %>, <%= static_route['gateway'].split('.').join(', ') %>;
+<%   end -%>
 <% end -%>
 <% if @options.is_a? Array -%>
 <%   @options.each do |opt| -%>
