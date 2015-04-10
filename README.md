@@ -51,6 +51,16 @@ Override global attributes with pool specific
       pxeserver   => '10.0.1.2',
     }
 
+For the support of static routes (RFC3442):
+
+    dhcp::pool{ 'ops.dc1.example.net':
+      network => '10.0.1.0',
+      mask    => '255.255.255.0',
+      range   => '10.0.1.100 10.0.1.200',
+      gateway => '10.0.1.1',
+      static_routes =>  [ { 'mask' => '32', 'network' => '169.254.169.254', 'gateway' => $ip } ],
+    }
+
 ### dhcp::host
 Create host reservations.
 

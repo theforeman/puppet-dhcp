@@ -14,6 +14,7 @@ class dhcp (
   $dhcp_dir           = $dhcp::params::dhcp_dir,
   $packagename        = $dhcp::params::packagename,
   $servicename        = $dhcp::params::servicename,
+  $option_static_route = undef,
 ) inherits dhcp::params {
 
   # Incase people set interface instead of interfaces work around
