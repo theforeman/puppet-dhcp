@@ -10,7 +10,7 @@ subnet <%= @network %> netmask <%= @mask %> {
 <% end -%>
 
 <% if @domain_name && !@domain_name.strip.empty? -%>
-  option domain-name <%= @domain_name %>;
+  option domain-name "<%= @domain_name %>";
 <% end -%>
   option subnet-mask <%= @mask %>;
 <% if @gateway && !@gateway.strip.empty? -%>

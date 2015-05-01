@@ -61,7 +61,7 @@ describe 'dhcp::pool' do
           "  {",
           "    range 10.0.0.10 - 10.0.0.50;",
           "  }",
-          "  option domain-name example.org;",
+          "  option domain-name \"example.org\";",
           "  option subnet-mask 255.255.255.0;",
           "  option routers 10.0.0.1;",
           "  option ntp-servers 10.0.0.2;",
