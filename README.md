@@ -51,6 +51,38 @@ Override global attributes with pool specific
       pxeserver   => '10.0.1.2',
     }
 
+### dhcp::pools
+Define multiple pools using a single class, useful for ENCs like Foreman.
+
+From Foreman, override the 'pools' parameter, set the data type to 'YAML' or
+'Hash' and add the following data:
+
+    ---
+    pool_one:
+      network: 192.168.1.0
+      mask: 255.255.255.0
+      range: '192.168.1.20 192.168.1.250'
+      gateway: 192.168.1.1
+      nameservers:
+        - 8.8.8.8
+        - 8.8.4.4
+      pxeserver: 192.168.1.2
+    pool_two:
+      network: 192.168.2.0
+      mask: 255.255.255.0
+
+The names are arbitrary, but unique.  All parameters are from the dhcp::pool
+defined type.
+
+The class also accepts a 'defaults' parameter which can take a hash of default
+pool values, e.g. nameservers or a PXE server for every pool.
+
+    ---
+    nameservers:
+      - 8.8.8.8
+      - 8.8.4.4
+    pxeserver: 192.168.1.2
+
 ### dhcp::host
 Create host reservations.
 
