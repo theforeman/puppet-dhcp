@@ -41,6 +41,7 @@ describe 'dhcp' do
           :dnsupdatekey => 'mydnsupdatekey',
           :pxeserver    => '10.0.0.5',
           :pxefilename  => 'mypxefilename',
+          :option_static_route => true,
         } end
 
         let(:facts) do {
@@ -72,6 +73,8 @@ describe 'dhcp' do
             'option fqdn.no-client-update    on;  # set the "O" and "S" flag bits',
             'option fqdn.rcode2            255;',
             'option pxegrub code 150 = text ;',
+            'option rfc3442-classless-static-routes code 121 = array of integer 8;',
+            'option ms-classless-static-routes code 249 = array of integer 8;',
             'next-server 10.0.0.5;',
             'filename "mypxefilename";',
             'log-facility local7;',
