@@ -11,8 +11,10 @@ define dhcp::pool (
   $static_routes = undef,
 ) {
 
-  concat_fragment { "dhcp.conf+70_${name}.dhcp":
+  concat::fragment { "dhcp.conf+70_${name}.dhcp":
+    target  => "${::dhcp::dhcp_dir}/dhcpd.conf",
     content => template('dhcp/dhcpd.pool.erb'),
+    order   => "70-${name}",
   }
 
 }
