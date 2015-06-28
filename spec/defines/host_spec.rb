@@ -9,15 +9,18 @@ describe 'dhcp::host' do
       :mac => '01:02:03:04:05:06',
     } end
 
+    let :facts do {
+      :concat_basedir => '/doesnotexist',
+    } end
+
     it {
-      content = catalogue.resource('concat_fragment', 'dhcp.hosts+10_myhost.hosts').send(:parameters)[:content]
-      content.split("\n").reject { |c| c =~ /(^\s*#|^$)/ }.should == [
+      verify_concat_fragment_exact_contents(catalogue, 'dhcp.hosts+10_myhost.hosts', [
         'host myhost {',
         '  hardware ethernet   01:02:03:04:05:06;',
         '  fixed-address       10.0.0.100;',
         '  ddns-hostname       "myhost";',
         '}',
-      ]
+      ])
     }
   end
 end

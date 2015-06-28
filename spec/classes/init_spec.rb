@@ -9,15 +9,15 @@ describe 'dhcp' do
         } end
 
         let(:facts) do {
-          :domain   => 'example.org',
-          :osfamily => osfamily,
+          :concat_basedir => '/doesnotexist',
+          :domain         => 'example.org',
+          :osfamily       => osfamily,
         } end
 
         it { should compile.with_all_deps }
 
         it {
-          content = catalogue.resource('concat_fragment', 'dhcp.conf+01_main.dhcp').send(:parameters)[:content]
-          content.split("\n").reject { |c| c =~ /(^\s*#|^$)/ }.should == [
+          verify_concat_fragment_exact_contents(catalogue, 'dhcp.conf+01_main.dhcp', [
             'omapi-port 7911;',
             'default-lease-time 43200;',
             'max-lease-time 86400;',
@@ -31,7 +31,7 @@ describe 'dhcp' do
             'option pxegrub code 150 = text ;',
             'log-facility local7;',
             'include "/etc/dhcp/dhcpd.hosts";',
-          ]
+          ])
         }
       end
 
@@ -45,15 +45,15 @@ describe 'dhcp' do
         } end
 
         let(:facts) do {
-          :domain   => 'example.org',
-          :osfamily => osfamily,
+          :concat_basedir => '/doesnotexist',
+          :domain         => 'example.org',
+          :osfamily       => osfamily,
         } end
 
         it { should compile.with_all_deps }
 
         it {
-          content = catalogue.resource('concat_fragment', 'dhcp.conf+01_main.dhcp').send(:parameters)[:content]
-          content.split("\n").reject { |c| c =~ /(^\s*#|^$)/ }.should == [
+          verify_concat_fragment_exact_contents(catalogue, 'dhcp.conf+01_main.dhcp', [
             'omapi-port 7911;',
             'default-lease-time 43200;',
             'max-lease-time 86400;',
@@ -79,7 +79,7 @@ describe 'dhcp' do
             'filename "mypxefilename";',
             'log-facility local7;',
             'include "/etc/dhcp/dhcpd.hosts";',
-          ]
+          ])
         }
       end
     end

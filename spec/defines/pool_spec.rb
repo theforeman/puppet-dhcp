@@ -4,7 +4,8 @@ describe 'dhcp::pool' do
   let :title do 'mypool' end
 
   let :facts do {
-    :osfamily => 'RedHat',
+    :concat_basedir => '/doesnotexist',
+    :osfamily       => 'RedHat',
   } end
 
   describe 'minimal parameters' do
@@ -14,12 +15,11 @@ describe 'dhcp::pool' do
     } end
 
     it {
-        content = catalogue.resource('concat_fragment', 'dhcp.conf+70_mypool.dhcp').send(:parameters)[:content]
-        content.split("\n").reject { |c| c =~ /(^\s*#|^$)/ }.should == [
-          "subnet 10.0.0.0 netmask 255.255.255.0 {",
-          "  option subnet-mask 255.255.255.0;",
-          "}",
-        ]
+      verify_concat_fragment_exact_contents(catalogue, 'dhcp.conf+70_mypool.dhcp', [
+        "subnet 10.0.0.0 netmask 255.255.255.0 {",
+        "  option subnet-mask 255.255.255.0;",
+        "}",
+      ])
     }
   end
 
@@ -31,12 +31,11 @@ describe 'dhcp::pool' do
     } end
 
     it {
-        content = catalogue.resource('concat_fragment', 'dhcp.conf+70_mypool.dhcp').send(:parameters)[:content]
-        content.split("\n").reject { |c| c =~ /(^\s*#|^$)/ }.should == [
-          "subnet 10.0.0.0 netmask 255.255.255.0 {",
-          "  option subnet-mask 255.255.255.0;",
-          "}",
-        ]
+      verify_concat_fragment_exact_contents(catalogue, 'dhcp.conf+70_mypool.dhcp', [
+        "subnet 10.0.0.0 netmask 255.255.255.0 {",
+        "  option subnet-mask 255.255.255.0;",
+        "}",
+      ])
     }
   end
 
@@ -55,24 +54,23 @@ describe 'dhcp::pool' do
     } end
 
     it {
-        content = catalogue.resource('concat_fragment', 'dhcp.conf+70_mypool.dhcp').send(:parameters)[:content]
-        content.split("\n").reject { |c| c =~ /(^\s*#|^$)/ }.should == [
-          "subnet 10.0.0.0 netmask 255.255.255.0 {",
-          "  pool",
-          "  {",
-          "    range 10.0.0.10 - 10.0.0.50;",
-          "  }",
-          "  option domain-name \"example.org\";",
-          "  option subnet-mask 255.255.255.0;",
-          "  option routers 10.0.0.1;",
-          "  option rfc3442-classless-static-routes 24, 10, 0, 1, 0, 10, 0, 0, 2;",
-          "  option ms-classless-static-routes  24, 10, 0, 1, 0, 10, 0, 0, 2;",
-          "  option ntp-servers 10.0.0.2;",
-          "  max-lease-time 300;",
-          "  option domain-name-servers 10.0.0.2, 10.0.0.4;",
-          "  next-server 10.0.0.2;",
-          "}",
-        ]
+      verify_concat_fragment_exact_contents(catalogue, 'dhcp.conf+70_mypool.dhcp', [
+        "subnet 10.0.0.0 netmask 255.255.255.0 {",
+        "  pool",
+        "  {",
+        "    range 10.0.0.10 - 10.0.0.50;",
+        "  }",
+        "  option domain-name \"example.org\";",
+        "  option subnet-mask 255.255.255.0;",
+        "  option routers 10.0.0.1;",
+        "  option rfc3442-classless-static-routes 24, 10, 0, 1, 0, 10, 0, 0, 2;",
+        "  option ms-classless-static-routes  24, 10, 0, 1, 0, 10, 0, 0, 2;",
+        "  option ntp-servers 10.0.0.2;",
+        "  max-lease-time 300;",
+        "  option domain-name-servers 10.0.0.2, 10.0.0.4;",
+        "  next-server 10.0.0.2;",
+        "}",
+      ])
     }
   end
 end
