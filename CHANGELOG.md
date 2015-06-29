@@ -1,5 +1,11 @@
 # Changelog
 
+## 2.0.0
+* Add parameters to dhcp and dhcp:pool to configure static routes
+* Change theforeman-concat_native to puppetlabs-concat
+* Fix quoting of domain-name option
+* Test with future parser and Puppet 4
+
 ## 1.6.0
 * Add `parameters`, `options` parameters to dhcp::pool
 * Add `default_lease_time`, `max_lease_time` parameters to dhcp
