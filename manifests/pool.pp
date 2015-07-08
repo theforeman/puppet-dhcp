@@ -9,6 +9,8 @@ define dhcp::pool (
   $pxeserver   = undef,
   $domain_name = undef,
   $static_routes = undef,
+  $default_lease_time = undef,
+  $max_lease_time = undef,
 ) {
 
   concat::fragment { "dhcp.conf+70_${name}.dhcp":
