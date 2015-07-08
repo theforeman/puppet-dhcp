@@ -43,6 +43,7 @@ describe 'dhcp' do
           :pxefilename  => 'mypxefilename',
           :option_static_route => true,
           :options      => ['provision-url code 224 = text', 'provision-type code 225 = text'],
+          :authoritative => true,
         } end
 
         let(:facts) do {
@@ -58,6 +59,7 @@ describe 'dhcp' do
             'omapi-port 7911;',
             'default-lease-time 43200;',
             'max-lease-time 86400;',
+            'authoritative;',
             'ddns-updates on;',
             'ddns-update-style interim;',
             'update-static-leases on;',

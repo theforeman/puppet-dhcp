@@ -4,6 +4,12 @@ omapi-port 7911;
 default-lease-time <%= @default_lease_time %>;
 max-lease-time <%= @max_lease_time %>;
 
+<% if @authoritative -%>
+# Make the server authoritative for the network segments that
+# are configured, and tell it to send DHCPNAKs to bogus requests
+authoritative;
+<% end -%>
+
 <% if has_variable?( 'dnsupdatekey' ) and @dnsupdatekey -%>
 ddns-updates on;
 ddns-update-style interim;
