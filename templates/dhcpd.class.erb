@@ -1,0 +1,13 @@
+#################################
+# class <%= @name %>
+#################################
+class "<%= @name %>" {
+<% if @parameters.is_a? Array -%>
+<%   @parameters.each do |param| -%>
+  <%= param %>;
+<% end -%>
+<% elsif @parameters && !@parameters.strip.empty? -%>
+  <%= @parameters %>;
+<% end -%>
+}
+
