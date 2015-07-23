@@ -42,6 +42,7 @@ describe 'dhcp' do
           :pxeserver    => '10.0.0.5',
           :pxefilename  => 'mypxefilename',
           :option_static_route => true,
+          :options      => ['provision-url code 224 = text', 'provision-type code 225 = text'],
         } end
 
         let(:facts) do {
@@ -75,6 +76,8 @@ describe 'dhcp' do
             'option pxegrub code 150 = text ;',
             'option rfc3442-classless-static-routes code 121 = array of integer 8;',
             'option ms-classless-static-routes code 249 = array of integer 8;',
+            'option provision-url code 224 = text;',
+            'option provision-type code 225 = text;',
             'next-server 10.0.0.5;',
             'filename "mypxefilename";',
             'log-facility local7;',

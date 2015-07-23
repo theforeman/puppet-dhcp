@@ -39,6 +39,14 @@ option rfc3442-classless-static-routes code 121 = array of integer 8;
 option ms-classless-static-routes code 249 = array of integer 8;
 <% end -%>
 
+<% if @options.is_a? Array -%>
+<%   @options.each do |option| -%>
+option <%= option %>;
+<%   end -%>
+<% elsif @options && !@options.strip.empty? -%>
+  option <%= @options %>;
+<% end -%>
+
 <% if has_variable?( 'pxeserver' ) &&
   has_variable?( 'pxefilename' ) &&
   @pxeserver &&
