@@ -41,6 +41,12 @@ subnet <%= @network %> netmask <%= @mask %> {
 <% elsif @nameservers -%>
   option domain-name-servers <%= @nameservers %>;
 <% end -%>
+<% if @default_lease_time -%>
+  default-lease-time <%= @default_lease_time %>;
+<% end -%>
+<% if @max_lease_time -%>
+  max-lease-time <%= @max_lease_time %>;
+<% end -%>
 <% if @pxeserver -%>
   next-server <%= @pxeserver %>;
 <% end -%>
