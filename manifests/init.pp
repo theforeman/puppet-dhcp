@@ -17,6 +17,7 @@ class dhcp (
   $option_static_route = undef,
   $options            = undef,
   $authoritative      = false,
+  $dhcp_root_group    = $dhcp::params::root_group
 ) inherits dhcp::params {
 
   # Incase people set interface instead of interfaces work around
@@ -30,14 +31,8 @@ class dhcp (
     $dhcp_interfaces = $interfaces
   }
 
-  $package_provider = $::operatingsystem ? {
-    'darwin'  => 'macports',
-    default => undef,
-  }
-
   package { $packagename:
     ensure   => installed,
-    provider => $package_provider,
   }
 
   file { $dhcp_dir:
@@ -69,14 +64,22 @@ class dhcp (
         content => template('dhcp/redhat/sysconfig-dhcpd'),
       }
     }
+    /^(FreeBSD|DragonFly)$/: {
+      $interfaces_line = join($dhcp_interfaces, ' ')
+      augeas { 'set listen interfaces':
+        context => '/files/etc/rc.conf',
+        changes => "set dhcpd_ifaces '\"${interfaces_line}\"'",
+        before  => Package[$packagename],
+        notify  => Service[$servicename],
+      }
+    }
     default: {
-      fail("Unsupported OS family ${::osfamily}")
     }
   }
 
   concat { "${dhcp_dir}/dhcpd.conf":
     owner   => 'root',
-    group   => 'root',
+    group   => $dhcp_root_group,
     mode    => '0644',
     require => Package[$packagename],
     notify  => Service[$servicename],
@@ -90,7 +93,7 @@ class dhcp (
 
   concat { "${dhcp_dir}/dhcpd.hosts":
     owner   => 'root',
-    group   => 'root',
+    group   => $dhcp_root_group,
     mode    => '0644',
     require => Package[$packagename],
     notify  => Service[$servicename],

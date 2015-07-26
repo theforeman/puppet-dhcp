@@ -2,7 +2,8 @@ require 'spec_helper'
 
 describe 'dhcp' do
   context 'supported operating systems' do
-    ['Debian', 'RedHat'].each do |osfamily|
+    ['Debian', 'RedHat', 'FreeBSD'].each do |osfamily|
+      conf_path = (osfamily == 'FreeBSD') ? '/usr/local/etc' : '/etc/dhcp'
       describe "dhcp class without any parameters on #{osfamily}" do
         let(:params) do {
           :interfaces => ['eth0'],
@@ -30,7 +31,7 @@ describe 'dhcp' do
             'option fqdn.rcode2            255;',
             'option pxegrub code 150 = text ;',
             'log-facility local7;',
-            'include "/etc/dhcp/dhcpd.hosts";',
+            "include \"#{conf_path}/dhcpd.hosts\";",
           ])
         }
       end
@@ -83,7 +84,7 @@ describe 'dhcp' do
             'next-server 10.0.0.5;',
             'filename "mypxefilename";',
             'log-facility local7;',
-            'include "/etc/dhcp/dhcpd.hosts";',
+            "include \"#{conf_path}/dhcpd.hosts\";",
           ])
         }
       end

@@ -2,25 +2,30 @@ class dhcp::params {
 
   $dnsdomain = [$::domain]
 
-  $dhcp_dir = $::osfamily ? {
-    'RedHat' => '/etc/dhcp',
-    'Debian' => '/etc/dhcp',
-    'darwin' => '/opt/local/etc/dhcp',
-    default  => '/etc/dhcp',
-  }
+  case $::osfamily {
+    'Debian': {
+      $dhcp_dir    = '/etc/dhcp'
+      $packagename = 'isc-dhcp-server'
+      $servicename = 'isc-dhcp-server'
+      $root_group  = 'root'
+    }
 
-  $packagename = $::osfamily ? {
-    'RedHat' => 'dhcp',
-    'Debian' => 'isc-dhcp-server',
-    'darwin' => 'dhcp',
-    default  => 'dhcp',
-  }
+    /^(FreeBSD|DragonFly)$/: {
+      $dhcp_dir    = '/usr/local/etc'
+      $packagename = 'isc-dhcp42-server'
+      $servicename = 'isc-dhcpd'
+      $root_group  = 'wheel'
+    }
 
-  $servicename = $::osfamily ? {
-    'RedHat' => 'dhcpd',
-    'Debian' => 'isc-dhcp-server',
-    'darwin' => 'org.macports.dhcpd',
-    default  => 'dhcpd',
-  }
+    'RedHat': {
+      $dhcp_dir    = '/etc/dhcp'
+      $packagename = 'dhcp'
+      $servicename = 'dhcpd'
+      $root_group  = 'root'
+    }
 
+    default: {
+      fail("${::hostname}: This module does not support osfamily ${::osfamily}")
+    }
+  }
 }
