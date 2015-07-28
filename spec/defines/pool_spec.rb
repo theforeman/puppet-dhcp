@@ -52,6 +52,7 @@ describe 'dhcp::pool' do
       :pxeserver        => '10.0.0.2',
       :domain_name      => 'example.org',
       :static_routes    => [ { 'mask' => '24', 'network' => '10.0.1.0', 'gateway' => '10.0.0.2' } ],
+      :search_domains   => ['example.org', 'other.example.org'],
     } end
 
     it {
@@ -70,6 +71,7 @@ describe 'dhcp::pool' do
         "  option ntp-servers 10.0.0.2;",
         "  max-lease-time 300;",
         "  option domain-name-servers 10.0.0.2, 10.0.0.4;",
+        "  option domain-search \"example.org, other.example.org\";",
         "  next-server 10.0.0.2;",
         "}",
       ])
