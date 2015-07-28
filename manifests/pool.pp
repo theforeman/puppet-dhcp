@@ -10,6 +10,7 @@ define dhcp::pool (
   $pxeserver       = undef,
   $domain_name     = undef,
   $static_routes   = undef,
+  $search_domains  = undef,
 ) {
 
   concat::fragment { "dhcp.conf+70_${name}.dhcp":
