@@ -40,6 +40,8 @@ describe 'dhcp' do
         let(:params) do {
           :interfaces   => ['eth0'],
           :dnsupdatekey => 'mydnsupdatekey',
+          :omapi_name	=> 'mykeyname',
+          :omapi_key	=> 'myomapikey',
           :pxeserver    => '10.0.0.5',
           :pxefilename  => 'mypxefilename',
           :option_static_route => true,
@@ -58,6 +60,11 @@ describe 'dhcp' do
         it {
           verify_concat_fragment_exact_contents(catalogue, 'dhcp.conf+01_main.dhcp', [
             'omapi-port 7911;',
+            'key mykeyname {',
+            '  algorithm HMAC-MD5;',
+            '  secret "myomapikey";',
+            '}',
+            'omapi-key mykeyname;',
             'default-lease-time 43200;',
             'max-lease-time 86400;',
             'authoritative;',
