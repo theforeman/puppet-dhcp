@@ -1,5 +1,14 @@
 # Changelog
 
+## 2.1.0
+* Support configuration on FreeBSD
+* Add options parameter for arbitrary options
+* Add dhcp::class define to add new DHCP class definitions
+* Add pool_parameters param to dhcp::pool for allow statements etc.
+* Add authoritative parameter
+* Add search_domains parameter to dhcp::pool
+* Add omapi_name/omapi_key parameters
+
 ## 2.0.0
 * Add parameters to dhcp and dhcp:pool to configure static routes
 * Change theforeman-concat_native to puppetlabs-concat
