@@ -19,7 +19,9 @@ class dhcp (
   $option_static_route = undef,
   $options            = undef,
   $authoritative      = false,
-  $dhcp_root_group    = $dhcp::params::root_group
+  $dhcp_root_group    = $dhcp::params::root_group,
+  $pools              = {},
+  $hosts              = {},
 ) inherits dhcp::params {
 
   # Incase people set interface instead of interfaces work around
@@ -106,6 +108,9 @@ class dhcp (
     content => "# static DHCP hosts\n",
     order   => '01',
   }
+
+  create_resources('dhcp::pool', $pools)
+  create_resources('dhcp::host', $hosts)
 
   service { $servicename:
     ensure => running,
