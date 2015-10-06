@@ -20,6 +20,8 @@ class dhcp (
   $options            = undef,
   $authoritative      = false,
   $dhcp_root_group    = $dhcp::params::root_group,
+  $ddns_domainname    = undef,
+  $ddns_rev_domainname= undef,
   $pools              = {},
   $hosts              = {},
 ) inherits dhcp::params {

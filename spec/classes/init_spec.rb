@@ -47,6 +47,8 @@ describe 'dhcp' do
           :option_static_route => true,
           :options      => ['provision-url code 224 = text', 'provision-type code 225 = text'],
           :authoritative => true,
+          :ddns_domainname => 'example.org',
+          :ddns_rev_domainname => 'in-addr.arpa',
         } end
 
         let(:facts) do {
@@ -72,6 +74,8 @@ describe 'dhcp' do
             'ddns-update-style interim;',
             'update-static-leases on;',
             'use-host-decl-names on;',
+	    'ddns-domainname "example.org";',
+	    'ddns-rev-domainname "in-addr.arpa";',
             'include "mydnsupdatekey";',
             'zone example.org. {',
             '  primary 8.8.8.8;',

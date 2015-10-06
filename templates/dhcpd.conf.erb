@@ -23,6 +23,13 @@ ddns-update-style interim;
 update-static-leases on;
 use-host-decl-names on;
 
+<% if @ddns_domainname and !@ddns_domainname.empty? -%>
+ddns-domainname "<%= @ddns_domainname %>";
+<% end -%>
+<% if @ddns_rev_domainname and !@ddns_rev_domainname.empty? -%>
+ddns-rev-domainname "<%= @ddns_rev_domainname %>";
+<% end -%>
+
 # Key from bind
 include "<%= @dnsupdatekey %>";
 <% @dnsdomain.each do |dom| -%>
