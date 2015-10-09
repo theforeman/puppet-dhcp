@@ -13,6 +13,11 @@ class { '::dhcp':
   pxefilename  => 'pxelinux.0',
 }
 
+class { '::dhcp::failover':
+  role         => 'primary',
+  peer_address => '10.1.1.20',
+}
+
 dhcp::pool{ 'example.com':
   network => '10.1.1.0',
   mask    => '255.255.255.0',

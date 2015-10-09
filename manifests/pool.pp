@@ -4,6 +4,7 @@ define dhcp::pool (
   $gateway         = undef,
   $pool_parameters = undef,
   $range           = undef,
+  $failover        = undef,
   $options         = undef,
   $parameters      = undef,
   $nameservers     = undef,

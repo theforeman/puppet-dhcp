@@ -23,6 +23,28 @@ describe 'dhcp::pool' do
     }
   end
 
+  describe 'with failover' do
+    let :params do {
+      :network  => '10.0.0.0',
+      :mask     => '255.255.255.0',
+      :range    => '10.0.0.10 - 10.0.0.50',
+      :failover => '10.1.1.20',
+    } end
+
+    it {
+      verify_concat_fragment_exact_contents(catalogue, 'dhcp.conf+70_mypool.dhcp', [
+        'subnet 10.0.0.0 netmask 255.255.255.0 {',
+        '  pool',
+        '  {',
+        '    failover peer "10.1.1.20";',
+        '    range 10.0.0.10 - 10.0.0.50;',
+        '  }',
+        '  option subnet-mask 255.255.255.0;',
+        '}',
+      ])
+    }
+  end
+
   describe 'with empty string range' do
     let :params do {
       :network => '10.0.0.0',
