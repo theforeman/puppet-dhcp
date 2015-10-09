@@ -5,6 +5,9 @@ subnet <%= @network %> netmask <%= @mask %> {
 <% if (@range && @range.is_a?(String) && !@range.strip.empty?) || (@range && @range.is_a?(Array)) -%>
   pool
   {
+<% if @failover && !@failover.strip.empty? -%>
+    failover peer "<%= @failover %>";
+<% end -%>
 <% if @pool_parameters.is_a? Array -%>
 <%   @pool_parameters.each do |param| -%>
     <%= param %>;
