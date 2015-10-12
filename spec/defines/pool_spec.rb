@@ -39,6 +39,27 @@ describe 'dhcp::pool' do
     }
   end
 
+  describe 'with range array' do
+    let :params do {
+      :network => '10.0.0.0',
+      :mask    => '255.255.255.0',
+      :range   => ['10.0.0.10 - 10.0.0.50','10.0.0.100 - 10.0.0.150'],
+    } end
+
+    it {
+      verify_concat_fragment_exact_contents(catalogue, 'dhcp.conf+70_mypool.dhcp', [
+        'subnet 10.0.0.0 netmask 255.255.255.0 {',
+        '  pool',
+        '  {',
+        '    range 10.0.0.10 - 10.0.0.50;',
+        '    range 10.0.0.100 - 10.0.0.150;',
+        '  }',
+        '  option subnet-mask 255.255.255.0;',
+        '}',
+      ])
+    }
+  end
+
   describe 'full parameters' do
     let :params do {
       :network          => '10.0.0.0',
