@@ -25,6 +25,7 @@ describe 'dhcp' do
             'ddns-update-style none;',
             'option domain-name "example.org";',
             'option domain-name-servers 8.8.8.8, 8.8.4.4;',
+            "option ntp-servers none;",
             'allow booting;',
             'allow bootp;',
             'option fqdn.no-client-update    on;  # set the "O" and "S" flag bits',
@@ -40,6 +41,7 @@ describe 'dhcp' do
         let(:params) do {
           :interfaces   => ['eth0'],
           :dnsupdatekey => 'mydnsupdatekey',
+          :ntpservers   => ['1.1.1.1', '1.1.1.2'],
           :omapi_name	=> 'mykeyname',
           :omapi_key	=> 'myomapikey',
           :pxeserver    => '10.0.0.5',
@@ -83,6 +85,7 @@ describe 'dhcp' do
             '}',
             'option domain-name "example.org";',
             'option domain-name-servers 8.8.8.8, 8.8.4.4;',
+            'option ntp-servers 1.1.1.1, 1.1.1.2;',
             'allow booting;',
             'allow bootp;',
             'option fqdn.no-client-update    on;  # set the "O" and "S" flag bits',

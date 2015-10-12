@@ -1,6 +1,7 @@
 class dhcp (
   $dnsdomain          = $dhcp::params::dnsdomain,
   $nameservers        = ['8.8.8.8', '8.8.4.4'],
+  $ntpservers         = [],
   $interfaces         = undef,
   $interface          = 'NOTSET',
   $default_lease_time = 43200,

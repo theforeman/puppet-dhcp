@@ -46,6 +46,11 @@ ddns-update-style none;
 option domain-name "<%= @dnsdomain.first %>";
 <% end -%>
 option domain-name-servers <%= @nameservers.join( ', ') %>;
+<% if @ntpservers and !@ntpservers.empty? -%>
+option ntp-servers <%= @ntpservers.join(', ') %>;
+<% else -%>
+option ntp-servers none;
+<% end -%>
 
 allow booting;
 allow bootp;
