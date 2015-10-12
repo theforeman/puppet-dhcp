@@ -2,7 +2,7 @@
 # <%= @name %>
 #################################
 subnet <%= @network %> netmask <%= @mask %> {
-<% if @range && !@range.strip.empty? -%>
+<% if (@range && @range.is_a?(String) && !@range.strip.empty?) || (@range && @range.is_a?(Array)) -%>
   pool
   {
 <% if @pool_parameters.is_a? Array -%>
@@ -12,7 +12,13 @@ subnet <%= @network %> netmask <%= @mask %> {
 <% elsif @pool_parameters && !@pool_parameters.strip.empty? -%>
     <%= @pool_parameters %>;
 <% end -%>
+<% if @range and @range.is_a? Array -%>
+<% @range.each do |rng| -%>
+    range <%= rng %>;
+<% end -%>
+<% elsif @range && !@range.strip.empty? -%>
     range <%= @range %>;
+<% end -%>
   }
 <% end -%>
 
