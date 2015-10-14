@@ -1,5 +1,12 @@
 # Changelog
 
+## 2.2.0
+* Add pools, hosts parameters to dhcp to automatically create dhcp::pool
+  and dhcp::host resources, usable from Hiera and Foreman
+* Add ddns_domainname and ddns_rev_domainname parameters to dhcp
+* Add ntpservers parameter to dhcp
+* Permit the dhcp::pool range parameter to be an array of ranges
+
 ## 2.1.0
 * Support configuration on FreeBSD
 * Add options parameter for arbitrary options
