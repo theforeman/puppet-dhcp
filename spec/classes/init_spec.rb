@@ -51,6 +51,7 @@ describe 'dhcp' do
           :authoritative => true,
           :ddns_domainname => 'example.org',
           :ddns_rev_domainname => 'in-addr.arpa',
+          :includes => ['myinclude1', 'myinclude2'],
         } end
 
         let(:facts) do {
@@ -99,6 +100,8 @@ describe 'dhcp' do
             'filename "mypxefilename";',
             'log-facility local7;',
             "include \"#{conf_path}/dhcpd.hosts\";",
+            'include "myinclude1";',
+            'include "myinclude2";',
           ])
         }
       end
