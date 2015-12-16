@@ -25,6 +25,7 @@ class dhcp (
   $ddns_rev_domainname= undef,
   $pools              = {},
   $hosts              = {},
+  $includes           = undef,
 ) inherits dhcp::params {
 
   # Incase people set interface instead of interfaces work around
