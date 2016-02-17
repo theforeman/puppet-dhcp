@@ -1,6 +1,6 @@
 # dhcpd.conf
 omapi-port 7911;
-<% if @omapi_name && @omapi_key -%>
+<% if @omapi_name && @omapi_key && !@omapi_key.empty? -%>
 key <%= @omapi_name %> {
   algorithm HMAC-MD5;
   secret "<%= @omapi_key %>";
@@ -65,9 +65,9 @@ option ms-classless-static-routes code 249 = array of integer 8;
 <% end -%>
 
 <% if @options.is_a? Array -%>
-<%   @options.each do |option| -%>
+<% @options.each do |option| -%>
 option <%= option %>;
-<%   end -%>
+<% end -%>
 <% elsif @options && !@options.strip.empty? -%>
   option <%= @options %>;
 <% end -%>
