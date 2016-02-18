@@ -1,5 +1,13 @@
 # Changelog
 
+## 2.3.0
+* Add dhcp::failover class to configure DHCP failover between servers
+* Add includes parameter to include other config files
+* Handle and ignore an empty omapi_key parameter
+* Add tests for dhcp::dhcp_class
+* Support Puppet 3.0 minimum
+* Support Fedora 21, remove Debian 6 (Squeeze)
+
 ## 2.2.0
 * Add pools, hosts parameters to dhcp to automatically create dhcp::pool
   and dhcp::host resources, usable from Hiera and Foreman
