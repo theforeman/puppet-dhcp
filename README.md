@@ -13,6 +13,7 @@ Installs and manages a DHCP server.
 * Multiple subnet support
 * Host reservations
 * Secure dynamic DNS updates when combined with Bind
+* Failover support
 
 ## Usage
 Define the server and the zones it will be responsible for.
