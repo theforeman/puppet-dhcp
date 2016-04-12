@@ -10,9 +10,10 @@ describe 'dhcp' do
         } end
 
         let(:facts) do {
-          :concat_basedir => '/doesnotexist',
-          :domain         => 'example.org',
-          :osfamily       => osfamily,
+          :concat_basedir         => '/doesnotexist',
+          :domain                 => 'example.org',
+          :osfamily               => osfamily,
+          :operatingsystemrelease => '7',
         } end
 
         it { should compile.with_all_deps }
@@ -55,9 +56,10 @@ describe 'dhcp' do
         } end
 
         let(:facts) do {
-          :concat_basedir => '/doesnotexist',
-          :domain         => 'example.org',
-          :osfamily       => osfamily,
+          :concat_basedir         => '/doesnotexist',
+          :domain                 => 'example.org',
+          :osfamily               => osfamily,
+          :operatingsystemrelease => '7',
         } end
 
         it { should compile.with_all_deps }
