@@ -17,7 +17,7 @@ max-lease-time <%= @max_lease_time %>;
 authoritative;
 <% end -%>
 
-<% if has_variable?( 'dnsupdatekey' ) and @dnsupdatekey -%>
+<% if has_variable?( 'dnsupdatekey' ) and @dnsupdatekey or has_variable?( 'ddns_updates' ) and @ddns_updates -%>
 ddns-updates on;
 ddns-update-style interim;
 update-static-leases on;
@@ -31,12 +31,17 @@ ddns-rev-domainname "<%= @ddns_rev_domainname %>";
 <% end -%>
 
 # Key from bind
+<% if @dnsupdatekey and !@dnsupdatekey.empty? -%>
 include "<%= @dnsupdatekey %>";
+<% end -%>
 <% @dnsdomain.each do |dom| -%>
 zone <%= dom %>. {
   primary <%= @nameservers.first %>;
+<% if @dnsupdatekey and !@dnsupdatekey.empty? -%>
   key <%= @dnskeyname%>;
+<% end -%>
 }
+<% end -%>
 <% end -%>
 <% else %>
 ddns-update-style none;
