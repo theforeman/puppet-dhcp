@@ -17,7 +17,7 @@ max-lease-time <%= @max_lease_time %>;
 authoritative;
 <% end -%>
 
-<% if has_variable?( 'dnsupdatekey' ) and @dnsupdatekey or has_variable?( 'ddns-updates' ) and @ddns-updates -%>
+<% if has_variable?( 'dnsupdatekey' ) and @dnsupdatekey -%>
 ddns-updates on;
 ddns-update-style interim;
 update-static-leases on;
