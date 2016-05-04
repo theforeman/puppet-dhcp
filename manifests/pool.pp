@@ -12,6 +12,8 @@ define dhcp::pool (
   $domain_name     = undef,
   $static_routes   = undef,
   $search_domains  = undef,
+  $raw_append      = undef,
+  $raw_prepend     = undef,
 ) {
 
   concat::fragment { "dhcp.conf+70_${name}.dhcp":
