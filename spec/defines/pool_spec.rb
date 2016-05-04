@@ -123,11 +123,14 @@ describe 'dhcp::pool' do
             :static_routes    => [ { 'mask' => '24', 'network' => '10.0.1.0', 'gateway' => '10.0.0.2' },
                                    { 'mask' => '0',                           'gateway' => '10.0.0.1' } ],
             :search_domains   => ['example.org', 'other.example.org'],
+            :raw_append       => 'example append;',
+            :raw_prepend      => 'example prepend;',
           } end
 
           it {
             verify_concat_fragment_exact_contents(catalogue, 'dhcp.conf+70_mypool.dhcp', [
               "subnet 10.0.0.0 netmask 255.255.255.0 {",
+              "  example prepend;",
               "  pool",
               "  {",
               "    allow members of \"some-class\";",
@@ -144,6 +147,7 @@ describe 'dhcp::pool' do
               "  option domain-search \"example.org\", \"other.example.org\";",
               "  option interface-mtu 9000;",
               "  next-server 10.0.0.2;",
+              "  example append;",
               "}",
             ])
           }
