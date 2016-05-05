@@ -82,6 +82,23 @@ describe 'dhcp::pool' do
     }
   end
 
+  describe 'with search_domains string' do
+    let :params do {
+      :network => '10.0.0.0',
+      :mask    => '255.255.255.0',
+      :search_domains => 'example.org, other.example.org'
+    } end
+
+    it {
+      verify_concat_fragment_exact_contents(catalogue, 'dhcp.conf+70_mypool.dhcp', [
+        'subnet 10.0.0.0 netmask 255.255.255.0 {',
+        '  option subnet-mask 255.255.255.0;',
+        '  option domain-search "example.org", "other.example.org";',
+        '}',
+      ])
+    }
+  end
+
   describe 'full parameters' do
     let :params do {
       :network          => '10.0.0.0',
@@ -114,7 +131,7 @@ describe 'dhcp::pool' do
         "  option ntp-servers 10.0.0.2;",
         "  max-lease-time 300;",
         "  option domain-name-servers 10.0.0.2, 10.0.0.4;",
-        "  option domain-search \"example.org, other.example.org\";",
+        "  option domain-search \"example.org\", \"other.example.org\";",
         "  next-server 10.0.0.2;",
         "}",
       ])

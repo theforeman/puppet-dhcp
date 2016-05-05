@@ -58,9 +58,9 @@ subnet <%= @network %> netmask <%= @mask %> {
   option domain-name-servers <%= @nameservers %>;
 <% end -%>
 <% if @search_domains and @search_domains.is_a? Array -%>
-  option domain-search "<%= @search_domains.sort.join(', ') %>";
+  option domain-search "<%= @search_domains.sort.join('", "') %>";
 <% elsif @search_domains -%>
-  option domain-search "<%= @search_domains %>";
+  option domain-search "<%= @search_domains.split(/[, ]+/).join('", "') %>";
 <% end -%>
 <% if @pxeserver -%>
   next-server <%= @pxeserver %>;
