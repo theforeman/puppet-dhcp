@@ -1,5 +1,8 @@
 # <%= @name %>
 subnet <%= @network %> netmask <%= @mask %> {
+<% if @raw_prepend %>
+  <%= @raw_prepend %>
+<% end -%>
 <% if (@range && @range.is_a?(String) && !@range.strip.empty?) || (@range && @range.is_a?(Array)) -%>
   pool
   {
@@ -65,6 +68,9 @@ subnet <%= @network %> netmask <%= @mask %> {
 <% end -%>
 <% if @pxeserver -%>
   next-server <%= @pxeserver %>;
+<% end -%>
+<% if @raw_append %>
+  <%= @raw_append %>
 <% end -%>
 }
 
