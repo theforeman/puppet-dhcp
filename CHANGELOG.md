@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.3.1
+* Fix domain-search syntax for multiple search domains (#70)
+* Update FreeBSD package name for ISC DHCP 4.3
+
 ## 2.3.0
 * Add dhcp::failover class to configure DHCP failover between servers
 * Add includes parameter to include other config files
