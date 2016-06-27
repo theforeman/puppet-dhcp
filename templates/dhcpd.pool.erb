@@ -1,6 +1,4 @@
-#################################
 # <%= @name %>
-#################################
 subnet <%= @network %> netmask <%= @mask %> {
 <% if (@range && @range.is_a?(String) && !@range.strip.empty?) || (@range && @range.is_a?(Array)) -%>
   pool
