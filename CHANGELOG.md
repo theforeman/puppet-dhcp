@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.3.2
+* Fix metadata to show Puppet 4 compatibility
+* Remove hashes around pool names for Webmin compatibility
+
 ## 2.3.1
 * Fix domain-search syntax for multiple search domains (#70)
 * Update FreeBSD package name for ISC DHCP 4.3
