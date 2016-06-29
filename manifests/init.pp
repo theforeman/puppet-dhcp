@@ -12,6 +12,7 @@ class dhcp (
   $omapi_key          = undef,
   $pxeserver          = undef,
   $pxefilename        = undef,
+  $mtu                = undef,
   $logfacility        = 'local7',
   $dhcp_monitor       = true,
   $dhcp_dir           = $dhcp::params::dhcp_dir,
@@ -27,6 +28,10 @@ class dhcp (
   $hosts              = {},
   $includes           = undef,
 ) inherits dhcp::params {
+
+  if $mtu {
+    validate_integer($mtu)
+  }
 
   # Incase people set interface instead of interfaces work around
   # that. If they set both, use interfaces and the user is a unwise

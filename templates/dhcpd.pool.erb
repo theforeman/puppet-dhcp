@@ -60,6 +60,9 @@ subnet <%= @network %> netmask <%= @mask %> {
 <% elsif @search_domains -%>
   option domain-search "<%= @search_domains.split(/[, ]+/).join('", "') %>";
 <% end -%>
+<% if @mtu -%>
+  option interface-mtu <%= @mtu %>;
+<% end -%>
 <% if @pxeserver -%>
   next-server <%= @pxeserver %>;
 <% end -%>
