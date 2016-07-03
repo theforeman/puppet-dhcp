@@ -64,6 +64,10 @@ option rfc3442-classless-static-routes code 121 = array of integer 8;
 option ms-classless-static-routes code 249 = array of integer 8;
 <% end -%>
 
+<% if has_variable?( 'mtu' ) && @mtu -%>
+option interface-mtu <%= @mtu %>;
+<% end -%>
+
 <% if @options.is_a? Array -%>
 <% @options.each do |option| -%>
 option <%= option %>;
