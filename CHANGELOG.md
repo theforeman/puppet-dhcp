@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.4.0
+* Add mtu parameter to main class and to dhcp::pool
+
 ## 2.3.2
 * Fix metadata to show Puppet 4 compatibility
 * Remove hashes around pool names for Webmin compatibility
