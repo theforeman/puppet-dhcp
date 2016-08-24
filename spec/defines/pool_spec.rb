@@ -8,6 +8,10 @@ describe 'dhcp::pool' do
     :osfamily       => 'RedHat',
   } end
 
+  let :pre_condition do
+    "class { '::dhcp': interfaces => ['eth0']}"
+  end
+
   describe 'minimal parameters' do
     let :params do {
       :network => '10.0.0.0',

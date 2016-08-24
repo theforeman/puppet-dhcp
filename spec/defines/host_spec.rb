@@ -11,7 +11,12 @@ describe 'dhcp::host' do
 
     let :facts do {
       :concat_basedir => '/doesnotexist',
+      :osfamily => 'RedHat',
     } end
+
+    let :pre_condition do
+      "class { '::dhcp': interfaces => ['eth0']}"
+    end
 
     it {
       verify_concat_fragment_exact_contents(catalogue, 'dhcp.hosts+10_myhost.hosts', [

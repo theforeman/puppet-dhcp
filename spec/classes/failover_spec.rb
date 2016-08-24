@@ -11,6 +11,7 @@ describe 'dhcp::failover' do
 
         let(:params) do {
           :role         => 'primary',
+          :address      => '10.1.1.10',
           :peer_address => '10.1.1.20',
         } end
 
@@ -26,7 +27,7 @@ describe 'dhcp::failover' do
           verify_concat_fragment_exact_contents(catalogue, 'dhcp.conf+10_failover.dhcp', [
             'failover peer "dhcp-failover" {',
             '  primary;',
-            '  address ;',
+            '  address 10.1.1.10;',
             '  port 519;',
             '  peer address 10.1.1.20;',
             '  peer port 519;',
