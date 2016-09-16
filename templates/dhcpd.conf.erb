@@ -80,9 +80,25 @@ option <%= option %>;
   has_variable?( 'pxefilename' ) &&
   @pxeserver &&
   @pxefilename -%>
-# PXE Handoff.
+# Bootfile Handoff
 next-server <%= @pxeserver %>;
+<% if has_variable?( 'bootfiles' ) && ! @bootfiles.empty?
+     bootf = @bootfiles.sort_by { |arch, file| arch } -%>
+option architecture code 93 = unsigned integer 16 ;
+if option architecture = <%= bootf.first[0] %> {
+  filename "<%= bootf.first[1] %>";
+<% if bootf.length > 1 -%>
+<% bootf[1..-1].each do |arch, file| -%>
+} elsif option architecture = <%= arch %> {
+  filename "<%= file %>";
+<% end -%>
+<% end -%>
+} else {
+  filename "<%= @pxefilename %>";
+}
+<% else -%>
 filename "<%= @pxefilename %>";
+<% end -%>
 <% end -%>
 
 log-facility <%= @logfacility %>;

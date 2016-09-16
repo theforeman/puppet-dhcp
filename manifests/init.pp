@@ -11,8 +11,9 @@ class dhcp (
   $omapi_name         = undef,
   $omapi_key          = undef,
   $pxeserver          = undef,
-  $pxefilename        = undef,
+  $pxefilename        = $dhcp::params::pxefilename,
   $mtu                = undef,
+  $bootfiles          = $dhcp::params::bootfiles,
   $logfacility        = 'local7',
   $dhcp_monitor       = true,
   $dhcp_dir           = $dhcp::params::dhcp_dir,
@@ -32,6 +33,7 @@ class dhcp (
   if $mtu {
     validate_integer($mtu)
   }
+  validate_hash($bootfiles)
 
   # Incase people set interface instead of interfaces work around
   # that. If they set both, use interfaces and the user is a unwise
