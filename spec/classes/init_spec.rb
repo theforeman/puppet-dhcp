@@ -2,18 +2,19 @@ require 'spec_helper'
 
 describe 'dhcp' do
   context 'supported operating systems' do
-    ['Debian', 'RedHat', 'FreeBSD'].each do |osfamily|
-      conf_path = (osfamily == 'FreeBSD') ? '/usr/local/etc' : '/etc/dhcp'
-      describe "dhcp class without any parameters on #{osfamily}" do
+    on_supported_os.each do |os, facts|
+      conf_path = (os =~ /^FreeBSD/i) ? '/usr/local/etc' : '/etc/dhcp'
+      describe "dhcp class without any parameters on #{os}" do
         let(:params) do {
           :interfaces => ['eth0'],
         } end
 
-        let(:facts) do {
-          :concat_basedir => '/doesnotexist',
-          :domain         => 'example.org',
-          :osfamily       => osfamily,
-        } end
+        let(:facts) do
+          facts.merge({
+            :concat_basedir => '/doesnotexist',
+            :domain         => 'example.org',
+          })
+        end
 
         it { should compile.with_all_deps }
 
@@ -37,7 +38,7 @@ describe 'dhcp' do
         }
       end
 
-      describe "dhcp class parameters on #{osfamily}" do
+      describe "dhcp class parameters on #{os}" do
         let(:params) do {
           :interfaces   => ['eth0'],
           :dnsupdatekey => 'mydnsupdatekey',
@@ -55,11 +56,12 @@ describe 'dhcp' do
           :includes => ['myinclude1', 'myinclude2'],
         } end
 
-        let(:facts) do {
-          :concat_basedir => '/doesnotexist',
-          :domain         => 'example.org',
-          :osfamily       => osfamily,
-        } end
+        let(:facts) do
+          facts.merge({
+            :concat_basedir => '/doesnotexist',
+            :domain         => 'example.org',
+          })
+        end
 
         it { should compile.with_all_deps }
 

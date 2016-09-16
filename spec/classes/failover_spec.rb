@@ -2,9 +2,9 @@ require 'spec_helper'
 
 describe 'dhcp::failover' do
   context 'supported operating systems' do
-    ['Debian', 'RedHat', 'FreeBSD'].each do |osfamily|
-      conf_path = (osfamily == 'FreeBSD') ? '/usr/local/etc' : '/etc/dhcp'
-      describe "dhcp::failover class on #{osfamily}" do
+    on_supported_os.each do |os, facts|
+      conf_path = (os =~ /^FreeBSD/i) ? '/usr/local/etc' : '/etc/dhcp'
+      describe "dhcp::failover class on #{os}" do
         let(:pre_condition) {
           "class { '::dhcp': interfaces => ['eth0']}"
         }
@@ -15,11 +15,11 @@ describe 'dhcp::failover' do
           :peer_address => '10.1.1.20',
         } end
 
-        let(:facts) do {
-          :concat_basedir => '/doesnotexist',
-          :domain         => 'example.org',
-          :osfamily       => osfamily,
-        } end
+        let(:facts) do
+          facts.merge({
+            :concat_basedir => '/doesnotexist',
+          })
+        end
 
         it { should compile.with_all_deps }
 
