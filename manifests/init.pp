@@ -67,14 +67,33 @@ class dhcp (
       }
     }
     'RedHat': {
-      file{ '/etc/sysconfig/dhcpd':
-        ensure  => file,
-        owner   => 'root',
-        group   => 'root',
-        mode    => '0644',
-        before  => Package[$packagename],
-        notify  => Service[$servicename],
-        content => template('dhcp/redhat/sysconfig-dhcpd'),
+      if ( $::operatingsystemrelease =~ /^7/ and $interfaces != undef ) {
+        file{ '/etc/systemd/system/dhcpd.service':
+          ensure  => file,
+          owner   => 'root',
+          group   => 'root',
+          mode    => '0644',
+          require => Package[$packagename],
+          notify  => Exec['systemctl-daemon-reload-dhcp'],
+          content => template('dhcp/redhat/dhcpd.service'),
+        }
+        exec { 'systemctl-daemon-reload-dhcp':
+          path        => '/usr/bin',
+          command     => 'systemctl --system daemon-reload',
+          user        => 'root',
+          notify      => Service[$servicename],
+          refreshonly => true,
+        }
+      } elsif versioncmp($::operatingsystemrelease, '7') < 0 {
+        file{ '/etc/sysconfig/dhcpd':
+          ensure  => file,
+          owner   => 'root',
+          group   => 'root',
+          mode    => '0644',
+          before  => Package[$packagename],
+          notify  => Service[$servicename],
+          content => template('dhcp/redhat/sysconfig-dhcpd'),
+        }
       }
     }
     /^(FreeBSD|DragonFly)$/: {
