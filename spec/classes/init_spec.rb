@@ -3,7 +3,14 @@ require 'spec_helper'
 describe 'dhcp' do
   context 'supported operating systems' do
     on_supported_os.each do |os, facts|
-      conf_path = (os =~ /^FreeBSD/i) ? '/usr/local/etc' : '/etc/dhcp'
+      conf_path = case os
+                  when /^FreeBSD/i
+                    '/usr/local/etc'
+                  when /^Archlinux/i
+                    '/etc'
+                  else
+                    '/etc/dhcp'
+                  end
       describe "dhcp class without any parameters on #{os}" do
         let(:params) do {
           :interfaces => ['eth0'],

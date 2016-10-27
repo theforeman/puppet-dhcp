@@ -24,6 +24,14 @@ class dhcp::params {
       $bootfiles   = {}
     }
 
+    'Archlinux': {
+      $dhcp_dir    = '/etc'
+      $packagename = 'dhcp'
+      $servicename = 'dhcpd4'
+      $root_group  = 'root'
+      $bootfiles   = {}
+    }
+
     'RedHat': {
       $dhcp_dir    = '/etc/dhcp'
       $packagename = 'dhcp'
