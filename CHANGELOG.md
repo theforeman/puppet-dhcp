@@ -1,7 +1,12 @@
 # Changelog
 
-## 2.4.0
+## 3.0.0
+* Add bootfiles parameter with hash of client architectures to boot
+  loaders used for "filename", defaulting to "pxelinux.0" (#14920)
 * Add mtu parameter to main class and to dhcp::pool
+* Add Arch Linux support
+* Drop support for Ruby 1.8.7
+* Many improvements to tests
 
 ## 2.3.2
 * Fix metadata to show Puppet 4 compatibility
