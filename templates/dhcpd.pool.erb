@@ -31,9 +31,18 @@ subnet <%= @network %> netmask <%= @mask %> {
   option routers <%= @gateway %>;
 <% end -%>
 <% if @static_routes
-  @static_routes.each do |static_route| -%>
-  option rfc3442-classless-static-routes <%= static_route['mask'] %>, <%= static_route['network'].split('.').join(', ') %>, <%= static_route['gateway'].split('.').join(', ') %>;
-  option ms-classless-static-routes  <%= static_route['mask'] %>, <%= static_route['network'].split('.').join(', ') %>, <%= static_route['gateway'].split('.').join(', ') %>;
+     ['rfc3442', 'ms'].each do |static_route_prefix| -%>
+  option <%= static_route_prefix %>-classless-static-routes <% -%>
+<%     @static_routes.each_with_index do |static_route, static_route_index| -%>
+<%=      static_route['mask'] %>, <% -%>
+<%       if static_route['network'] && !static_route['network'].split('.').empty? -%>
+<%=        static_route['network'].split('.').join(', ')%>, <% -%>
+<%       end -%>
+<%=      static_route['gateway'].split('.').join(', ') -%>
+<%       if static_route_index + 1 < @static_routes.length %>, <% -%>
+<%       else %>;<% -%>
+<%       end -%>
+<%     end %>
 <%   end -%>
 <% end -%>
 <% if @options.is_a? Array -%>

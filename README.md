@@ -58,8 +58,9 @@ For the support of static routes (RFC3442):
       network => '10.0.1.0',
       mask    => '255.255.255.0',
       range   => '10.0.1.100 10.0.1.200',
-      gateway => '10.0.1.1',
-      static_routes =>  [ { 'mask' => '32', 'network' => '169.254.169.254', 'gateway' => $ip } ],
+      gateway => $gw,
+      static_routes =>  [ { 'mask' => '32', 'network' => '169.254.169.254', 'gateway' => $ip },
+                          { 'mask' => '0',                                  'gateway' => $gw } ],
     }
 
 ### dhcp::host
