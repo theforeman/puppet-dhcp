@@ -33,3 +33,9 @@ KafoModuleLint::RakeTask.new do |config|
 end
 
 task :default => [:validate, :lint, :spec]
+task :test => [
+  :metadata_lint,
+  :syntax,
+  :lint,
+  :spec,
+]
