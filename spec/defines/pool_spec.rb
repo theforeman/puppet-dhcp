@@ -118,6 +118,7 @@ describe 'dhcp::pool' do
             :parameters       => 'max-lease-time 300',
             :nameservers      => ['10.0.0.2', '10.0.0.4'],
             :pxeserver        => '10.0.0.2',
+            :pxefilename      => 'pxelinux.0',
             :mtu              => 9000,
             :domain_name      => 'example.org',
             :static_routes    => [ { 'mask' => '24', 'network' => '10.0.1.0', 'gateway' => '10.0.0.2' },
@@ -147,6 +148,7 @@ describe 'dhcp::pool' do
               "  option domain-search \"example.org\", \"other.example.org\";",
               "  option interface-mtu 9000;",
               "  next-server 10.0.0.2;",
+              "  filename \"pxelinux.0\";",
               "  example append;",
               "}",
             ])
