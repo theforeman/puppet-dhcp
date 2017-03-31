@@ -1,5 +1,11 @@
 # Changelog
 
+## 3.1.0
+* Add `$ddns_updates` parameter to allow insecure DDNS updates.
+* Add `$pxefilename` parameter to `dhcp::pool`.
+* Add `$raw_prepend` and `$raw_append` parameters to `dhcp::pool`.
+* Fix classless static routes.
+
 ## 3.0.0
 * Add bootfiles parameter with hash of client architectures to boot
   loaders used for "filename", defaulting to "pxelinux.0" (#14920)
