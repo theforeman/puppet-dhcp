@@ -10,6 +10,7 @@ define dhcp::pool (
   $mtu             = undef,
   $nameservers     = undef,
   $pxeserver       = undef,
+  $pxefilename     = undef,
   $domain_name     = undef,
   $static_routes   = undef,
   $search_domains  = undef,
