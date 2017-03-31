@@ -13,6 +13,8 @@ define dhcp::pool (
   $domain_name     = undef,
   $static_routes   = undef,
   $search_domains  = undef,
+  $raw_append      = undef,
+  $raw_prepend     = undef,
 ) {
 
   if $mtu {
