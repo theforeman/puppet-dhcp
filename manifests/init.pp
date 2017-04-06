@@ -8,6 +8,7 @@ class dhcp (
   $max_lease_time     = 86400,
   $dnskeyname         = 'rndc-key',
   $dnsupdatekey       = undef,
+  $omapi              = true,
   $omapi_name         = undef,
   $omapi_key          = undef,
   $pxeserver          = undef,

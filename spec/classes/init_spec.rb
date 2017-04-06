@@ -171,6 +171,40 @@ describe 'dhcp' do
           ])
         }
       end
+
+      describe "without omapi" do
+        let(:params) do {
+          :interfaces => ['eth0'],
+          :omapi => false,
+        } end
+
+        let(:facts) do
+          facts.merge({
+            :concat_basedir => '/doesnotexist',
+            :domain         => 'example.org',
+          })
+        end
+
+        it { should compile.with_all_deps }
+
+        it {
+          verify_concat_fragment_exact_contents(catalogue, 'dhcp.conf+01_main.dhcp', [
+            'default-lease-time 43200;',
+            'max-lease-time 86400;',
+            'ddns-update-style none;',
+            'option domain-name "example.org";',
+            'option domain-name-servers 8.8.8.8, 8.8.4.4;',
+            "option ntp-servers none;",
+            'allow booting;',
+            'allow bootp;',
+            'option fqdn.no-client-update    on;  # set the "O" and "S" flag bits',
+            'option fqdn.rcode2            255;',
+            'option pxegrub code 150 = text ;',
+            'log-facility local7;',
+            "include \"#{conf_path}/dhcpd.hosts\";",
+          ])
+        }
+      end
     end
   end
 end
