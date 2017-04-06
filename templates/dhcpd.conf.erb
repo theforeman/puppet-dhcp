@@ -1,4 +1,5 @@
 # dhcpd.conf
+<% if @omapi -%>
 omapi-port 7911;
 <% if @omapi_name && @omapi_key && !@omapi_key.empty? -%>
 key <%= @omapi_name %> {
@@ -6,6 +7,7 @@ key <%= @omapi_name %> {
   secret "<%= @omapi_key %>";
 }
 omapi-key <%= @omapi_name %>;
+<% end -%>
 <% end -%>
 
 default-lease-time <%= @default_lease_time %>;
