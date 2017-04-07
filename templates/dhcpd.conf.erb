@@ -59,7 +59,7 @@ option ntp-servers none;
 <% end -%>
 
 allow booting;
-<% if @bootp -%>
+<% if @bootp_real -%>
 allow bootp;
 <% end -%>
 
@@ -113,10 +113,12 @@ log-facility <%= @logfacility %>;
 
 include "<%= @dhcp_dir %>/dhcpd.hosts";
 
+<% unless @failover -%>
 <% if @includes.is_a? Array -%>
 <% @includes.each do |include| -%>
 include "<%= include %>";
 <% end -%>
 <% elsif @includes && !@includes.strip.empty? -%>
 include "<%= @includes %>";
+<% end -%>
 <% end -%>
