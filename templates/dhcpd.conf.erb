@@ -59,7 +59,9 @@ option ntp-servers none;
 <% end -%>
 
 allow booting;
+<% if @bootp -%>
 allow bootp;
+<% end -%>
 
 option fqdn.no-client-update    on;  # set the "O" and "S" flag bits
 option fqdn.rcode2            255;
