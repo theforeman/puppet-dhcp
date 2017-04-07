@@ -1,7 +1,8 @@
 class dhcp (
   $dnsdomain          = $dhcp::params::dnsdomain,
   $nameservers        = ['8.8.8.8', '8.8.4.4'],
-  $bootp              = true,
+  $failover           = false,
+  $bootp              = undef,
   $ntpservers         = [],
   $interfaces         = undef,
   $interface          = 'NOTSET',
@@ -47,6 +48,15 @@ class dhcp (
     fail ("You need to set \$interfaces in ${module_name}")
   } else {
     $dhcp_interfaces = $interfaces
+  }
+
+  # See https://tools.ietf.org/html/draft-ietf-dhc-failover-12 for why BOOTP is
+  # not supported in the failover protocol. Relay agents *can* be made to work
+  # so $bootp can be explicitly set to true to override this default.
+  if $bootp == undef {
+    $bootp_real = !$failover
+  } else {
+    $bootp_real = $bootp
   }
 
   package { $packagename:
