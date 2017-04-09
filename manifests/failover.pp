@@ -13,9 +13,10 @@ class dhcp::failover (
 
   include ::dhcp
 
-  concat::fragment { 'dhcp.conf+10_failover.dhcp':
+  concat_fragment { 'dhcp.conf+10_failover.dhcp':
     target  => "${::dhcp::dhcp_dir}/dhcpd.conf",
     content => template('dhcp/dhcpd.conf.failover.erb'),
     order   => '10',
+    tag     => 'concat_file_dhcpd.conf',
   }
 }
