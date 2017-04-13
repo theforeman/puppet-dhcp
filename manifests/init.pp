@@ -105,32 +105,36 @@ class dhcp (
     }
   }
 
-  concat { "${dhcp_dir}/dhcpd.conf":
+  concat_file { "${dhcp_dir}/dhcpd.conf":
     owner   => 'root',
     group   => $dhcp_root_group,
     mode    => '0644',
     require => Package[$packagename],
     notify  => Service[$servicename],
+    tag     => 'concat_file_dhcpd.conf',
   }
 
-  concat::fragment { 'dhcp.conf+01_main.dhcp':
+  concat_fragment { 'dhcp.conf+01_main.dhcp':
     target  => "${dhcp_dir}/dhcpd.conf",
     content => template('dhcp/dhcpd.conf.erb'),
     order   => '01',
+    tag     => 'concat_file_dhcpd.conf',
   }
 
-  concat { "${dhcp_dir}/dhcpd.hosts":
+  concat_file { "${dhcp_dir}/dhcpd.hosts":
     owner   => 'root',
     group   => $dhcp_root_group,
     mode    => '0644',
     require => Package[$packagename],
     notify  => Service[$servicename],
+    tag     => 'concat_file_dhcpd.conf',
   }
 
-  concat::fragment { 'dhcp.hosts+01_main.hosts':
+  concat_fragment { 'dhcp.hosts+01_main.hosts':
     target  => "${dhcp_dir}/dhcpd.hosts",
     content => "# static DHCP hosts\n",
     order   => '01',
+    tag     => 'concat_file_dhcpd.conf',
   }
 
   create_resources('dhcp::pool', $pools)

@@ -51,11 +51,11 @@ def verify_exact_contents(subject, title, expected_lines)
 end
 
 def verify_concat_fragment_contents(subject, title, expected_lines)
-  content = subject.resource('concat::fragment', title).send(:parameters)[:content]
+  content = subject.resource('concat_fragment', title).send(:parameters)[:content]
   expect(content.split("\n") & expected_lines).to eq(expected_lines)
 end
 
 def verify_concat_fragment_exact_contents(subject, title, expected_lines)
-  content = subject.resource('concat::fragment', title).send(:parameters)[:content]
+  content = subject.resource('concat_fragment', title).send(:parameters)[:content]
     expect(content.split(/\n/).reject { |line| line =~ /(^#|^$|^\s+#)/ }).to eq(expected_lines)
 end
