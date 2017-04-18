@@ -43,6 +43,8 @@ describe 'dhcp' do
             "include \"#{conf_path}/dhcpd.hosts\";",
           ])
         }
+
+        it { is_expected.not_to contain_concat__fragment('dhcp.conf+20_includes') }
       end
 
       describe "dhcp class parameters on #{os}" do
@@ -128,6 +130,11 @@ describe 'dhcp' do
             '}',
             'log-facility local7;',
             "include \"#{conf_path}/dhcpd.hosts\";",
+          ])
+        }
+
+        it {
+          verify_concat_fragment_exact_contents(catalogue, 'dhcp.conf+20_includes', [
             'include "myinclude1";',
             'include "myinclude2";',
           ])
