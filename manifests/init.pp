@@ -119,6 +119,14 @@ class dhcp (
     order   => '01',
   }
 
+  if $includes {
+    concat::fragment { 'dhcp.conf+20_includes':
+      target  => "${dhcp_dir}/dhcpd.conf",
+      content => template('dhcp/dhcpd.conf.includes.erb'),
+      order   => '20',
+    }
+  }
+
   concat { "${dhcp_dir}/dhcpd.hosts":
     owner   => 'root',
     group   => $dhcp_root_group,

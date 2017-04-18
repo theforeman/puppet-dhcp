@@ -13,14 +13,3 @@ failover peer "dhcp-failover" {
   split <%= @load_split %>;
 <% end -%>
 }
-
-<%# This just moves the includes from dhcp.conf.erb to here so that any
-includes that involve failover pools won't fail. -%>
-<% includes = scope.lookupvar('dhcp::includes') -%>
-<% if includes.is_a? Array -%>
-<% includes.each do |include| -%>
-include "<%= include %>";
-<% end -%>
-<% elsif includes && !includes.strip.empty? -%>
-include "<%= includes %>";
-<% end -%>
