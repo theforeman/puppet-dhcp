@@ -91,6 +91,24 @@ class dhcp (
         notify  => Service[$servicename],
         content => template('dhcp/redhat/sysconfig-dhcpd'),
       }
+      if $::operatingsystemrelease =~ /^7/ and $interfaces != undef {
+        file{ '/etc/systemd/system/dhcpd.service':
+          ensure  => file,
+          owner   => 'root',
+          group   => 'root',
+          mode    => '0644',
+          require => Package[$packagename],
+          notify  => Exec['systemctl-daemon-reload-dhcp'],
+          content => template('dhcp/redhat/dhcpd.service'),
+        }
+        exec { 'systemctl-daemon-reload-dhcp':
+          path        => '/usr/bin',
+          command     => 'systemctl --system daemon-reload',
+          user        => 'root',
+          notify      => Service[$servicename],
+          refreshonly => true,
+        }
+      }
     }
     /^(FreeBSD|DragonFly)$/: {
       $interfaces_line = join($dhcp_interfaces, ' ')
