@@ -11,6 +11,9 @@ describe 'dhcp' do
                   else
                     '/etc/dhcp'
                   end
+
+      let(:node) { 'foo.example.org' }
+
       describe "dhcp class without any parameters on #{os}" do
         let(:params) do {
           :interfaces => ['eth0'],
