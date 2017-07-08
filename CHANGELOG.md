@@ -1,5 +1,11 @@
 # Changelog
 
+## 4.0.0
+* Drop Puppet 3 support
+* Add `$omapi`, so OMAPI can be turned off
+* Add `$bootp`, so BOOTP can be turned off
+* Improve failover logic
+
 ## 3.1.0
 * Add `$ddns_updates` parameter to allow insecure DDNS updates.
 * Add `$pxefilename` parameter to `dhcp::pool`.
