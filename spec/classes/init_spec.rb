@@ -16,7 +16,7 @@ describe 'dhcp' do
       } end
 
       let(:facts) do
-        facts.merge({:domain         => 'example.org'})
+        facts
       end
 
       it { should compile.with_all_deps }
@@ -27,7 +27,7 @@ describe 'dhcp' do
           'default-lease-time 43200;',
           'max-lease-time 86400;',
           'ddns-update-style none;',
-          'option domain-name "example.org";',
+          'option domain-name "example.com";',
           'option domain-name-servers 8.8.8.8, 8.8.4.4;',
           "option ntp-servers none;",
           'allow booting;',
@@ -62,13 +62,13 @@ describe 'dhcp' do
         :option_static_route => true,
         :options      => ['provision-url code 224 = text', 'provision-type code 225 = text'],
         :authoritative => true,
-        :ddns_domainname => 'example.org',
+        :ddns_domainname => 'example.com',
         :ddns_rev_domainname => 'in-addr.arpa',
         :includes => ['myinclude1', 'myinclude2'],
       } end
 
       let(:facts) do
-        facts.merge({:domain         => 'example.org'})
+        facts
       end
 
       it { should compile.with_all_deps }
@@ -88,14 +88,14 @@ describe 'dhcp' do
           'ddns-update-style interim;',
           'update-static-leases on;',
           'use-host-decl-names on;',
-          'ddns-domainname "example.org";',
+          'ddns-domainname "example.com";',
           'ddns-rev-domainname "in-addr.arpa";',
           'include "mydnsupdatekey";',
-          'zone example.org. {',
+          'zone example.com. {',
           '  primary 8.8.8.8;',
           '  key rndc-key;',
           '}',
-          'option domain-name "example.org";',
+          'option domain-name "example.com";',
           'option domain-name-servers 8.8.8.8, 8.8.4.4;',
           'option ntp-servers 1.1.1.1, 1.1.1.2;',
           'allow booting;',
@@ -141,7 +141,7 @@ describe 'dhcp' do
       } end
 
       let(:facts) do
-        facts.merge({:domain => 'example.org'})
+        facts
       end
 
       it { should compile.with_all_deps }
@@ -155,10 +155,10 @@ describe 'dhcp' do
           'ddns-update-style interim;',
           'update-static-leases on;',
           'use-host-decl-names on;',
-          'zone example.org. {',
+          'zone example.com. {',
           '  primary 8.8.8.8;',
           '}',
-          'option domain-name "example.org";',
+          'option domain-name "example.com";',
           'option domain-name-servers 8.8.8.8, 8.8.4.4;',
           "option ntp-servers none;",
           'allow booting;',
@@ -179,7 +179,7 @@ describe 'dhcp' do
       } end
 
       let(:facts) do
-        facts.merge({:domain         => 'example.org'})
+        facts
       end
 
       it { should compile.with_all_deps }
@@ -189,7 +189,7 @@ describe 'dhcp' do
           'default-lease-time 43200;',
           'max-lease-time 86400;',
           'ddns-update-style none;',
-          'option domain-name "example.org";',
+          'option domain-name "example.com";',
           'option domain-name-servers 8.8.8.8, 8.8.4.4;',
           "option ntp-servers none;",
           'allow booting;',
@@ -210,7 +210,7 @@ describe 'dhcp' do
       } end
 
       let(:facts) do
-        facts.merge({:domain         => 'example.org'})
+        facts
       end
 
       it { should compile.with_all_deps }
@@ -221,7 +221,7 @@ describe 'dhcp' do
           'default-lease-time 43200;',
           'max-lease-time 86400;',
           'ddns-update-style none;',
-          'option domain-name "example.org";',
+          'option domain-name "example.com";',
           'option domain-name-servers 8.8.8.8, 8.8.4.4;',
           "option ntp-servers none;",
           'allow booting;',
@@ -239,7 +239,7 @@ describe 'dhcp' do
       } end
 
       let(:facts) do
-        facts.merge({:domain         => 'example.org'})
+        facts
       end
 
       it { should compile.with_all_deps }
@@ -250,7 +250,7 @@ describe 'dhcp' do
           'default-lease-time 43200;',
           'max-lease-time 86400;',
           'ddns-update-style none;',
-          'option domain-name "example.org";',
+          'option domain-name "example.com";',
           'option domain-name-servers 8.8.8.8, 8.8.4.4;',
           "option ntp-servers none;",
           'allow booting;',
@@ -270,7 +270,7 @@ describe 'dhcp' do
       } end
 
       let(:facts) do
-        facts.merge({:domain         => 'example.org'})
+        facts
       end
 
       it { should compile.with_all_deps }
@@ -281,7 +281,7 @@ describe 'dhcp' do
           'default-lease-time 43200;',
           'max-lease-time 86400;',
           'ddns-update-style none;',
-          'option domain-name "example.org";',
+          'option domain-name "example.com";',
           'option domain-name-servers 8.8.8.8, 8.8.4.4;',
           "option ntp-servers none;",
           'allow booting;',
@@ -301,7 +301,7 @@ describe 'dhcp' do
       } end
 
       let(:facts) do
-        facts.merge({:domain         => 'example.org'})
+        facts
       end
 
       it { should compile.with_all_deps }
@@ -312,7 +312,7 @@ describe 'dhcp' do
           'default-lease-time 43200;',
           'max-lease-time 86400;',
           'ddns-update-style none;',
-          'option domain-name "example.org";',
+          'option domain-name "example.com";',
           'option domain-name-servers 8.8.8.8, 8.8.4.4;',
           "option ntp-servers none;",
           'allow booting;',
@@ -333,7 +333,7 @@ describe 'dhcp' do
       } end
 
       let(:facts) do
-        facts.merge({:domain         => 'example.org'})
+        facts
       end
 
       it { should compile.with_all_deps }
@@ -344,7 +344,7 @@ describe 'dhcp' do
           'default-lease-time 43200;',
           'max-lease-time 86400;',
           'ddns-update-style none;',
-          'option domain-name "example.org";',
+          'option domain-name "example.com";',
           'option domain-name-servers 8.8.8.8, 8.8.4.4;',
           "option ntp-servers none;",
           'allow booting;',
