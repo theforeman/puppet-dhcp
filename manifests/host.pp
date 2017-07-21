@@ -1,7 +1,7 @@
 define dhcp::host (
-  $ip,
-  $mac,
-  $comment=undef,
+  String $ip,
+  Dhcp::Macaddress $mac,
+  Optional[String] $comment=undef,
 ) {
 
   $host = $name

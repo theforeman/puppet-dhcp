@@ -1,5 +1,5 @@
 define dhcp::dhcp_class (
-  $parameters
+  Variant[Array[String], String] $parameters,
 ) {
   concat::fragment { "dhcp.conf+50_${name}.dhcp":
     target  => "${::dhcp::dhcp_dir}/dhcpd.conf",

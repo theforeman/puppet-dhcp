@@ -1,14 +1,14 @@
 class dhcp::failover (
-  $peer_address,
-  $role                = 'primary',
-  $address             = $::ipaddress,
-  $port                = '519',
-  $max_response_delay  = '30',
-  $max_unacked_updates = '10',
-  $mclt                = '300',
-  $load_split          = '128',
-  $load_balance        = '3',
-  $omapi_key           = undef,
+  String $peer_address,
+  Enum['primary', 'secondary'] $role = 'primary',
+  String $address = $::ipaddress,
+  Variant[Integer[0, 65535], String] $port = 519,
+  Variant[Integer[0], String] $max_response_delay = 30,
+  Variant[Integer[0], String] $max_unacked_updates = 10,
+  Variant[Integer[0], String] $mclt = 300,
+  Variant[Integer[0], String] $load_split = 128,
+  Variant[Integer[0], String] $load_balance = 3,
+  Optional[String] $omapi_key = undef,
 ) {
 
   include ::dhcp
