@@ -67,12 +67,12 @@ option fqdn.no-client-update    on;  # set the "O" and "S" flag bits
 option fqdn.rcode2            255;
 option pxegrub code 150 = text ;
 
-<% if has_variable?( 'option_static_route' ) && @option_static_route -%>
+<% if @option_static_route -%>
 option rfc3442-classless-static-routes code 121 = array of integer 8;
 option ms-classless-static-routes code 249 = array of integer 8;
 <% end -%>
 
-<% if has_variable?( 'mtu' ) && @mtu -%>
+<% if @mtu -%>
 option interface-mtu <%= @mtu %>;
 <% end -%>
 
@@ -84,13 +84,10 @@ option <%= option %>;
   option <%= @options %>;
 <% end -%>
 
-<% if has_variable?( 'pxeserver' ) &&
-  has_variable?( 'pxefilename' ) &&
-  @pxeserver &&
-  @pxefilename -%>
+<% if @pxeserver && @pxefilename -%>
 # Bootfile Handoff
 next-server <%= @pxeserver %>;
-<% if has_variable?( 'bootfiles' ) && ! @bootfiles.empty?
+<% unless @bootfiles.empty?
      bootf = @bootfiles.sort_by { |arch, file| arch } -%>
 option architecture code 93 = unsigned integer 16 ;
 if option architecture = <%= bootf.first[0] %> {
