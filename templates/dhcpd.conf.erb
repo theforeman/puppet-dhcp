@@ -38,7 +38,7 @@ include "<%= @dnsupdatekey %>";
 <% end -%>
 <% @dnsdomain.each do |dom| -%>
 zone <%= dom %>. {
-  primary <%= @nameservers.first %>;
+  primary <%= @dnsupdateserver_real %>;
 <% if @dnsupdatekey and !@dnsupdatekey.empty? -%>
   key <%= @dnskeyname%>;
 <% end -%>

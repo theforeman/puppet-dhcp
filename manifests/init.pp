@@ -10,6 +10,7 @@ class dhcp (
   Integer[0] $max_lease_time = 86400,
   String $dnskeyname = 'rndc-key',
   Optional[String] $dnsupdatekey = undef,
+  Optional[String] $dnsupdateserver = undef,
   Boolean $omapi = true,
   Optional[String] $omapi_name = undef,
   Optional[String] $omapi_key = undef,
@@ -53,6 +54,8 @@ class dhcp (
   } else {
     $bootp_real = $bootp
   }
+
+  $dnsupdateserver_real = pick($dnsupdateserver, $nameservers[0])
 
   package { $packagename:
     ensure   => installed,
