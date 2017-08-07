@@ -1,5 +1,8 @@
 # Changelog
 
+## 4.0.1
+* Validate parameters using Puppet 4 types
+
 ## 4.0.0
 * Drop Puppet 3 support
 * Add `$omapi`, so OMAPI can be turned off
