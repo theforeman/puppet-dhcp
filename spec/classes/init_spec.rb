@@ -47,6 +47,30 @@ describe 'dhcp' do
         }
 
         it { is_expected.not_to contain_concat__fragment('dhcp.conf+20_includes') }
+
+        if facts[:osfamily] == 'RedHat' && facts[:operatingsystemmajrelease].to_i >= 7
+          it { is_expected.to contain_systemd__dropin_file('interfaces.conf') }
+        else
+          it { is_expected.not_to contain_systemd__dropin_file('interfaces.conf') }
+        end
+
+        if facts[:osfamily] == 'RedHat' && facts[:operatingsystemmajrelease].to_i < 7
+          it { is_expected.to contain_file('/etc/sysconfig/dhcpd') }
+        else
+          it { is_expected.not_to contain_file('/etc/sysconfig/dhcpd') }
+        end
+
+        if facts[:osfamily] == 'Debian'
+          it { is_expected.to contain_file('/etc/default/isc-dhcp-server') }
+        else
+          it { is_expected.not_to contain_file('/etc/default/isc-dhcp-server') }
+        end
+
+        if ['FreeBSD', 'DragonFly'].include?(facts[:osfamily])
+          it { is_expected.to contain_augeas('set listen interfaces') }
+        else
+          it { is_expected.not_to contain_augeas('set listen interfaces') }
+        end
       end
 
       describe "dhcp class parameters on #{os}" do

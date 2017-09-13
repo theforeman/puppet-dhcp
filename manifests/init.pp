@@ -80,14 +80,22 @@ class dhcp (
       }
     }
     'RedHat': {
-      file{ '/etc/sysconfig/dhcpd':
-        ensure  => file,
-        owner   => 'root',
-        group   => 'root',
-        mode    => '0644',
-        before  => Package[$packagename],
-        notify  => Service[$servicename],
-        content => template('dhcp/redhat/sysconfig-dhcpd'),
+      if versioncmp($::operatingsystemmajrelease, '7') >= 0 {
+        include ::systemd
+        systemd::dropin_file { 'interfaces.conf':
+          unit    => 'dhcpd.service',
+          content => template('dhcp/redhat/systemd-dropin.conf.erb'),
+        }
+      } else {
+        file { '/etc/sysconfig/dhcpd':
+          ensure  => file,
+          owner   => 'root',
+          group   => 'root',
+          mode    => '0644',
+          before  => Package[$packagename],
+          notify  => Service[$servicename],
+          content => template('dhcp/redhat/sysconfig-dhcpd'),
+        }
       }
     }
     /^(FreeBSD|DragonFly)$/: {
