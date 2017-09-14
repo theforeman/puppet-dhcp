@@ -1,4 +1,8 @@
 ---
+.travis.yml:
+  beaker_sets:
+    - docker/centos-7
+    - docker/debian-8
 .puppet-lint.rc:
   extra_disabled_lint_checks:
     - 'documentation'
