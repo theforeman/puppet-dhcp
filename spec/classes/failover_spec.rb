@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe 'dhcp::failover' do
   on_os_under_test.each do |os, facts|
-    describe "dhcp::failover class on #{os}" do
+    context "on #{os}" do
       let(:pre_condition) {
         "class { '::dhcp': interfaces => ['eth0']}"
       }
