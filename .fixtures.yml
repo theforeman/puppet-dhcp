@@ -6,3 +6,4 @@ fixtures:
 
   symlinks:
     dhcp: "#{source_dir}"
+    test_module: "#{source_dir}/spec/static_fixtures/test_module"
