@@ -3,7 +3,7 @@ define dhcp::pool (
   String $mask,
   Optional[String] $gateway = undef,
   Variant[Array[String], Optional[String]] $pool_parameters = undef,
-  Variant[Array[String], Optional[String], Boolean] $range = undef,
+  Variant[Array[Dhcp::Range], Optional[Dhcp::Range], Enum[''], Boolean] $range = undef,
   Optional[String] $failover = undef,
   Variant[Array[String], Optional[String]] $options = undef,
   Variant[Array[String], Optional[String]] $parameters = undef,

@@ -32,7 +32,7 @@ describe 'dhcp::pool' do
         let :params do {
           :network  => '10.0.0.0',
           :mask     => '255.255.255.0',
-          :range    => '10.0.0.10 - 10.0.0.50',
+          :range    => '10.0.0.10 10.0.0.50',
           :failover => '10.1.1.20',
         } end
 
@@ -42,7 +42,7 @@ describe 'dhcp::pool' do
             '  pool',
             '  {',
             '    failover peer "10.1.1.20";',
-            '    range 10.0.0.10 - 10.0.0.50;',
+            '    range 10.0.0.10 10.0.0.50;',
             '  }',
             '  option subnet-mask 255.255.255.0;',
             '}',
@@ -70,7 +70,7 @@ describe 'dhcp::pool' do
         let :params do {
           :network => '10.0.0.0',
           :mask    => '255.255.255.0',
-          :range   => ['10.0.0.10 - 10.0.0.50','10.0.0.100 - 10.0.0.150'],
+          :range   => ['10.0.0.10 10.0.0.50','10.0.0.100 10.0.0.150'],
         } end
 
         it {
@@ -78,8 +78,8 @@ describe 'dhcp::pool' do
             'subnet 10.0.0.0 netmask 255.255.255.0 {',
             '  pool',
             '  {',
-            '    range 10.0.0.10 - 10.0.0.50;',
-            '    range 10.0.0.100 - 10.0.0.150;',
+            '    range 10.0.0.10 10.0.0.50;',
+            '    range 10.0.0.100 10.0.0.150;',
             '  }',
             '  option subnet-mask 255.255.255.0;',
             '}',
@@ -109,7 +109,7 @@ describe 'dhcp::pool' do
           :network          => '10.0.0.0',
           :mask             => '255.255.255.0',
           :pool_parameters  => 'allow members of "some-class"',
-          :range            => '10.0.0.10 - 10.0.0.50',
+          :range            => '10.0.0.10 10.0.0.50',
           :gateway          => '10.0.0.1',
           :options          => 'ntp-servers 10.0.0.2',
           :parameters       => 'max-lease-time 300',
@@ -132,7 +132,7 @@ describe 'dhcp::pool' do
             "  pool",
             "  {",
             "    allow members of \"some-class\";",
-            "    range 10.0.0.10 - 10.0.0.50;",
+            "    range 10.0.0.10 10.0.0.50;",
             "  }",
             "  option domain-name \"example.org\";",
             "  option subnet-mask 255.255.255.0;",
