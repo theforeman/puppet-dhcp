@@ -1,5 +1,9 @@
 # Changelog
 
+## 4.0.2
+* Fix listen on interfaces in EL7
+* Add validation for the DHCP range
+
 ## 4.0.1
 * Validate parameters using Puppet 4 types
 
