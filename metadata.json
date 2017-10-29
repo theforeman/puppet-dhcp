@@ -59,20 +59,21 @@
     {
       "operatingsystem": "Fedora",
       "operatingsystemrelease": [
-        "24"
+        "25",
+        "26"
       ]
     },
     {
       "operatingsystem": "Debian",
       "operatingsystemrelease": [
         "7",
-        "8"
+        "8",
+        "9"
       ]
     },
     {
       "operatingsystem": "Ubuntu",
       "operatingsystemrelease": [
-        "12.04",
         "14.04",
         "16.04"
       ]
@@ -83,15 +84,13 @@
     {
       "operatingsystem": "FreeBSD",
       "operatingsystemrelease": [
-        "9",
-        "10"
+        "10",
+        "11"
       ]
     },
     {
       "operatingsystem": "DragonFly",
       "operatingsystemrelease": [
-        "3.6",
-        "3.8",
         "4"
       ]
     }
