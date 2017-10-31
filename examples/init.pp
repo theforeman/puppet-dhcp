@@ -4,7 +4,7 @@ class { '::dhcp':
   dnsdomain    => [
     'example.com',
     '1.1.10.in-addr.arpa',
-    ],
+  ],
   nameservers  => ['10.1.1.10'],
   interfaces   => ['eth0'],
   dnsupdatekey => "/etc/bind/keys.d/${::ddnskeyname}",
@@ -25,9 +25,7 @@ dhcp::pool{ 'example.com':
   gateway => '10.1.1.1',
 }
 
-dhcp::host {
-  'gateway':
-    mac => '00:11:22:33:44:55',
-    ip  => '10.1.1.1',
+dhcp::host { 'gateway':
+  mac => '00:11:22:33:44:55',
+  ip  => '10.1.1.1',
 }
-
