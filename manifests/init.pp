@@ -13,6 +13,7 @@ class dhcp (
   Optional[String] $dnsupdateserver = undef,
   Boolean $omapi = true,
   Optional[String] $omapi_name = undef,
+  String $omapi_algorithm = 'HMAC-MD5',
   Optional[String] $omapi_key = undef,
   Optional[String] $pxeserver = undef,
   String $pxefilename = $dhcp::params::pxefilename,
