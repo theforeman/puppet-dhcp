@@ -33,10 +33,12 @@ class dhcp::params {
     }
 
     'RedHat': {
-      $dhcp_dir    = '/etc/dhcp'
-      $packagename = 'dhcp'
-      $servicename = 'dhcpd'
-      $root_group  = 'root'
+      $dhcp_dir                = '/etc/dhcp'
+      $default_leasefile_path6 = '/var/lib/dhcpd/dhcpd6.leases'
+      $packagename             = 'dhcp'
+      $servicename             = 'dhcpd'
+      $servicename6            = 'dhcpd6'
+      $root_group              = 'root'
       if $::operatingsystemrelease =~ /^[0-6]\./ {
         $bootfiles = {
           '00:07' => 'grub/grubx64.efi',

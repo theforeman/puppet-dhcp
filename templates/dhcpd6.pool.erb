@@ -1,0 +1,52 @@
+# <%= @name %>
+subnet6 <%= @network %>/<%= @prefix %> {
+<% if @raw_prepend -%>
+  <%= @raw_prepend %>
+<% end -%>
+<% if (@range && @range.is_a?(String) && !@range.strip.empty?) || (@range && @range.is_a?(Array)) -%>
+<%  if @pool_parameters.is_a? Array -%>
+<%    @pool_parameters.each do |param| -%>
+  <%= param %>;
+<%    end -%>
+<%  elsif @pool_parameters && !@pool_parameters.strip.empty? -%>
+  <%= @pool_parameters %>;
+<%  end -%>
+<%  if @range and @range.is_a? Array -%>
+<%   @range.each do |rng| -%>
+  range6 <%= rng %>;
+<%   end -%>
+<%  elsif @range && !@range.strip.empty? -%>
+  range6 <%= @range %>;
+<%  end -%>
+<% end -%>
+<% if @domain_name && !@domain_name.strip.empty? -%>
+  option dhcp6.domain-name "<%= @domain_name %>";
+<% end -%>
+<% if @options.is_a? Array -%>
+<%   @options.each do |opt| -%>
+  option <%= opt %>;
+<%   end -%>
+<% elsif @options && !@options.strip.empty? -%>
+  option <%= @options %>;
+<% end -%>
+<% if @parameters.is_a? Array -%>
+<%   @parameters.each do |param| -%>
+  <%= param %>;
+<%   end -%>
+<% elsif @parameters && !@parameters.strip.empty? -%>
+  <%= @parameters %>;
+<% end -%>
+<% if @nameservers and @nameservers.is_a? Array -%>
+  option dhcp6.name-servers <%= @nameservers.sort.join(', ') %>;
+<% elsif @nameservers -%>
+  option dhcp6.name-servers <%= @nameservers %>;
+<% end -%>
+<% if @search_domains and @search_domains.is_a? Array -%>
+  option dhcp6.domain-search "<%= @search_domains.sort.join('", "') %>";
+<% elsif @search_domains -%>
+  option dhcp6.domain-search "<%= @search_domains.split(/[, ]+/).join('", "') %>";
+<% end -%>
+<% if @raw_append -%>
+  <%= @raw_append %>
+<% end -%>
+}
