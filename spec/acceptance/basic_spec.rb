@@ -24,7 +24,7 @@ describe 'Simple installation' do
       interfaces => ['#{interface}'],
     }
 
-    ::dhcp::dhcp6 { }
+    class { 'dhcp::dhcp6': }
 
     ::dhcp::pool { "default subnet":
       network => $interface['network'],

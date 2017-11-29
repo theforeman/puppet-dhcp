@@ -29,7 +29,7 @@ describe 'Installation with include statement' do
       includes   => '/etc/dhcp.include',
     }
 
-    ::dhcp::dhcp6 { }
+    class { 'dhcp::dhcp6': }
 
     ::dhcp::pool { "default subnet":
       network => $interface['network'],
