@@ -3,7 +3,7 @@ define dhcp::pool6 (
   String $network,
   Integer[0] $prefix,
   Variant[Array[String], Optional[String]] $pool_parameters = undef,
-  Variant[Array[Dhcp::Range], String, Optional[Dhcp::Range], Enum[''], Boolean] $range = undef,
+  Variant[Array[Dhcp::Range6], String, Optional[Dhcp::Range6], Enum[''], Boolean] $range = undef,
   Optional[String] $failover = undef,
   Variant[Array[String], Optional[String]] $options = undef,
   Variant[Array[String], Optional[String]] $parameters = undef,

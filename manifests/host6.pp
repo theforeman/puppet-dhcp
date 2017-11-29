@@ -7,7 +7,7 @@ define dhcp::host6 (
 
   $host = $name
 
-  concat::fragment { "dhcp.hosts+10_${name}.hosts":
+  concat::fragment { "dhcp6.hosts+10_${name}.hosts":
     target  => "${::dhcp::dhcp_dir}/dhcpd6.hosts",
     content => template('dhcp/dhcpd6.host.erb'),
     order   => "10-${name}",
