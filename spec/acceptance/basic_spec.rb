@@ -33,7 +33,7 @@ describe 'Simple installation' do
 
     ::dhcp::pool6 { "default v6 subnet":
       network        => $interface['network6'],
-      prefix         => '64',
+      prefix         => 64,
     }
 
     ::dhcp::host { $::fqdn:

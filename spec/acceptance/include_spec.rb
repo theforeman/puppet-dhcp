@@ -38,7 +38,7 @@ describe 'Installation with include statement' do
 
     ::dhcp::pool6 { "default v6 subnet":
       network        => $interface['network6'],
-      prefix         => '64',
+      prefix         => 64,
     }
 
     EOS
