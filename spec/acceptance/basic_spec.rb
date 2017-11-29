@@ -41,7 +41,7 @@ describe 'Simple installation' do
       mac => $interface['mac'],
     }
 
-    ::dhcp::host6 { "v6-{$::fqdn}":
+    ::dhcp::host6 { 'v6-host':
       ip => $interface['ip6'],
       mac => $interface['mac'],
     }
