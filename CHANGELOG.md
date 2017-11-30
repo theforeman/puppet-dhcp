@@ -1,5 +1,10 @@
 # Changelog
 
+## 4.1.0
+
+* Make the OMAPI algorithm configurable
+* Drop EOL operating systems and add new ones to metadata.json
+
 ## 4.0.2
 * Fix listen on interfaces in EL7
 * Add validation for the DHCP range
