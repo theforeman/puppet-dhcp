@@ -7,10 +7,6 @@ describe 'dhcp::dhcp6' do
         facts
       end
 
-      let :pre_condition do
-        "class { '::dhcp': interfaces => ['eth0']}"
-      end
-
       conf_path = case os
                   when /^FreeBSD/i
                     '/usr/local/etc'
@@ -20,8 +16,6 @@ describe 'dhcp::dhcp6' do
                     '/etc/dhcp'
                   end
       describe "dhcp::dhcp6 class without any parameters on #{os}" do
-        let(:params) do {
-        } end
 
         it { should compile.with_all_deps }
 
@@ -50,7 +44,6 @@ describe 'dhcp::dhcp6' do
           :default_renewal_time6       => 3600,
           :default_rebinding_time6     => 7200,
           :default_info_refresh_time6  => 21600,
-          :default_preference6         => 255,
           :leasequery6                 => true,
           :rapid_commit6               => true,
           :default_preference6         => 255,

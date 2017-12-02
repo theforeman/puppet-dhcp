@@ -20,6 +20,12 @@ class dhcp::dhcp6 (
   Variant[Array[String], Optional[String]] $includes = undef,
 ) inherits dhcp::params {
 
+  if ! defined(Package[$packagename]){
+    package { $packagename:
+      ensure   => installed,
+    }
+  }
+
   concat { "${dhcp_dir}/dhcpd6.conf":
     owner   => 'root',
     group   => $dhcp_root_group,

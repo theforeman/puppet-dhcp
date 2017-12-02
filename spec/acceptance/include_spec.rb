@@ -29,16 +29,9 @@ describe 'Installation with include statement' do
       includes   => '/etc/dhcp.include',
     }
 
-    class { 'dhcp::dhcp6': }
-
     ::dhcp::pool { "default subnet":
       network => $interface['network'],
       mask    => $interface['netmask'],
-    }
-
-    ::dhcp::pool6 { "default v6 subnet":
-      network        => $interface['network6'],
-      prefix         => 64,
     }
 
     EOS

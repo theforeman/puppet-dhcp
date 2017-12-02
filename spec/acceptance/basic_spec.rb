@@ -24,16 +24,9 @@ describe 'Simple installation' do
       interfaces => ['#{interface}'],
     }
 
-    class { 'dhcp::dhcp6': }
-
     ::dhcp::pool { "default subnet":
       network => $interface['network'],
       mask    => $interface['netmask'],
-    }
-
-    ::dhcp::pool6 { "default v6 subnet":
-      network        => $interface['network6'],
-      prefix         => 64,
     }
 
     ::dhcp::host { $::fqdn:
@@ -41,10 +34,6 @@ describe 'Simple installation' do
       mac => $interface['mac'],
     }
 
-    ::dhcp::host6 { 'v6-host':
-      ip => $interface['ip6'],
-      mac => $interface['mac'],
-    }
     EOS
   end
 
