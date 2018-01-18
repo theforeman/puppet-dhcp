@@ -33,6 +33,7 @@ describe 'Installation with include statement' do
       network => $interface['network'],
       mask    => $interface['netmask'],
     }
+
     EOS
   end
 

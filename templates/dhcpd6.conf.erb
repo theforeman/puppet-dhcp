@@ -1,0 +1,27 @@
+# dhcpd6.conf
+
+default-lease-time <%= @default_lease_time6 %>;
+preferred-lifetime <%= @default_preferred_lifetime6 %>;
+option dhcp-renewal-time <%= @default_renewal_time6 %>;
+option dhcp-rebinding-time <%= @default_rebinding_time6 %>;
+option dhcp6.info-refresh-time <%= @default_info_refresh_time6 %>;
+<% if @leasequery6 -%>
+allow leasequery;
+<% end -%>
+<% if @default_preference6 -%>
+option dhcp6.preference <%= @default_preference6 %>;
+<% end -%>
+<% if @rapid_commit6 -%>
+option dhcp6.rapid-commit;
+<% end -%>
+<% if @nameservers and @nameservers.is_a? Array -%>
+option dhcp6.name-servers <%= @nameservers.sort.join(', ') %>;
+<% elsif @nameservers -%>
+option dhcp6.name-servers <%= @nameservers %>;
+<% end -%>
+<% if @search_domains and @search_domains.is_a? Array -%>
+option dhcp6.domain-search "<%= @search_domains.sort.join('", "') %>";
+<% elsif @search_domains -%>
+option dhcp6.domain-search "<%= @search_domains.split(/[, ]+/).join('", "') %>";
+<% end -%>
+include "<%= @dhcp_dir %>/dhcpd6.hosts";

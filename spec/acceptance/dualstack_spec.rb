@@ -16,6 +16,13 @@ describe 'Simple installation' do
                    'dhcpd'
                  end
 
+  service_name6 = case fact('osfamily')
+                 when 'Debian'
+                   'isc-dhcp-server'
+                 else
+                   'dhcpd6'
+                 end
+
   let(:pp) do
     <<-EOS
     $interface = $::facts['networking']['interfaces'][#{interface}]
@@ -24,7 +31,9 @@ describe 'Simple installation' do
       interfaces => ['#{interface}'],
     }
 
-    ::dhcp::pool { "default subnet":
+    class { 'dhcp::dhcp6': }
+
+    ::dhcp::pool { 'default-subnet':
       network => $interface['network'],
       mask    => $interface['netmask'],
     }
@@ -34,12 +43,30 @@ describe 'Simple installation' do
       mac => $interface['mac'],
     }
 
+    ::dhcp::pool6 { 'default-v6-subnet':
+      network => $interface['network6'],
+      prefix  => 64,
+    }
+
+    ::dhcp::host6 { 'v6-host':
+      ip => '$interface['ip6'],
+      mac => $interface['mac'],
+    }
+
     EOS
   end
 
-  it_behaves_like 'a idempotent resource'
+  it {
+    pending('This is broken in docker containers')
+    behaves_like 'a idempotent resource'
+  }
 
   describe service(service_name) do
+    it { is_expected.to be_enabled }
+    it { is_expected.to be_running }
+  end
+
+  describe service(service_name6) do
     it { is_expected.to be_enabled }
     it { is_expected.to be_running }
   end
@@ -48,13 +75,27 @@ describe 'Simple installation' do
     it { is_expected.to be_listening.on('0.0.0.0').with('udp') }
   end
 
+  describe port(547) do
+    it {
+      is_expected.to be_listening.with('udp6')
+    }
+  end
+
   ip = fact("networking.interfaces.#{interface}.ip")
+  ip6 = fact("networking.interfaces.#{interface}.ip6")
   mac = fact("networking.interfaces.#{interface}.mac")
 
   describe command("dhcping -c #{ip} -h #{mac} -s #{ip}") do
     its(:stdout) {
       pending('This is broken in docker containers')
       is_expected.to match("Got answer from: #{ip}")
+    }
+  end
+
+  describe command("dhcping -c #{ip6} -h #{mac} -s #{ip6}") do
+    its(:stdout) {
+      pending('This is broken in docker containers')
+      is_expected.to match("Got answer from: #{ip6}")
     }
   end
 end
