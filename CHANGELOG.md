@@ -1,5 +1,9 @@
 # Changelog
 
+## 4.1.1
+
+* Correct listening on EL7 when using `$interface`
+
 ## 4.1.0
 
 * Make the OMAPI algorithm configurable
