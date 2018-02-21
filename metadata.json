@@ -1,6 +1,6 @@
 {
   "name": "theforeman-dhcp",
-  "version": "4.1.1",
+  "version": "4.1.2",
   "author": "theforeman",
   "summary": "Manage the ISC DHCP daemon",
   "license": "Apache-2.0",
