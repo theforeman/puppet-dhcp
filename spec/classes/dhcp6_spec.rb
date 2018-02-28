@@ -70,8 +70,6 @@ describe 'dhcp::dhcp6' do
 
       end
 
-      end
-
       describe "dhcp::dhcp6 class test all params on #{os}" do
         let(:overridden_params) do {
           :nameservers                 => ['2001:4860:4860::8888','2001:4860:4860::8844'],
