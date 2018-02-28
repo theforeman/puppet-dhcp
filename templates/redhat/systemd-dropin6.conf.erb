@@ -1,0 +1,3 @@
+[Service]
+ExecStart=
+ExecStart=/usr/sbin/dhcpd -f -6 -cf /etc/dhcp/dhcpd6.conf -user dhcpd -group dhcpd --no-pid <%= @interfaces.join(' ') %>
