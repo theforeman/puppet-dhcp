@@ -6,7 +6,6 @@ class dhcp::params {
   case $::osfamily {
     'Debian': {
       $dhcp_dir     = '/etc/dhcp'
-      $dhcp_conf6   = 'dhcpd'
       $packagename  = 'isc-dhcp-server'
       $servicename  = 'isc-dhcp-server'
       $servicename6 = 'isc-dhcp-server'
@@ -16,35 +15,43 @@ class dhcp::params {
         '00:07' => 'grub2/bootx64.efi',
         '00:09' => 'grub2/bootx64.efi',
       }
+      case $::operatingsystemrelease {
+        '8': {
+          $supportv6 = false
+        }
+        default: {
+          $supportv6 = true
+        }
+      }
     }
 
     /^(FreeBSD|DragonFly)$/: {
       $dhcp_dir     = '/usr/local/etc'
       $packagename  = 'isc-dhcp43-server'
-      $dhcp_conf6   = 'dhcpd'
       $servicename  = 'isc-dhcpd'
       $servicename6 = 'isc-dhcpd'
       $root_group   = 'wheel'
+      $supportv6    = false
       $bootfiles    = {}
     }
 
     'Archlinux': {
       $dhcp_dir     = '/etc'
-      $dhcp_conf6   = 'dhcpd6'
       $packagename  = 'dhcp'
       $servicename  = 'dhcpd4'
       $servicename6 = 'dhcpd6'
       $root_group   = 'root'
-      $bootfiles   = {}
+      $supportv6    = true
+      $bootfiles    = {}
     }
 
     'RedHat': {
       $dhcp_dir     = '/etc/dhcp'
-      $dhcp_conf6   = 'dhcpd6'
       $packagename  = 'dhcp'
       $servicename  = 'dhcpd'
       $servicename6 = 'dhcpd6'
       $root_group   = 'root'
+      $supportv6    = true
       if $::operatingsystemrelease =~ /^[0-6]\./ {
         $bootfiles = {
           '00:07' => 'grub/grubx64.efi',

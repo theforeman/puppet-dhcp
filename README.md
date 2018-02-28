@@ -37,6 +37,7 @@ DHCPD6 can be deployed by defining the following class. Note, class dhcp is requ
       dnsdomain    => [
         'dc1.example.net',
         ],
+      interfaces   => ['eth0'],
       nameservers  => ['3ffe:501:ffff:100:200:ff:fe00:3f3e'],
     }
 

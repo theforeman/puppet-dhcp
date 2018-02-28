@@ -18,7 +18,7 @@ define dhcp::pool6 (
 ) {
 
   concat::fragment { "dhcp6.conf+70_${name}.dhcp":
-    target  => "${::dhcp::dhcp6::dhcp_dir}/${::dhcp::dhcp6::dhcp_conf6}.conf",
+    target  => "${::dhcp::dhcp6::dhcp_dir}/dhcpd6.conf",
     content => template('dhcp/dhcpd6.pool.erb'),
     order   => "70-${name}",
   }

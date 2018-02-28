@@ -1,0 +1,5 @@
+<% if @dhcp6_interfaces -%>
+DHCPDv6_CONF=<%= @dhcp_dir %>/dhcpd6.conf
+DHCPDv6_PID=/var/run/dhcpd6.pid
+INTERFACESv6="<%= @dhcp6_interfaces.join(' ') %>"
+<% end -%>
