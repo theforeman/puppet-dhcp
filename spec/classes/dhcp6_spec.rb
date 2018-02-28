@@ -7,6 +7,13 @@ describe 'dhcp::dhcp6' do
         facts
       end
 
+      let(:params) do
+        {
+          :interfaces => ['eth0'],
+        }.merge(overridden_params)
+      end
+
+
       conf_path = case os
                   when /^FreeBSD/i
                     '/usr/local/etc'
@@ -16,6 +23,8 @@ describe 'dhcp::dhcp6' do
                     '/etc/dhcp'
                   end
       describe "dhcp::dhcp6 class without any parameters on #{os}" do
+        let(:overridden_params) do {
+        } end
 
         it { should compile.with_all_deps }
 
@@ -37,7 +46,7 @@ describe 'dhcp::dhcp6' do
       end
 
       describe "dhcp::dhcp6 class test all params on #{os}" do
-        let(:params) do {
+        let(:overridden_params) do {
           :nameservers                 => ['2001:4860:4860::8888','2001:4860:4860::8844'],
           :default_lease_time6         => 2592000,
           :default_preferred_lifetime6 => 604800,

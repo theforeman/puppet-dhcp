@@ -70,12 +70,13 @@ class dhcp (
   # Only debian and ubuntu have this style of defaults for startup.
   case $::osfamily {
     'Debian': {
-      concat{ '/etc/default/isc-dhcp-server':
-        owner  => 'root',
-        group  => 'root',
-        mode   => '0644',
-        before => Package[$packagename],
-        notify => Service[$servicename],
+      file { '/etc/default/isc-dhcp-server':
+        owner   => 'root',
+        group   => 'root',
+        mode    => '0644',
+        before  => Package[$packagename],
+        notify  => Service[$servicename],
+        content => template('dhcp/debian/default_isc-dhcp-server'),
       }
     }
     'RedHat': {
@@ -108,12 +109,6 @@ class dhcp (
     }
     default: {
     }
-  }
-
-  concat::fragment { 'isc-dhcp-server.dhcp':
-    target  => '/etc/default/isc-dhcp-server',
-    content => template('dhcp/debian/default_isc-dhcp-server'),
-    order   => '01',
   }
 
   concat { "${dhcp_dir}/dhcpd.conf":

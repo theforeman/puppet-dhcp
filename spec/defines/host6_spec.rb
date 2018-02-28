@@ -16,7 +16,7 @@ describe 'dhcp::host6' do
         end
 
         let :pre_condition do
-          "class { '::dhcp::dhcp6': }"
+          "class { '::dhcp::dhcp6': interfaces => ['eth0']}"
         end
 
         it {

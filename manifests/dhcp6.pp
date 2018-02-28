@@ -47,20 +47,21 @@ class dhcp::dhcp6 (
       # Only debian and ubuntu have this style of defaults for startup.
       case $::osfamily {
         'Debian': {
-          concat{ '/etc/default/isc-dhcp-server':
-            owner  => 'root',
-            group  => 'root',
-            mode   => '0644',
-            before => Package[$packagename],
-            notify => Service[$servicename6],
+          file { '/etc/default/isc-dhcp-server':
+            owner   => 'root',
+            group   => 'root',
+            mode    => '0644',
+            before  => Package[$packagename],
+            notify  => Service[$servicename6],
+            content => template('dhcp/debian/default_isc-dhcp-server'),
           }
         }
         'RedHat': {
           if versioncmp($::operatingsystemmajrelease, '7') >= 0 {
             include ::systemd
             systemd::dropin_file { 'interfaces.conf':
-              unit    => 'dhcpd.service',
-              content => template('dhcp/redhat/systemd-dropin.conf.erb'),
+              unit    => 'dhcpd6.service',
+              content => template('dhcp/redhat/systemd-dropin6.conf.erb'),
             }
           } else {
             file { '/etc/sysconfig/dhcpd':
@@ -86,12 +87,6 @@ class dhcp::dhcp6 (
         default: {
         }
       }
-    }
-
-    concat::fragment { 'isc-dhcp-server.dhcp6':
-      target  => '/etc/default/isc-dhcp-server',
-      content => template('dhcp/debian/default_isc-dhcp-server6'),
-      order   => '02',
     }
 
     concat { "${dhcp_dir}/dhcpd6.conf":

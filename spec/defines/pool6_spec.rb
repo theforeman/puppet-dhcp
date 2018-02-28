@@ -10,7 +10,7 @@ describe 'dhcp::pool6' do
       end
 
       let :pre_condition do
-        "class { '::dhcp::dhcp6': }"
+        "class { '::dhcp::dhcp6': interfaces => ['eth0']}"
       end
 
       describe 'minimal parameters' do
