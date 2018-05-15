@@ -21,7 +21,7 @@ authoritative;
 
 <% if (@dnsupdatekey && !@dnsupdatekey.empty?) || @ddns_updates -%>
 ddns-updates on;
-ddns-update-style interim;
+ddns-update-style <%= @ddns_update_style %>;
 update-static-leases on;
 use-host-decl-names on;
 
