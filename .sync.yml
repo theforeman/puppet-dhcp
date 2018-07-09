@@ -1,9 +1,9 @@
 ---
 .travis.yml:
   beaker_sets:
-    - docker/centos-7
-    - docker/debian-8
-    - docker/debian-9
+    - centos7-64
+    - debian8-64
+    - debian9-64
 .puppet-lint.rc:
   extra_disabled_lint_checks:
     - 'documentation'
