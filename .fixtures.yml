@@ -3,7 +3,3 @@ fixtures:
     concat:      'https://github.com/puppetlabs/puppetlabs-concat'
     stdlib:      'https://github.com/puppetlabs/puppetlabs-stdlib.git'
     systemd:     'https://github.com/camptocamp/puppet-systemd'
-
-  symlinks:
-    dhcp: "#{source_dir}"
-    test_module: "#{source_dir}/spec/static_fixtures/test_module"
