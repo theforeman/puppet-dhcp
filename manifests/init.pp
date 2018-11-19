@@ -69,7 +69,7 @@ class dhcp (
   }
 
   # Only debian and ubuntu have this style of defaults for startup.
-  case $::osfamily {
+  case $facts['osfamily'] {
     'Debian': {
       file{ '/etc/default/isc-dhcp-server':
         ensure  => file,
@@ -82,8 +82,8 @@ class dhcp (
       }
     }
     'RedHat': {
-      if versioncmp($::operatingsystemmajrelease, '7') >= 0 {
-        include ::systemd
+      if versioncmp($facts['operatingsystemmajrelease'], '7') >= 0 {
+        include systemd
         systemd::dropin_file { 'interfaces.conf':
           unit    => 'dhcpd.service',
           content => template('dhcp/redhat/systemd-dropin.conf.erb'),
