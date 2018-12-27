@@ -1,3 +1,4 @@
+# Define a DHCP pool
 define dhcp::pool (
   String $network,
   String $mask,

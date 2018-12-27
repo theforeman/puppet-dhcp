@@ -1,3 +1,13 @@
+# Define a DHCP host reservation
+#
+# @param ip
+#   The IP address in the reservation
+#
+# @param mac
+#   The host's MAC address
+#
+# @param comment
+#   An optional comment for the host
 define dhcp::host (
   String $ip,
   Dhcp::Macaddress $mac,

@@ -1,3 +1,9 @@
+# Define a DHCP class
+#
+# @param parameters
+#   The parameters for the class definition. When specified as a string, it
+#   will be used verbatim with a semi colon at the end. When specified as an
+#   array, every string is used and appended with a semi colon.
 define dhcp::dhcp_class (
   Variant[Array[String], String] $parameters,
 ) {

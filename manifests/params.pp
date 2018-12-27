@@ -1,3 +1,5 @@
+# Default parameters
+# @api private
 class dhcp::params {
 
   $dnsdomain = [$facts['domain']]

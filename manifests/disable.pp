@@ -1,6 +1,4 @@
-# ----------
 # Remove and Disable the DHCP server
-# ----------
 class dhcp::disable {
   include dhcp::params
 
