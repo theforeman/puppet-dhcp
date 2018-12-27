@@ -1,3 +1,7 @@
+# Define a failover peer
+#
+# @param peer_address
+#   The address of the failover peer.
 class dhcp::failover (
   String $peer_address,
   Enum['primary', 'secondary'] $role = 'primary',
