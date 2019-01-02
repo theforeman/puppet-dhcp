@@ -20,7 +20,7 @@ class dhcp::params {
 
     /^(FreeBSD|DragonFly)$/: {
       $dhcp_dir    = '/usr/local/etc'
-      $packagename = 'isc-dhcp43-server'
+      $packagename = 'isc-dhcp44-server'
       $servicename = 'isc-dhcpd'
       $root_group  = 'wheel'
       $bootfiles   = {}
