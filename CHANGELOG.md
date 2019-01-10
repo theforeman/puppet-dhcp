@@ -1,5 +1,15 @@
 # Changelog
 
+## [4.3.0](https://github.com/theforeman/puppet-dhcp/tree/4.3.0) (2019-01-10)
+
+[Full Changelog](https://github.com/theforeman/puppet-dhcp/compare/4.2.0...4.3.0)
+
+**Implemented enhancements:**
+
+- update FreeBSD pkg name and support 12.x [\#144](https://github.com/theforeman/puppet-dhcp/pull/144) ([mmoll](https://github.com/mmoll))
+- Create some puppet-strings documentation [\#143](https://github.com/theforeman/puppet-dhcp/pull/143) ([ekohl](https://github.com/ekohl))
+- Support Puppet 6 [\#141](https://github.com/theforeman/puppet-dhcp/pull/141) ([ekohl](https://github.com/ekohl))
+
 ## [4.2.0](https://github.com/theforeman/puppet-dhcp/tree/4.2.0) (2018-10-04)
 
 [Full Changelog](https://github.com/theforeman/puppet-dhcp/compare/4.1.1...4.2.0)
