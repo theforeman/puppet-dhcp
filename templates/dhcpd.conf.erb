@@ -17,6 +17,8 @@ max-lease-time <%= @max_lease_time %>;
 # Make the server authoritative for the network segments that
 # are configured, and tell it to send DHCPNAKs to bogus requests
 authoritative;
+<% else %>
+not authoritative;
 <% end -%>
 
 <% if (@dnsupdatekey && !@dnsupdatekey.empty?) || @ddns_updates -%>
