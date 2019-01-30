@@ -18,18 +18,18 @@ describe 'Installation with include statement' do
 
   let(:pp) do
     <<-EOS
-    $interface = $::facts['networking']['interfaces'][#{interface}]
+    $interface = $facts['networking']['interfaces'][#{interface}]
 
     file { '/etc/dhcp.include':
       ensure => file,
     }
 
-    class { '::dhcp':
+    class { 'dhcp':
       interfaces => ['#{interface}'],
       includes   => '/etc/dhcp.include',
     }
 
-    ::dhcp::pool { "default subnet":
+    dhcp::pool { "default subnet":
       network => $interface['network'],
       mask    => $interface['netmask'],
     }

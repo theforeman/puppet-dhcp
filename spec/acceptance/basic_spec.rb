@@ -18,18 +18,18 @@ describe 'Simple installation' do
 
   let(:pp) do
     <<-EOS
-    $interface = $::facts['networking']['interfaces'][#{interface}]
+    $interface = $facts['networking']['interfaces'][#{interface}]
 
-    class { '::dhcp':
+    class { 'dhcp':
       interfaces => ['#{interface}'],
     }
 
-    ::dhcp::pool { "default subnet":
+    dhcp::pool { "default subnet":
       network => $interface['network'],
       mask    => $interface['netmask'],
     }
 
-    ::dhcp::host { $::fqdn:
+    dhcp::host { $facts['fqdn']:
       ip  => $interface['ip'],
       mac => $interface['mac'],
     }

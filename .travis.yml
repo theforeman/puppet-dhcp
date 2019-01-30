@@ -3,7 +3,6 @@
 #   https://github.com/theforeman/foreman-installer-modulesync
 rvm:
   - 2.1.9
-  - 2.2.6
   - 2.3.0
   - 2.4.1
 env:
@@ -14,24 +13,80 @@ matrix:
   include:
     - rvm: 2.4.1
       env: PUPPET_VERSION=5.0
+    - rvm: 2.5.1
+      env: PUPPET_VERSION=5.0
+    - rvm: 2.5.1
+      env: PUPPET_VERSION=6.0
     # Acceptance tests
-    - rvm: 2.3.1
-      dist: trusty
-      env: PUPPET_INSTALL_TYPE=agent BEAKER_debug=true BEAKER_set=docker/centos-7
+    - rvm: 2.5.1
+      env:
+        - BEAKER_PUPPET_COLLECTION=puppet5
+        - BEAKER_setfile=centos7-64{hostname=centos7-64.example.com}
       script: bundle exec rake beaker
       services: docker
       bundler_args: --without development
-    - rvm: 2.3.1
-      dist: trusty
-      env: PUPPET_INSTALL_TYPE=agent BEAKER_debug=true BEAKER_set=docker/debian-8
+      before_install:
+        - echo '{"ipv6":true,"fixed-cidr-v6":"2001:db8:1::/64"}' | sudo tee /etc/docker/daemon.json
+        - sudo service docker restart
+
+    - rvm: 2.5.1
+      env:
+        - BEAKER_PUPPET_COLLECTION=puppet6
+        - BEAKER_setfile=centos7-64{hostname=centos7-64.example.com}
       script: bundle exec rake beaker
       services: docker
       bundler_args: --without development
-    - rvm: 2.3.1
-      dist: trusty
-      env: PUPPET_INSTALL_TYPE=agent BEAKER_debug=true BEAKER_set=docker/debian-9
+      before_install:
+        - echo '{"ipv6":true,"fixed-cidr-v6":"2001:db8:1::/64"}' | sudo tee /etc/docker/daemon.json
+        - sudo service docker restart
+
+    - rvm: 2.5.1
+      env:
+        - BEAKER_PUPPET_COLLECTION=puppet5
+        - BEAKER_setfile=debian8-64{hostname=debian8-64.example.com}
       script: bundle exec rake beaker
       services: docker
       bundler_args: --without development
+      before_install:
+        - echo '{"ipv6":true,"fixed-cidr-v6":"2001:db8:1::/64"}' | sudo tee /etc/docker/daemon.json
+        - sudo service docker restart
+
+    - rvm: 2.5.1
+      env:
+        - BEAKER_PUPPET_COLLECTION=puppet6
+        - BEAKER_setfile=debian8-64{hostname=debian8-64.example.com}
+      script: bundle exec rake beaker
+      services: docker
+      bundler_args: --without development
+      before_install:
+        - echo '{"ipv6":true,"fixed-cidr-v6":"2001:db8:1::/64"}' | sudo tee /etc/docker/daemon.json
+        - sudo service docker restart
+
+    - rvm: 2.5.1
+      env:
+        - BEAKER_PUPPET_COLLECTION=puppet5
+        - BEAKER_setfile=debian9-64{hostname=debian9-64.example.com}
+      script: bundle exec rake beaker
+      services: docker
+      bundler_args: --without development
+      before_install:
+        - echo '{"ipv6":true,"fixed-cidr-v6":"2001:db8:1::/64"}' | sudo tee /etc/docker/daemon.json
+        - sudo service docker restart
+
+    - rvm: 2.5.1
+      env:
+        - BEAKER_PUPPET_COLLECTION=puppet6
+        - BEAKER_setfile=debian9-64{hostname=debian9-64.example.com}
+      script: bundle exec rake beaker
+      services: docker
+      bundler_args: --without development
+      before_install:
+        - echo '{"ipv6":true,"fixed-cidr-v6":"2001:db8:1::/64"}' | sudo tee /etc/docker/daemon.json
+        - sudo service docker restart
+
 bundler_args: --without system_tests development
+before_install:
+  - if [ $TRAVIS_RUBY_VERSION = 2.1.9 ] ; then
+      gem install -v 1.17.3 bundler --no-rdoc --no-ri;
+    fi
 sudo: false

@@ -1,19 +1,19 @@
 $ddnskeyname = 'dhcp_updater'
 
-class { '::dhcp':
+class { 'dhcp':
   dnsdomain    => [
     'example.com',
     '1.1.10.in-addr.arpa',
   ],
   nameservers  => ['10.1.1.10'],
   interfaces   => ['eth0'],
-  dnsupdatekey => "/etc/bind/keys.d/${::ddnskeyname}",
-  require      => Bind::Key[$::ddnskeyname],
+  dnsupdatekey => "/etc/bind/keys.d/${ddnskeyname}",
+  require      => Bind::Key[$ddnskeyname],
   pxeserver    => '10.1.1.5',
   pxefilename  => 'pxelinux.0',
 }
 
-class { '::dhcp::failover':
+class { 'dhcp::failover':
   role         => 'primary',
   peer_address => '10.1.1.20',
 }

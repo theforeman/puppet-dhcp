@@ -1,13 +1,16 @@
 # This file is managed centrally by modulesync
 #   https://github.com/theforeman/foreman-installer-modulesync
 
+RSpec.configure do |c|
+  c.mock_with :rspec
+end
+
 require 'puppetlabs_spec_helper/module_spec_helper'
 
 require 'rspec-puppet-facts'
 include RspecPuppetFacts
 
                                                                              # Original fact sources:
-add_custom_fact :concat_basedir, '/tmp'                                      # puppetlabs-concat
 add_custom_fact :puppet_environmentpath, '/etc/puppetlabs/code/environments' # puppetlabs-stdlib
 add_custom_fact :root_home, '/root'                                          # puppetlabs-stdlib
 
@@ -63,3 +66,5 @@ def verify_concat_fragment_exact_contents(subject, title, expected_lines)
   content = subject.resource('concat::fragment', title).send(:parameters)[:content]
   expect(content.split(/\n/).reject { |line| line =~ /(^#|^$|^\s+#)/ }).to match_array(expected_lines)
 end
+
+Dir["./spec/support/**/*.rb"].sort.each { |f| require f }

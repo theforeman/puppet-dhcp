@@ -1,6 +1,6 @@
 {
   "name": "theforeman-dhcp",
-  "version": "4.1.1",
+  "version": "4.3.0",
   "author": "theforeman",
   "summary": "Manage the ISC DHCP daemon",
   "license": "Apache-2.0",
@@ -17,21 +17,21 @@
   "dependencies": [
     {
       "name": "camptocamp/systemd",
-      "version_requirement": ">= 1.0.0 < 2.0.0"
+      "version_requirement": ">= 1.0.0 < 3.0.0"
     },
     {
       "name": "puppetlabs/concat",
-      "version_requirement": ">= 1.0.0 < 5.0.0"
+      "version_requirement": ">= 1.0.0 < 6.0.0"
     },
     {
       "name": "puppetlabs/stdlib",
-      "version_requirement": ">= 4.13.0 < 5.0.0"
+      "version_requirement": ">= 4.13.0 < 6.0.0"
     }
   ],
   "requirements": [
     {
       "name": "puppet",
-      "version_requirement": ">= 4.6.1 < 6.0.0"
+      "version_requirement": ">= 4.6.1 < 7.0.0"
     }
   ],
   "operatingsystem_support": [
@@ -59,14 +59,12 @@
     {
       "operatingsystem": "Fedora",
       "operatingsystemrelease": [
-        "25",
         "26"
       ]
     },
     {
       "operatingsystem": "Debian",
       "operatingsystemrelease": [
-        "7",
         "8",
         "9"
       ]
@@ -75,7 +73,8 @@
       "operatingsystem": "Ubuntu",
       "operatingsystemrelease": [
         "14.04",
-        "16.04"
+        "16.04",
+        "18.04"
       ]
     },
     {
@@ -85,7 +84,8 @@
       "operatingsystem": "FreeBSD",
       "operatingsystemrelease": [
         "10",
-        "11"
+        "11",
+        "12"
       ]
     },
     {

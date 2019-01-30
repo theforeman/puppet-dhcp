@@ -93,6 +93,7 @@ describe 'dhcp' do
           :authoritative => true,
           :ddns_domainname => 'example.com',
           :ddns_rev_domainname => 'in-addr.arpa',
+          :ddns_update_style => 'standard',
           :includes => ['myinclude1', 'myinclude2'],
         } end
 
@@ -110,7 +111,7 @@ describe 'dhcp' do
             'max-lease-time 86400;',
             'authoritative;',
             'ddns-updates on;',
-            'ddns-update-style interim;',
+            'ddns-update-style standard;',
             'update-static-leases on;',
             'use-host-decl-names on;',
             'ddns-domainname "example.com";',

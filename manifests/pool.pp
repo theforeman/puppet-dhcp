@@ -1,3 +1,4 @@
+# Define a DHCP pool
 define dhcp::pool (
   String $network,
   String $mask,
@@ -19,7 +20,7 @@ define dhcp::pool (
 ) {
 
   concat::fragment { "dhcp.conf+70_${name}.dhcp":
-    target  => "${::dhcp::dhcp_dir}/dhcpd.conf",
+    target  => "${dhcp::dhcp_dir}/dhcpd.conf",
     content => template('dhcp/dhcpd.pool.erb'),
     order   => "70-${name}",
   }
