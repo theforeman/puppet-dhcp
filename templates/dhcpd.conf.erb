@@ -1,3 +1,11 @@
+#
+# READ: This file is managed by puppet (or foreman-installer) and not by
+# Foreman application. Any updates for Subnets in Foreman database are not
+# reflected in this configuration and vice versa. Configuration updates like
+# DNS servers or adding/removing subnets must be done both in Foreman
+# application and in this configuration preferably via foreman-installer. Use
+# hiera.yaml for multiple subnets.
+#
 # dhcpd.conf
 <% if @omapi -%>
 omapi-port 7911;
@@ -67,6 +75,7 @@ allow bootp;
 
 option fqdn.no-client-update    on;  # set the "O" and "S" flag bits
 option fqdn.rcode2            255;
+
 option pxegrub code 150 = text ;
 
 <% if @option_static_route -%>
