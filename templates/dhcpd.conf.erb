@@ -1,4 +1,6 @@
-# dhcpd.conf
+<% @config_comment.split("\n").each do |line| -%>
+<%= "# #{line}" %>
+<% end -%>
 <% if @omapi -%>
 omapi-port 7911;
 <% if @omapi_name && @omapi_key && !@omapi_key.empty? -%>
