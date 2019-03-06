@@ -332,6 +332,21 @@ describe 'dhcp' do
           ])
         }
       end
+
+      describe "with config_comment" do
+        context 'with multiple lines' do
+          let(:overridden_params) do {
+            :config_comment => "first line\nsecond line"
+          } end
+
+          it do
+            verify_concat_fragment_contents(catalogue, 'dhcp.conf+01_main.dhcp', [
+              '# first line',
+              '# second line',
+            ])
+          end
+        end
+      end
     end
   end
 end

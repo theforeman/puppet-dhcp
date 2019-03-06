@@ -36,6 +36,7 @@ class dhcp (
   Hash[String, Hash] $pools = {},
   Hash[String, Hash] $hosts = {},
   Variant[Array[String], Optional[String]] $includes = undef,
+  String $config_comment = 'dhcpd.conf',
 ) inherits dhcp::params {
 
   # In case people set interface instead of interfaces work around
