@@ -94,6 +94,10 @@ next-server <%= @pxeserver %>;
 <% unless @bootfiles.empty?
      bootf = @bootfiles.sort_by { |arch, file| arch } -%>
 option architecture code 93 = unsigned integer 16 ;
+<% if @ipxe_filename -%>
+if exists user-class and option user-class = "iPXE" {
+  filename "<%= @ipxe_filename %>";
+} els<% end -%>
 if option architecture = <%= bootf.first[0] %> {
   filename "<%= bootf.first[1] %>";
 <% if bootf.length > 1 -%>
