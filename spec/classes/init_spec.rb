@@ -76,14 +76,15 @@ describe 'dhcp' do
 
       describe "dhcp class parameters on #{os}" do
         let(:overridden_params) do {
-          :dnsupdatekey => 'mydnsupdatekey',
-          :ntpservers   => ['1.1.1.1', '1.1.1.2'],
-          :omapi_name   => 'mykeyname',
-          :omapi_key    => 'myomapikey',
-          :pxeserver    => '10.0.0.5',
-          :mtu          => 9000,
-          :pxefilename  => 'mypxefilename',
-          :bootfiles    => {
+          :dnsupdatekey  => 'mydnsupdatekey',
+          :ntpservers    => ['1.1.1.1', '1.1.1.2'],
+          :omapi_name    => 'mykeyname',
+          :omapi_key     => 'myomapikey',
+          :pxeserver     => '10.0.0.5',
+          :mtu           => 9000,
+          :pxefilename   => 'mypxefilename',
+          :ipxe_filename => 'myipxefilename',
+          :bootfiles     => {
             '00:00'       => 'pxelinux.0',
             '00:06'       => 'shim.efi',
             '00:07'       => 'shim.efi',
@@ -141,7 +142,9 @@ describe 'dhcp' do
             'set vendor-string = option vendor-class-identifier;',
             'next-server 10.0.0.5;',
             'option architecture code 93 = unsigned integer 16 ;',
-            'if option architecture = 00:00 {',
+            'if exists user-class and option user-class = "iPXE" {',
+            '  filename "myipxefilename";',
+            '} elsif option architecture = 00:00 {',
             '  filename "pxelinux.0";',
             '} elsif option architecture = 00:06 {',
             '  filename "shim.efi";',

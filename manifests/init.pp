@@ -18,6 +18,7 @@ class dhcp (
   Optional[String] $omapi_key = undef,
   Optional[String] $pxeserver = undef,
   String $pxefilename = $dhcp::params::pxefilename,
+  Optional[String] $ipxe_filename = undef,
   Optional[Integer[0]] $mtu  = undef,
   Hash[String, String] $bootfiles = $dhcp::params::bootfiles,
   String $logfacility = 'local7',
