@@ -37,7 +37,7 @@ class dhcp (
   Hash[String, Hash] $hosts = {},
   Variant[Array[String], Optional[String]] $includes = undef,
   String $config_comment = 'dhcpd.conf',
-  Optional[String] $service_ensure = undef,
+  Enum['running', 'unmanaged', 'stopped'] $service_ensure = 'running',
 ) inherits dhcp::params {
 
   # In case people set interface instead of interfaces work around
@@ -155,6 +155,11 @@ class dhcp (
   create_resources('dhcp::pool', $pools)
   create_resources('dhcp::host', $hosts)
 
+  $_service_ensure_real = $service_ensure ? {
+    'unmanaged' => undef,
+    default     => $service_ensure,
+  }
+  
   service { $servicename:
     ensure => $service_ensure,
     enable => true,
