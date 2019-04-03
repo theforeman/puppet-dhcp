@@ -161,7 +161,7 @@ class dhcp (
   }
   
   service { $servicename:
-    ensure => $service_ensure,
+    ensure => $_service_ensure_real,
     enable => true,
   }
 }
