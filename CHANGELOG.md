@@ -1,5 +1,22 @@
 # Changelog
 
+## [5.0.0](https://github.com/theforeman/puppet-dhcp/tree/5.0.0) (2019-04-15)
+
+[Full Changelog](https://github.com/theforeman/puppet-dhcp/compare/4.3.0...5.0.0)
+
+**Breaking changes:**
+
+- drop Puppet 4 [\#152](https://github.com/theforeman/puppet-dhcp/pull/152) ([mmoll](https://github.com/mmoll))
+- drop EOL OSes [\#151](https://github.com/theforeman/puppet-dhcp/pull/151) ([mmoll](https://github.com/mmoll))
+
+**Implemented enhancements:**
+
+- Make the config header configurable [\#149](https://github.com/theforeman/puppet-dhcp/pull/149) ([ekohl](https://github.com/ekohl))
+
+**Fixed bugs:**
+
+- fix missing authoritative statement [\#147](https://github.com/theforeman/puppet-dhcp/pull/147) ([qs5779](https://github.com/qs5779))
+
 ## [4.3.0](https://github.com/theforeman/puppet-dhcp/tree/4.3.0) (2019-01-10)
 
 [Full Changelog](https://github.com/theforeman/puppet-dhcp/compare/4.2.0...4.3.0)
