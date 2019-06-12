@@ -1,5 +1,14 @@
 # Changelog
 
+## [5.0.1](https://github.com/theforeman/puppet-dhcp/tree/5.0.1) (2019-06-12)
+
+[Full Changelog](https://github.com/theforeman/puppet-dhcp/compare/5.0.0...5.0.1)
+
+**Merged pull requests:**
+
+- allow newer puppetlabs-concat version [\#157](https://github.com/theforeman/puppet-dhcp/pull/157) ([mmoll](https://github.com/mmoll))
+- Allow `puppetlabs/stdlib` 6.x [\#156](https://github.com/theforeman/puppet-dhcp/pull/156) ([alexjfisher](https://github.com/alexjfisher))
+
 ## [5.0.0](https://github.com/theforeman/puppet-dhcp/tree/5.0.0) (2019-04-15)
 
 [Full Changelog](https://github.com/theforeman/puppet-dhcp/compare/4.3.0...5.0.0)
