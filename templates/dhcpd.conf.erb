@@ -89,7 +89,13 @@ option <%= option %>;
 <% end -%>
 
 <% if @pxeserver && @pxefilename -%>
-# Bootfile Handoff
+# required for UEFI HTTP boot
+if substring(option vendor-class-identifier, 0, 10) = "HTTPClient" {
+  option vendor-class-identifier "HTTPClient";
+}
+# promote vendor in dhcpd.leases
+set vendor-string = option vendor-class-identifier;
+# next server and filename options
 next-server <%= @pxeserver %>;
 <% unless @bootfiles.empty?
      bootf = @bootfiles.sort_by { |arch, file| arch } -%>
