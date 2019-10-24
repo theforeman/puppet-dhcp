@@ -1,5 +1,13 @@
 # Changelog
 
+## [5.1.0](https://github.com/theforeman/puppet-dhcp/tree/5.1.0) (2019-10-24)
+
+[Full Changelog](https://github.com/theforeman/puppet-dhcp/compare/5.0.1...5.1.0)
+
+**Implemented enhancements:**
+
+- Added UEFI HTTP Boot support [\#160](https://github.com/theforeman/puppet-dhcp/pull/160) ([lzap](https://github.com/lzap))
+
 ## [5.0.1](https://github.com/theforeman/puppet-dhcp/tree/5.0.1) (2019-06-12)
 
 [Full Changelog](https://github.com/theforeman/puppet-dhcp/compare/5.0.0...5.0.1)
