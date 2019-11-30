@@ -4,6 +4,7 @@
     - centos7-64
     - debian8-64
     - debian9-64
+    - debian10-64
 .puppet-lint.rc:
   extra_disabled_lint_checks:
     - 'documentation'
