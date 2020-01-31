@@ -38,6 +38,7 @@ class dhcp (
   Optional[String] $ddns_rev_domainname = undef,
   Enum['none', 'interim', 'standard'] $ddns_update_style = 'interim',
   Optional[Boolean] $client_updates = undef,
+  Hash[String, Hash] $subnets = {},
   Hash[String, Hash] $pools = {},
   Hash[String, Hash] $hosts = {},
   Variant[Array[String], Optional[String]] $includes = undef,
@@ -154,6 +155,7 @@ class dhcp (
     order   => '01',
   }
 
+  create_resources('dhcp::subnet', $subnets)
   create_resources('dhcp::pool', $pools)
   create_resources('dhcp::host', $hosts)
 
