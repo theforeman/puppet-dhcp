@@ -40,7 +40,11 @@ class dhcp::params {
 
     'RedHat': {
       $dhcp_dir    = '/etc/dhcp'
-      $packagename = 'dhcp'
+      if versioncmp($facts['os']['release']['major'], '8') >= 0 {
+        $packagename = 'dhcp-server'
+      } else {
+        $packagename = 'dhcp'
+      }
       $servicename = 'dhcpd'
       $root_group  = 'root'
       if $facts['os']['release']['full'] =~ /^[0-6]\./ {
