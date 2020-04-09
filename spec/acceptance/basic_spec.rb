@@ -2,14 +2,14 @@ require 'spec_helper_acceptance'
 
 describe 'Simple installation' do
   before(:context) do
-    if fact('osfamily') == 'RedHat'
+    if fact('os.family') == 'RedHat'
       on default, puppet('resource package epel-release ensure=present')
     end
     on default, puppet('resource package dhcping ensure=present')
   end
 
   interface = 'eth0'
-  service_name = case fact('osfamily')
+  service_name = case fact('os.family')
                  when 'Debian'
                    'isc-dhcp-server'
                  else

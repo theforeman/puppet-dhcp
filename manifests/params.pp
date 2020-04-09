@@ -2,10 +2,14 @@
 # @api private
 class dhcp::params {
 
-  $dnsdomain = [$facts['domain']]
+  $dnsdomain = $facts['os']['family'] ? {
+    'Archlinux' => [$facts['domain']], # lint:ignore:legacy_facts
+    default     => [$facts['networking']['domain']],
+  }
+
   $pxefilename = 'pxelinux.0'
 
-  case $facts['osfamily'] {
+  case $facts['os']['family'] {
     'Debian': {
       $dhcp_dir    = '/etc/dhcp'
       $packagename = 'isc-dhcp-server'
@@ -39,7 +43,7 @@ class dhcp::params {
       $packagename = 'dhcp'
       $servicename = 'dhcpd'
       $root_group  = 'root'
-      if $facts['operatingsystemrelease'] =~ /^[0-6]\./ {
+      if $facts['os']['release']['full'] =~ /^[0-6]\./ {
         $bootfiles = {
           '00:07' => 'grub/grubx64.efi',
           '00:09' => 'grub/grubx64.efi',
@@ -54,7 +58,7 @@ class dhcp::params {
     }
 
     default: {
-      fail("${facts['hostname']}: This module does not support osfamily ${facts['osfamily']}")
+      fail("${facts['networking']['hostname']}: This module does not support osfamily ${facts['os']['family']}")
     }
   }
 }
