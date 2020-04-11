@@ -7,6 +7,3 @@
     - debian10-64
     - ubuntu1604-64
     - ubuntu1804-64
-.puppet-lint.rc:
-  extra_disabled_lint_checks:
-    - 'documentation'
