@@ -2,6 +2,33 @@
 #
 # @param peer_address
 #   The address of the failover peer.
+#
+# @param role
+#   Primary or Secondary role in DHCP failover relationship.
+#
+# @param address
+#   IP Address of the DHCP failover server.
+#
+# @param port
+#   Port to listen for failover messages.
+#
+# @param max_response_delay
+#   max-response-delay in seconds before failover peer is considered failed.
+#
+# @param max_unacked_updated
+#   max-unacked-updates before the server will wait to send additional packets to peer.
+#
+# @param mclt
+#   MCLT, the maximum time a lease may be extended beyond expiration set by DHCP peer.
+#
+# @param load_split
+#   Load split between the DHCP servers as fraction out of 256.
+#
+# @param load_balance
+#   Load balance max seconds, cutoff after which load balancing is disabled.
+#
+# @param omapi_key
+#   OMAPI key to cryptographically sign traffic if OMAPI protocol is enabled.
 class dhcp::failover (
   String $peer_address,
   Enum['primary', 'secondary'] $role = 'primary',
