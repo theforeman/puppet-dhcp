@@ -38,6 +38,10 @@ describe 'Simple installation' do
 
   it_behaves_like 'a idempotent resource'
 
+  describe file("/etc/dhcp/dhcpd.conf") do
+    its(:content) { should_not match %r{option domain-name-servers } }
+  end
+
   describe service(service_name) do
     it { is_expected.to be_enabled }
     it { is_expected.to be_running }

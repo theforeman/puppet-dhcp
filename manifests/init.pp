@@ -60,7 +60,7 @@ class dhcp (
     $bootp_real = $bootp
   }
 
-  $dnsupdateserver_real = pick($dnsupdateserver, $nameservers[0])
+  $dnsupdateserver_real = pick_default($dnsupdateserver, $nameservers[0])
 
   package { $packagename:
     ensure   => installed,

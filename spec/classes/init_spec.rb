@@ -33,7 +33,6 @@ describe 'dhcp' do
             'not authoritative;',
             'ddns-update-style none;',
             'option domain-name "example.com";',
-            'option domain-name-servers 8.8.8.8, 8.8.4.4;',
             "option ntp-servers none;",
             'allow booting;',
             'allow bootp;',
@@ -76,6 +75,7 @@ describe 'dhcp' do
         let(:params) do
           super().merge(
             :dnsupdatekey  => 'mydnsupdatekey',
+            :nameservers   => ['8.8.8.8', '8.8.4.4'],
             :ntpservers    => ['1.1.1.1', '1.1.1.2'],
             :omapi_name    => 'mykeyname',
             :omapi_key     => 'myomapikey',
@@ -169,7 +169,12 @@ describe 'dhcp' do
       end
 
       describe "with ddns-updates without key" do
-        let(:params) { super().merge(ddns_updates: true) }
+        let(:params) do
+          super().merge(
+            ddns_updates: true,
+            nameservers: ['8.8.8.8', '8.8.4.4'],
+          )
+        end
 
         it { should compile.with_all_deps }
 
@@ -212,7 +217,6 @@ describe 'dhcp' do
             'not authoritative;',
             'ddns-update-style none;',
             'option domain-name "example.com";',
-            'option domain-name-servers 8.8.8.8, 8.8.4.4;',
             "option ntp-servers none;",
             'allow booting;',
             'allow bootp;',
@@ -246,7 +250,6 @@ describe 'dhcp' do
               'not authoritative;',
               'ddns-update-style none;',
               'option domain-name "example.com";',
-              'option domain-name-servers 8.8.8.8, 8.8.4.4;',
               "option ntp-servers none;",
               'allow booting;',
               'option fqdn.no-client-update    on;  # set the "O" and "S" flag bits',
@@ -271,7 +274,6 @@ describe 'dhcp' do
               'not authoritative;',
               'ddns-update-style none;',
               'option domain-name "example.com";',
-              'option domain-name-servers 8.8.8.8, 8.8.4.4;',
               "option ntp-servers none;",
               'allow booting;',
               'allow bootp;',
@@ -297,7 +299,6 @@ describe 'dhcp' do
               'not authoritative;',
               'ddns-update-style none;',
               'option domain-name "example.com";',
-              'option domain-name-servers 8.8.8.8, 8.8.4.4;',
               "option ntp-servers none;",
               'allow booting;',
               'option fqdn.no-client-update    on;  # set the "O" and "S" flag bits',
