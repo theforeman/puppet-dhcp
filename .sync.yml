@@ -1,4 +1,7 @@
 ---
+.puppet-lint.rc:
+  extra_disabled_lint_checks:
+    - parameter_documentation
 .travis.yml:
   beaker_sets:
     - centos7-64
