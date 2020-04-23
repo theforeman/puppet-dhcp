@@ -18,7 +18,7 @@ describe 'Installation with include statement' do
 
   let(:pp) do
     <<-EOS
-    $interface = $facts['networking']['interfaces'][#{interface}]
+    $interface = $facts['networking']['interfaces']['#{interface}']
 
     file { '/etc/dhcp.include':
       ensure => file,

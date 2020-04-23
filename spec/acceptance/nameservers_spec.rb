@@ -18,7 +18,7 @@ describe 'with empty nameservers list' do
 
   let(:pp) do
     <<-EOS
-    $interface = $facts['networking']['interfaces'][#{interface}]
+    $interface = $facts['networking']['interfaces']['#{interface}']
 
     class { 'dhcp':
       interfaces  => ['#{interface}'],
@@ -76,7 +76,7 @@ describe 'with a non-empty nameservers list' do
 
   let(:pp) do
     <<-EOS
-    $interface = $facts['networking']['interfaces'][#{interface}]
+    $interface = $facts['networking']['interfaces']['#{interface}']
 
     class { 'dhcp':
       interfaces  => ['#{interface}'],

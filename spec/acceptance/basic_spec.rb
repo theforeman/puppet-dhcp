@@ -18,7 +18,7 @@ describe 'Simple installation' do
 
   let(:pp) do
     <<-EOS
-    $interface = $facts['networking']['interfaces'][#{interface}]
+    $interface = $facts['networking']['interfaces']['#{interface}']
 
     class { 'dhcp':
       interfaces => ['#{interface}'],
