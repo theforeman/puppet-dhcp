@@ -5,7 +5,7 @@
 class dhcp::failover (
   String $peer_address,
   Enum['primary', 'secondary'] $role = 'primary',
-  String $address = $facts['ipaddress'],
+  String $address = $facts['networking']['ip'],
   Variant[Integer[0, 65535], String] $port = 519,
   Variant[Integer[0], String] $max_response_delay = 30,
   Variant[Integer[0], String] $max_unacked_updates = 10,
