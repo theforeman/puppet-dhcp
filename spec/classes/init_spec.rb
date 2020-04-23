@@ -3,9 +3,7 @@ require 'spec_helper'
 describe 'dhcp' do
   on_supported_os.each do |os, facts|
     context "on #{os}" do
-      let(:facts) do
-        facts
-      end
+      let(:facts) { override_facts(facts, networking: {domain: 'example.com'}) }
 
       let(:params) do
         {
