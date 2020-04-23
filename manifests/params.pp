@@ -2,7 +2,11 @@
 # @api private
 class dhcp::params {
 
-  $dnsdomain = [$facts['networking']['domain']]
+  if fact('networking.domain') {
+    $dnsdomain = [$facts['networking']['domain']]
+  } else {
+    $dnsdomain = []
+  }
   $pxefilename = 'pxelinux.0'
 
   case $facts['os']['family'] {
