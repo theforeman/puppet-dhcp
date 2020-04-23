@@ -1,7 +1,7 @@
 # Manage an ISC DHCP server
 class dhcp (
   Array[String] $dnsdomain = $dhcp::params::dnsdomain,
-  Array[String] $nameservers = ['8.8.8.8', '8.8.4.4'],
+  Array[String] $nameservers = [],
   Boolean $failover = false,
   Optional[Boolean] $bootp = undef,
   Array[String] $ntpservers = [],
