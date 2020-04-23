@@ -323,6 +323,13 @@ describe 'dhcp' do
           end
         end
       end
+
+      describe "with config_comment" do
+        context 'with multiple lines' do
+          let(:params) { super().merge(ddns_updates: true) }
+          it { is_expected.to compile.and_raise_error(%r{dnsupdateserver or nameservers parameter is required to enable ddns}) }
+        end
+      end
     end
   end
 end

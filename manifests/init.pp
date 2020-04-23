@@ -61,6 +61,11 @@ class dhcp (
   }
 
   $dnsupdateserver_real = pick_default($dnsupdateserver, $nameservers[0])
+  if $ddns_updates or $dnsupdatekey {
+    if $dnsupdateserver_real == '' {
+      fail('dnsupdateserver or nameservers parameter is required to enable ddns')
+    }
+  }
 
   package { $packagename:
     ensure   => installed,
