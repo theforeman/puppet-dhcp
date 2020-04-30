@@ -55,7 +55,9 @@ ddns-update-style none;
 <% unless @dnsdomain.nil? || @dnsdomain.empty? -%>
 option domain-name "<%= @dnsdomain.first %>";
 <% end -%>
+<% if @nameservers and !@nameservers.empty? -%>
 option domain-name-servers <%= @nameservers.join( ', ') %>;
+<% end -%>
 <% if @ntpservers and !@ntpservers.empty? -%>
 option ntp-servers <%= @ntpservers.join(', ') %>;
 <% else -%>

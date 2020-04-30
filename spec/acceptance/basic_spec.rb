@@ -18,7 +18,7 @@ describe 'Simple installation' do
 
   let(:pp) do
     <<-EOS
-    $interface = $facts['networking']['interfaces'][#{interface}]
+    $interface = $facts['networking']['interfaces']['#{interface}']
 
     class { 'dhcp':
       interfaces => ['#{interface}'],
@@ -37,6 +37,10 @@ describe 'Simple installation' do
   end
 
   it_behaves_like 'a idempotent resource'
+
+  describe file("/etc/dhcp/dhcpd.conf") do
+    its(:content) { should_not match %r{option domain-name-servers } }
+  end
 
   describe service(service_name) do
     it { is_expected.to be_enabled }

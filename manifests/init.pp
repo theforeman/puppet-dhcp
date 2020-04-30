@@ -1,7 +1,7 @@
 # Manage an ISC DHCP server
 class dhcp (
   Array[String] $dnsdomain = $dhcp::params::dnsdomain,
-  Array[String] $nameservers = ['8.8.8.8', '8.8.4.4'],
+  Array[String] $nameservers = [],
   Boolean $failover = false,
   Optional[Boolean] $bootp = undef,
   Array[String] $ntpservers = [],
@@ -60,7 +60,12 @@ class dhcp (
     $bootp_real = $bootp
   }
 
-  $dnsupdateserver_real = pick($dnsupdateserver, $nameservers[0])
+  $dnsupdateserver_real = pick_default($dnsupdateserver, $nameservers[0])
+  if $ddns_updates or $dnsupdatekey {
+    unless $dnsupdateserver_real =~ String[1] {
+      fail('dnsupdateserver or nameservers parameter is required to enable ddns')
+    }
+  }
 
   package { $packagename:
     ensure   => installed,
