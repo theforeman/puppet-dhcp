@@ -1,13 +1,6 @@
 require 'spec_helper_acceptance'
 
 describe 'Installation with include statement' do
-  before(:context) do
-    if fact('osfamily') == 'RedHat'
-      on default, puppet('resource package epel-release ensure=present')
-    end
-    on default, puppet('resource package dhcping ensure=present')
-  end
-
   interface = 'eth0'
   service_name = case fact('osfamily')
                  when 'Debian'
