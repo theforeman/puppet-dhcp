@@ -2,12 +2,6 @@ require 'spec_helper_acceptance'
 
 describe 'Installation with include statement' do
   interface = 'eth0'
-  service_name = case fact('osfamily')
-                 when 'Debian'
-                   'isc-dhcp-server'
-                 else
-                   'dhcpd'
-                 end
 
   let(:pp) do
     <<-EOS
@@ -30,13 +24,5 @@ describe 'Installation with include statement' do
   end
 
   it_behaves_like 'a idempotent resource'
-
-  describe service(service_name) do
-    it { is_expected.to be_enabled }
-    it { is_expected.to be_running }
-  end
-
-  describe port(67) do
-    it { is_expected.to be_listening.on('0.0.0.0').with('udp') }
-  end
+  it_behaves_like 'a DHCP server'
 end

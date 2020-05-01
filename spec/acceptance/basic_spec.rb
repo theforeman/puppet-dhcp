@@ -2,12 +2,6 @@ require 'spec_helper_acceptance'
 
 describe 'Simple installation' do
   interface = 'eth0'
-  service_name = case fact('osfamily')
-                 when 'Debian'
-                   'isc-dhcp-server'
-                 else
-                   'dhcpd'
-                 end
 
   let(:pp) do
     <<-EOS
@@ -30,18 +24,10 @@ describe 'Simple installation' do
   end
 
   it_behaves_like 'a idempotent resource'
+  it_behaves_like 'a DHCP server'
 
   describe file("/etc/dhcp/dhcpd.conf") do
     its(:content) { should_not match %r{option domain-name-servers } }
-  end
-
-  describe service(service_name) do
-    it { is_expected.to be_enabled }
-    it { is_expected.to be_running }
-  end
-
-  describe port(67) do
-    it { is_expected.to be_listening.on('0.0.0.0').with('udp') }
   end
 
   ip = fact("networking.interfaces.#{interface}.ip")
