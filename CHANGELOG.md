@@ -1,5 +1,22 @@
 # Changelog
 
+## [6.0.0](https://github.com/theforeman/puppet-dhcp/tree/6.0.0) (2020-05-12)
+
+[Full Changelog](https://github.com/theforeman/puppet-dhcp/compare/5.1.1...6.0.0)
+
+**Breaking changes:**
+
+- Use modern facts [\#175](https://github.com/theforeman/puppet-dhcp/issues/175)
+
+**Implemented enhancements:**
+
+- Fixes [\#29189](https://projects.theforeman.org/issues/29189) - Support el8 [\#167](https://github.com/theforeman/puppet-dhcp/pull/167) ([wbclark](https://github.com/wbclark))
+- Support iPXE without chain-loading [\#150](https://github.com/theforeman/puppet-dhcp/pull/150) ([neomilium](https://github.com/neomilium))
+
+**Merged pull requests:**
+
+- document failover parameters [\#170](https://github.com/theforeman/puppet-dhcp/pull/170) ([wbclark](https://github.com/wbclark))
+
 ## [5.1.1](https://github.com/theforeman/puppet-dhcp/tree/5.1.1) (2020-02-12)
 
 [Full Changelog](https://github.com/theforeman/puppet-dhcp/compare/5.1.0...5.1.1)
@@ -20,6 +37,10 @@
 
 [Full Changelog](https://github.com/theforeman/puppet-dhcp/compare/5.0.0...5.0.1)
 
+**Breaking changes:**
+
+- Default nameservers to an empty array [\#171](https://github.com/theforeman/puppet-dhcp/pull/171) ([jhoblitt](https://github.com/jhoblitt))
+
 **Merged pull requests:**
 
 - allow newer puppetlabs-concat version [\#157](https://github.com/theforeman/puppet-dhcp/pull/157) ([mmoll](https://github.com/mmoll))
@@ -32,7 +53,6 @@
 **Breaking changes:**
 
 - drop Puppet 4 [\#152](https://github.com/theforeman/puppet-dhcp/pull/152) ([mmoll](https://github.com/mmoll))
-- drop EOL OSes [\#151](https://github.com/theforeman/puppet-dhcp/pull/151) ([mmoll](https://github.com/mmoll))
 
 **Implemented enhancements:**
 
