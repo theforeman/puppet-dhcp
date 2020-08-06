@@ -24,6 +24,7 @@ class dhcp (
   String $logfacility = 'local7',
   Boolean $dhcp_monitor = true,
   Stdlib::Absolutepath $dhcp_dir = $dhcp::params::dhcp_dir,
+  Optional[Stdlib::Filemode] $conf_dir_mode = $dhcp::params::conf_dir_mode,
   String $packagename = $dhcp::params::packagename,
   String $servicename = $dhcp::params::servicename,
   $option_static_route = undef,
@@ -72,7 +73,8 @@ class dhcp (
   }
 
   file { $dhcp_dir:
-    mode    => '0755',
+    group   => $dhcp_root_group,
+    mode    => $conf_dir_mode,
     require => Package[$packagename],
   }
 
