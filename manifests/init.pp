@@ -24,12 +24,14 @@ class dhcp (
   String $logfacility = 'local7',
   Boolean $dhcp_monitor = true,
   Stdlib::Absolutepath $dhcp_dir = $dhcp::params::dhcp_dir,
+  Boolean $manage_dhcp_dir = $dhcp::params::manage_dhcp_dir,
   Optional[Stdlib::Filemode] $conf_dir_mode = $dhcp::params::conf_dir_mode,
   String $packagename = $dhcp::params::packagename,
   String $servicename = $dhcp::params::servicename,
   $option_static_route = undef,
   Variant[Array[String], Optional[String]] $options = undef,
   Boolean $authoritative = false,
+  String $dhcp_root_user = 'root',
   String $dhcp_root_group = $dhcp::params::root_group,
   Boolean $ddns_updates = false,
   Optional[String] $ddns_domainname = undef,
@@ -72,10 +74,13 @@ class dhcp (
     ensure   => installed,
   }
 
-  file { $dhcp_dir:
-    group   => $dhcp_root_group,
-    mode    => $conf_dir_mode,
-    require => Package[$packagename],
+  if $manage_dhcp_dir {
+    file { $dhcp_dir:
+      owner   => $dhcp_root_user,
+      group   => $dhcp_root_group,
+      mode    => $conf_dir_mode,
+      require => Package[$packagename],
+    }
   }
 
   # Only debian and ubuntu have this style of defaults for startup.
@@ -124,7 +129,7 @@ class dhcp (
   }
 
   concat { "${dhcp_dir}/dhcpd.conf":
-    owner   => 'root',
+    owner   => $dhcp_root_user,
     group   => $dhcp_root_group,
     mode    => '0644',
     require => Package[$packagename],
@@ -146,7 +151,7 @@ class dhcp (
   }
 
   concat { "${dhcp_dir}/dhcpd.hosts":
-    owner   => 'root',
+    owner   => $dhcp_root_user,
     group   => $dhcp_root_group,
     mode    => '0644',
     require => Package[$packagename],

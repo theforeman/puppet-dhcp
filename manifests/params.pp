@@ -12,6 +12,7 @@ class dhcp::params {
   case $facts['os']['family'] {
     'Debian': {
       $dhcp_dir = '/etc/dhcp'
+      $manage_dhcp_dir = true
       $conf_dir_mode = '0750'
       $packagename = 'isc-dhcp-server'
       $servicename = 'isc-dhcp-server'
@@ -25,6 +26,7 @@ class dhcp::params {
 
     /^(FreeBSD|DragonFly)$/: {
       $dhcp_dir    = '/usr/local/etc'
+      $manage_dhcp_dir = false
       $conf_dir_mode = undef
       $packagename = 'isc-dhcp44-server'
       $servicename = 'isc-dhcpd'
@@ -34,6 +36,7 @@ class dhcp::params {
 
     'Archlinux': {
       $dhcp_dir    = '/etc'
+      $manage_dhcp_dir = false
       $conf_dir_mode = undef
       $packagename = 'dhcp'
       $servicename = 'dhcpd4'
@@ -43,6 +46,7 @@ class dhcp::params {
 
     'RedHat': {
       $dhcp_dir    = '/etc/dhcp'
+      $manage_dhcp_dir = true
       $conf_dir_mode = '0750'
       if versioncmp($facts['os']['release']['major'], '8') >= 0 {
         $packagename = 'dhcp-server'
