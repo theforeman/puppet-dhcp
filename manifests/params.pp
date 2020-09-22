@@ -13,7 +13,7 @@ class dhcp::params {
     'Debian': {
       $dhcp_dir = '/etc/dhcp'
       $manage_dhcp_dir = true
-      $conf_dir_mode = '0750'
+      $conf_dir_mode = '0755'
       $packagename = 'isc-dhcp-server'
       $servicename = 'isc-dhcp-server'
       $root_group = 'root'
