@@ -1,5 +1,13 @@
 # Changelog
 
+## [6.1.0](https://github.com/theforeman/puppet-dhcp/tree/6.1.0) (2020-09-22)
+
+[Full Changelog](https://github.com/theforeman/puppet-dhcp/compare/6.0.0...6.1.0)
+
+**Implemented enhancements:**
+
+- Adjust config directory mode to the system defaults [\#177](https://github.com/theforeman/puppet-dhcp/pull/177) ([ezr-ondrej](https://github.com/ezr-ondrej))
+
 ## [6.0.0](https://github.com/theforeman/puppet-dhcp/tree/6.0.0) (2020-05-12)
 
 [Full Changelog](https://github.com/theforeman/puppet-dhcp/compare/5.1.1...6.0.0)
