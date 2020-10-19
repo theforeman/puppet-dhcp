@@ -2,12 +2,3 @@
 .puppet-lint.rc:
   extra_disabled_lint_checks:
     - parameter_documentation
-.travis.yml:
-  beaker_sets:
-    - centos7-64
-    - centos8-64
-    - debian8-64
-    - debian9-64
-    - debian10-64
-    - ubuntu1604-64
-    - ubuntu1804-64
