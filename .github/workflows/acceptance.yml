@@ -45,7 +45,7 @@ jobs:
           - "6"
           - "5"
         exclude:
-          - setfile: fedora32-64{hostname=fedora32-64.example.com}
+          - setfile: "fedora32-64{hostname=fedora32-64.example.com}"
             puppet: "5"
     name: Puppet ${{ matrix.puppet }} - ${{ matrix.setfile }}
     steps:
