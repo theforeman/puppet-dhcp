@@ -1,4 +1,12 @@
 ---
+.github/workflows/acceptance.yml:
+  excludes:
+    - setfile: fedora32-64{hostname=fedora32-64.example.com}
+      puppet: "5"
+.github/workflows/cron.yml:
+  excludes:
+    - setfile: fedora32-64{hostname=fedora32-64.example.com}
+      puppet: "5"
 .puppet-lint.rc:
   extra_disabled_lint_checks:
     - parameter_documentation
