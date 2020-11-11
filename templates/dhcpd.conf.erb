@@ -28,6 +28,11 @@ ddns-updates on;
 ddns-update-style <%= @ddns_update_style %>;
 update-static-leases on;
 use-host-decl-names on;
+<% if @client_updates == true -%>
+allow client-updates;
+<% elsif @client_updates == false -%>
+ignore client-updates;
+<% end -%>
 
 <% if @ddns_domainname and !@ddns_domainname.empty? -%>
 ddns-domainname "<%= @ddns_domainname %>";

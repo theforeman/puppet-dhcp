@@ -37,6 +37,7 @@ class dhcp (
   Optional[String] $ddns_domainname = undef,
   Optional[String] $ddns_rev_domainname = undef,
   Enum['none', 'interim', 'standard'] $ddns_update_style = 'interim',
+  Optional[Boolean] $client_updates = undef,
   Hash[String, Hash] $pools = {},
   Hash[String, Hash] $hosts = {},
   Variant[Array[String], Optional[String]] $includes = undef,
