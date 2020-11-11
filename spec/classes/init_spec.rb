@@ -205,6 +205,44 @@ describe 'dhcp' do
         }
       end
 
+      describe "with ddns-updates and client-updates ignored" do
+        let(:params) do
+          super().merge(
+            ddns_updates: true,
+            client_updates: false,
+            dnsupdateserver: '127.1.2.3',
+          )
+        end
+
+        it { should compile.with_all_deps }
+
+        it {
+          verify_concat_fragment_exact_contents(catalogue, 'dhcp.conf+01_main.dhcp', [
+            'omapi-port 7911;',
+            'default-lease-time 43200;',
+            'max-lease-time 86400;',
+            'not authoritative;',
+            'ddns-updates on;',
+            'ddns-update-style interim;',
+            'update-static-leases on;',
+            'use-host-decl-names on;',
+            'ignore client-updates;',
+            'zone example.com. {',
+            '  primary 127.1.2.3;',
+            '}',
+            'option domain-name "example.com";',
+            "option ntp-servers none;",
+            'allow booting;',
+            'allow bootp;',
+            'option fqdn.no-client-update    on;  # set the "O" and "S" flag bits',
+            'option fqdn.rcode2            255;',
+            'option pxegrub code 150 = text ;',
+            'log-facility local7;',
+            "include \"#{conf_path}/dhcpd.hosts\";",
+          ])
+        }
+      end
+
       describe "without omapi" do
         let(:params) { super().merge(omapi: false) }
 
