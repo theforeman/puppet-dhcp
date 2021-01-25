@@ -1,5 +1,13 @@
 # Changelog
 
+## [6.2.0](https://github.com/theforeman/puppet-dhcp/tree/6.2.0) (2021-01-26)
+
+[Full Changelog](https://github.com/theforeman/puppet-dhcp/compare/6.1.0...6.2.0)
+
+**Implemented enhancements:**
+
+- add support for client-updates instruction for interim DDNS. [\#183](https://github.com/theforeman/puppet-dhcp/pull/183) ([UiP9AV6Y](https://github.com/UiP9AV6Y))
+
 ## [6.1.0](https://github.com/theforeman/puppet-dhcp/tree/6.1.0) (2020-09-22)
 
 [Full Changelog](https://github.com/theforeman/puppet-dhcp/compare/6.0.0...6.1.0)
