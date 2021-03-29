@@ -3,27 +3,29 @@ subnet <%= @network %> netmask <%= @mask %> {
 <% if @raw_prepend %>
   <%= @raw_prepend %>
 <% end -%>
-<% if (@range && @range.is_a?(String) && !@range.strip.empty?) || (@range && @range.is_a?(Array)) -%>
+<% @pools.each do |pool| -%>
+<% if (pool['range'] && pool['range'].is_a?(String) && !pool['range'].strip.empty?) || (pool['range'] && pool['range'].is_a?(Array)) -%>
   pool
   {
-<% if @failover && !@failover.strip.empty? -%>
-    failover peer "<%= @failover %>";
+<% if pool['failover'] && pool['failover'] != :undef && !pool['failover'].to_s.strip.empty? -%>
+    failover peer "<%= pool['failover'] %>";
 <% end -%>
-<% if @pool_parameters.is_a? Array -%>
-<%   @pool_parameters.each do |param| -%>
+<% if pool['parameters'].is_a? Array -%>
+<%   pool['parameters'].each do |param| -%>
     <%= param %>;
 <%   end -%>
-<% elsif @pool_parameters && !@pool_parameters.strip.empty? -%>
-    <%= @pool_parameters %>;
+<% elsif pool['parameters'] != :undef && !pool['parameters'].to_s.strip.empty? -%>
+    <%= pool['parameters'] %>;
 <% end -%>
-<% if @range and @range.is_a? Array -%>
-<% @range.each do |rng| -%>
+<% if pool['range'] and pool['range'].is_a? Array -%>
+<% pool['range'].each do |rng| -%>
     range <%= rng %>;
 <% end -%>
-<% elsif @range && !@range.strip.empty? -%>
-    range <%= @range %>;
+<% elsif pool['range'] && !pool['range'].strip.empty? -%>
+    range <%= pool['range'] %>;
 <% end -%>
   }
+<% end -%>
 <% end -%>
 
 <% if @domain_name && !@domain_name.strip.empty? -%>
