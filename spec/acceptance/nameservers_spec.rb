@@ -3,23 +3,24 @@ require 'spec_helper_acceptance'
 describe 'with empty nameservers list' do
   interface = 'eth0'
 
-  let(:pp) do
-    <<-EOS
-    $interface = $facts['networking']['interfaces']['#{interface}']
+  it_behaves_like 'an idempotent resource' do
+    let(:manifest) do
+      <<-EOS
+      $interface = $facts['networking']['interfaces']['#{interface}']
 
-    class { 'dhcp':
-      interfaces  => ['#{interface}'],
-      nameservers => [],
-    }
+      class { 'dhcp':
+        interfaces  => ['#{interface}'],
+        nameservers => [],
+      }
 
-    dhcp::pool { "default subnet":
-      network => $interface['network'],
-      mask    => $interface['netmask'],
-    }
-    EOS
+      dhcp::pool { "default subnet":
+        network => $interface['network'],
+        mask    => $interface['netmask'],
+      }
+      EOS
+    end
   end
 
-  it_behaves_like 'a idempotent resource'
   it_behaves_like 'a DHCP server'
 
   describe file("/etc/dhcp/dhcpd.conf") do
@@ -40,23 +41,24 @@ end
 describe 'with a non-empty nameservers list' do
   interface = 'eth0'
 
-  let(:pp) do
-    <<-EOS
-    $interface = $facts['networking']['interfaces']['#{interface}']
+  it_behaves_like 'an idempotent resource' do
+    let(:manifest) do
+      <<-EOS
+      $interface = $facts['networking']['interfaces']['#{interface}']
 
-    class { 'dhcp':
-      interfaces  => ['#{interface}'],
-      nameservers => ['8.8.8.8', '8.8.4.4'],
-    }
+      class { 'dhcp':
+        interfaces  => ['#{interface}'],
+        nameservers => ['8.8.8.8', '8.8.4.4'],
+      }
 
-    dhcp::pool { "default subnet":
-      network => $interface['network'],
-      mask    => $interface['netmask'],
-    }
-    EOS
+      dhcp::pool { "default subnet":
+        network => $interface['network'],
+        mask    => $interface['netmask'],
+      }
+      EOS
+    end
   end
 
-  it_behaves_like 'a idempotent resource'
   it_behaves_like 'a DHCP server'
 
   describe file("/etc/dhcp/dhcpd.conf") do

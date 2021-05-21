@@ -3,27 +3,28 @@ require 'spec_helper_acceptance'
 describe 'Simple installation' do
   interface = 'eth0'
 
-  let(:pp) do
-    <<-EOS
-    $interface = $facts['networking']['interfaces']['#{interface}']
+  it_behaves_like 'an idempotent resource' do
+    let(:manifest) do
+      <<-EOS
+      $interface = $facts['networking']['interfaces']['#{interface}']
 
-    class { 'dhcp':
-      interfaces => ['#{interface}'],
-    }
+      class { 'dhcp':
+        interfaces => ['#{interface}'],
+      }
 
-    dhcp::pool { "default subnet":
-      network => $interface['network'],
-      mask    => $interface['netmask'],
-    }
+      dhcp::pool { "default subnet":
+        network => $interface['network'],
+        mask    => $interface['netmask'],
+      }
 
-    dhcp::host { $facts['fqdn']:
-      ip  => $interface['ip'],
-      mac => $interface['mac'],
-    }
-    EOS
+      dhcp::host { $facts['fqdn']:
+        ip  => $interface['ip'],
+        mac => $interface['mac'],
+      }
+      EOS
+    end
   end
 
-  it_behaves_like 'a idempotent resource'
   it_behaves_like 'a DHCP server'
 
   describe file("/etc/dhcp/dhcpd.conf") do
