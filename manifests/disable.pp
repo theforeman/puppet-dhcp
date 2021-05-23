@@ -15,5 +15,4 @@ class dhcp::disable {
     hasstatus => true,
     require   => Package[$packagename],
   }
-
 }

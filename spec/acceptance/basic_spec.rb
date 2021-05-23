@@ -27,17 +27,17 @@ describe 'Simple installation' do
 
   it_behaves_like 'a DHCP server'
 
-  describe file("/etc/dhcp/dhcpd.conf") do
-    its(:content) { should_not match %r{option domain-name-servers } }
+  describe file('/etc/dhcp/dhcpd.conf') do
+    its(:content) { is_expected.not_to match %r{option domain-name-servers } }
   end
 
   ip = fact("networking.interfaces.#{interface}.ip")
   mac = fact("networking.interfaces.#{interface}.mac")
 
   describe command("dhcping -c #{ip} -h #{mac} -s #{ip}") do
-    its(:stdout) {
+    its(:stdout) do
       pending('This is broken in docker containers')
       is_expected.to match("Got answer from: #{ip}")
-    }
+    end
   end
 end

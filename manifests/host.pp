@@ -13,7 +13,6 @@ define dhcp::host (
   Dhcp::Macaddress $mac,
   Optional[String] $comment=undef,
 ) {
-
   $host = $name
 
   concat::fragment { "dhcp.hosts+10_${name}.hosts":

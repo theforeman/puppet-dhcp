@@ -1,0 +1,8 @@
+inherit_gem:
+  voxpupuli-test: rubocop.yml
+
+Style/TrailingCommaInArguments:
+  EnforcedStyleForMultiline: consistent_comma
+
+Layout/DotPosition:
+  EnforcedStyle: leading

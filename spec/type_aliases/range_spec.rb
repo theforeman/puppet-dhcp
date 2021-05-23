@@ -13,10 +13,10 @@ describe 'Dhcp::Range' do
   describe 'invalid value handling' do
     [
       nil,
-      "all",
-      "all all",
-      "1 192.0.2.183",
-      "192.0.2.100 1",
+      'all',
+      'all all',
+      '1 192.0.2.183',
+      '192.0.2.100 1',
     ].each do |value|
       it { is_expected.not_to allow_value(value) }
     end

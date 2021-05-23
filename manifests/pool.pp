@@ -18,11 +18,9 @@ define dhcp::pool (
   Optional[String] $raw_append = undef,
   Optional[String] $raw_prepend = undef,
 ) {
-
   concat::fragment { "dhcp.conf+70_${name}.dhcp":
     target  => "${dhcp::dhcp_dir}/dhcpd.conf",
     content => template('dhcp/dhcpd.pool.erb'),
     order   => "70-${name}",
   }
-
 }
