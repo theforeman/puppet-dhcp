@@ -1,77 +1,79 @@
 require 'spec_helper_acceptance'
 
-describe 'with empty nameservers list' do
-  interface = 'eth0'
+describe 'DHCP' do
+  describe 'with empty nameservers list' do
+    interface = 'eth0'
 
-  it_behaves_like 'an idempotent resource' do
-    let(:manifest) do
-      <<-EOS
-      $interface = $facts['networking']['interfaces']['#{interface}']
+    it_behaves_like 'an idempotent resource' do
+      let(:manifest) do
+        <<-EOS
+        $interface = $facts['networking']['interfaces']['#{interface}']
 
-      class { 'dhcp':
-        interfaces  => ['#{interface}'],
-        nameservers => [],
-      }
+        class { 'dhcp':
+          interfaces  => ['#{interface}'],
+          nameservers => [],
+        }
 
-      dhcp::pool { "default subnet":
-        network => $interface['network'],
-        mask    => $interface['netmask'],
-      }
-      EOS
+        dhcp::pool { "default subnet":
+          network => $interface['network'],
+          mask    => $interface['netmask'],
+        }
+        EOS
+      end
+    end
+
+    it_behaves_like 'a DHCP server'
+
+    describe file('/etc/dhcp/dhcpd.conf') do
+      its(:content) { is_expected.not_to match %r{option domain-name-servers } }
+    end
+
+    ip = fact("networking.interfaces.#{interface}.ip")
+    mac = fact("networking.interfaces.#{interface}.mac")
+
+    describe command("dhcping -c #{ip} -h #{mac} -s #{ip}") do
+      its(:stdout) do
+        pending('This is broken in docker containers')
+        is_expected.to match("Got answer from: #{ip}")
+      end
     end
   end
 
-  it_behaves_like 'a DHCP server'
+  describe 'with a non-empty nameservers list' do
+    interface = 'eth0'
 
-  describe file('/etc/dhcp/dhcpd.conf') do
-    its(:content) { is_expected.not_to match %r{option domain-name-servers } }
-  end
+    it_behaves_like 'an idempotent resource' do
+      let(:manifest) do
+        <<-EOS
+        $interface = $facts['networking']['interfaces']['#{interface}']
 
-  ip = fact("networking.interfaces.#{interface}.ip")
-  mac = fact("networking.interfaces.#{interface}.mac")
+        class { 'dhcp':
+          interfaces  => ['#{interface}'],
+          nameservers => ['8.8.8.8', '8.8.4.4'],
+        }
 
-  describe command("dhcping -c #{ip} -h #{mac} -s #{ip}") do
-    its(:stdout) do
-      pending('This is broken in docker containers')
-      is_expected.to match("Got answer from: #{ip}")
+        dhcp::pool { "default subnet":
+          network => $interface['network'],
+          mask    => $interface['netmask'],
+        }
+        EOS
+      end
     end
-  end
-end
 
-describe 'with a non-empty nameservers list' do
-  interface = 'eth0'
+    it_behaves_like 'a DHCP server'
 
-  it_behaves_like 'an idempotent resource' do
-    let(:manifest) do
-      <<-EOS
-      $interface = $facts['networking']['interfaces']['#{interface}']
-
-      class { 'dhcp':
-        interfaces  => ['#{interface}'],
-        nameservers => ['8.8.8.8', '8.8.4.4'],
-      }
-
-      dhcp::pool { "default subnet":
-        network => $interface['network'],
-        mask    => $interface['netmask'],
-      }
-      EOS
+    describe file('/etc/dhcp/dhcpd.conf') do
+      its(:content) { is_expected.to match %r{option domain-name-servers 8.8.8.8, 8.8.4.4;} }
     end
-  end
 
-  it_behaves_like 'a DHCP server'
+    ip = fact("networking.interfaces.#{interface}.ip")
+    mac = fact("networking.interfaces.#{interface}.mac")
 
-  describe file('/etc/dhcp/dhcpd.conf') do
-    its(:content) { is_expected.to match %r{option domain-name-servers 8.8.8.8, 8.8.4.4;} }
-  end
-
-  ip = fact("networking.interfaces.#{interface}.ip")
-  mac = fact("networking.interfaces.#{interface}.mac")
-
-  describe command("dhcping -c #{ip} -h #{mac} -s #{ip}") do
-    its(:stdout) do
-      pending('This is broken in docker containers')
-      is_expected.to match("Got answer from: #{ip}")
+    describe command("dhcping -c #{ip} -h #{mac} -s #{ip}") do
+      its(:stdout) do
+        pending('This is broken in docker containers')
+        is_expected.to match("Got answer from: #{ip}")
+      end
     end
   end
 end

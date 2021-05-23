@@ -3,7 +3,7 @@ require 'spec_helper'
 describe 'dhcp::dhcp_class' do
   on_supported_os.each do |os, facts|
     context "on #{os}" do
-      let :title do 'vendor-class' end
+      let(:title) { 'vendor-class' }
 
       let :params do
         {

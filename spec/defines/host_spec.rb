@@ -3,7 +3,7 @@ require 'spec_helper'
 describe 'dhcp::host' do
   on_supported_os.each do |os, facts|
     context "on #{os}" do
-      let :title do 'myhost' end
+      let(:title) { 'myhost' }
 
       describe 'minimal parameters' do
         let :params do
