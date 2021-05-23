@@ -5,11 +5,13 @@ describe 'dhcp::dhcp_class' do
     context "on #{os}" do
       let :title do 'vendor-class' end
 
-      let :params do {
-        :parameters => [
-          'match option vendor-class-identifier',
-        ]
-      } end
+      let :params do
+        {
+          parameters: [
+            'match option vendor-class-identifier',
+          ]
+        }
+      end
 
       let :facts do
         facts
@@ -21,10 +23,10 @@ describe 'dhcp::dhcp_class' do
 
       it {
         verify_concat_fragment_exact_contents(catalogue, 'dhcp.conf+50_vendor-class.dhcp', [
-          'class "vendor-class" {',
-          '  match option vendor-class-identifier;',
-          '}'
-        ])
+                                                'class "vendor-class" {',
+                                                '  match option vendor-class-identifier;',
+                                                '}'
+                                              ],)
       }
     end
   end

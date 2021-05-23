@@ -19,7 +19,7 @@ describe 'Simple installation' do
     EOS
   end
 
-  it 'should blow up' do
+  it 'blows up' do
     result = apply_manifest(pp, expect_failures: true)
     expect(result.exit_code).to eq 1
     expect(result.stderr).to match(%r{dnsupdateserver or nameservers parameter is required to enable ddns})
