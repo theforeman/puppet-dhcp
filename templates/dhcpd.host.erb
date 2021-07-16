@@ -1,3 +1,6 @@
+<% if @comment && !@comment.empty? -%>
+# <%= @comment %>
+<% end -%>
 host <%= @host %> {
   hardware ethernet   <%= @mac %>;
   fixed-address       <%= @ip %>;
