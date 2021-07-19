@@ -520,11 +520,16 @@ describe 'dhcp' do
         context 'with multiple lines' do
           let(:params) { super().merge(config_comment: "first line\nsecond line") }
 
+          let(:expected_content) do
+            /#{<<~CONTENT}/m
+              # first line
+              # second line
+              .*
+            CONTENT
+          end
+
           it do
-            verify_concat_fragment_contents(catalogue, 'dhcp.conf+01_main.dhcp', [
-              '# first line',
-              '# second line',
-            ])
+            is_expected.to contain_concat__fragment(fragment_name).with_content(expected_content)
           end
         end
       end
