@@ -1,5 +1,23 @@
 # Changelog
 
+## [7.0.0](https://github.com/theforeman/puppet-dhcp/tree/7.0.0) (2021-07-23)
+
+[Full Changelog](https://github.com/theforeman/puppet-dhcp/compare/6.2.0...7.0.0)
+
+**Breaking changes:**
+
+- Drop Puppet 5 support [\#191](https://github.com/theforeman/puppet-dhcp/pull/191) ([ehelms](https://github.com/ehelms))
+
+**Implemented enhancements:**
+
+- Mark compatible with camptocamp/systemd 3 [\#190](https://github.com/theforeman/puppet-dhcp/pull/190) ([ekohl](https://github.com/ekohl))
+- Allow Puppet 7 compatible versions of mods [\#187](https://github.com/theforeman/puppet-dhcp/pull/187) ([ekohl](https://github.com/ekohl))
+- Support Puppet 7 [\#186](https://github.com/theforeman/puppet-dhcp/pull/186) ([ekohl](https://github.com/ekohl))
+
+**Fixed bugs:**
+
+- fix dhcp::host comment param [\#193](https://github.com/theforeman/puppet-dhcp/pull/193) ([jhoblitt](https://github.com/jhoblitt))
+
 ## [6.2.0](https://github.com/theforeman/puppet-dhcp/tree/6.2.0) (2021-01-26)
 
 [Full Changelog](https://github.com/theforeman/puppet-dhcp/compare/6.1.0...6.2.0)
