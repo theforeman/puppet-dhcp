@@ -19,13 +19,25 @@ describe 'dhcp::dhcp_class' do
         "class { '::dhcp': interfaces => ['eth0']}"
       end
 
-      it {
-        verify_concat_fragment_exact_contents(catalogue, 'dhcp.conf+50_vendor-class.dhcp', [
-          'class "vendor-class" {',
-          '  match option vendor-class-identifier;',
-          '}'
-        ])
-      }
+      let(:fragment_name) do
+        'dhcp.conf+50_vendor-class.dhcp'
+      end
+
+      let(:expected_content) do
+        <<~CONTENT
+          #################################
+          # class vendor-class
+          #################################
+          class "vendor-class" {
+            match option vendor-class-identifier;
+          }
+
+        CONTENT
+      end
+
+      it do
+        is_expected.to contain_concat__fragment(fragment_name).with_content(expected_content)
+      end
     end
   end
 end

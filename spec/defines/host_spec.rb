@@ -19,15 +19,23 @@ describe 'dhcp::host' do
           "class { '::dhcp': interfaces => ['eth0']}"
         end
 
-        it {
-          verify_concat_fragment_exact_contents(catalogue, 'dhcp.hosts+10_myhost.hosts', [
-            'host myhost {',
-            '  hardware ethernet   01:02:03:04:05:06;',
-            '  fixed-address       10.0.0.100;',
-            '  ddns-hostname       "myhost";',
-            '}',
-          ])
-        }
+        let(:fragment_name) do
+          'dhcp.hosts+10_myhost.hosts'
+        end
+
+        let(:expected_content) do
+          <<~CONTENT
+            host myhost {
+              hardware ethernet   01:02:03:04:05:06;
+              fixed-address       10.0.0.100;
+              ddns-hostname       "myhost";
+            }
+          CONTENT
+        end
+
+        it do
+          is_expected.to contain_concat__fragment(fragment_name).with_content(expected_content)
+        end
       end
     end
   end
