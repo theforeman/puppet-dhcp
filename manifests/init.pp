@@ -101,8 +101,9 @@ class dhcp (
       if versioncmp($facts['os']['release']['major'], '7') >= 0 {
         include systemd
         systemd::dropin_file { 'interfaces.conf':
-          unit    => 'dhcpd.service',
-          content => template('dhcp/redhat/systemd-dropin.conf.erb'),
+          unit           => 'dhcpd.service',
+          content        => template('dhcp/redhat/systemd-dropin.conf.erb'),
+          notify_service => true,
         }
       } else {
         file { '/etc/sysconfig/dhcpd':
