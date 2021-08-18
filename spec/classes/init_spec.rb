@@ -69,16 +69,10 @@ describe 'dhcp' do
 
         it { is_expected.not_to contain_concat__fragment('dhcp.conf+20_includes') }
 
-        if facts[:osfamily] == 'RedHat' && facts[:operatingsystemmajrelease].to_i >= 7
+        if facts[:osfamily] == 'RedHat'
           it { is_expected.to contain_systemd__dropin_file('interfaces.conf') }
         else
           it { is_expected.not_to contain_systemd__dropin_file('interfaces.conf') }
-        end
-
-        if facts[:osfamily] == 'RedHat' && facts[:operatingsystemmajrelease].to_i < 7
-          it { is_expected.to contain_file('/etc/sysconfig/dhcpd') }
-        else
-          it { is_expected.not_to contain_file('/etc/sysconfig/dhcpd') }
         end
 
         if facts[:osfamily] == 'Debian'

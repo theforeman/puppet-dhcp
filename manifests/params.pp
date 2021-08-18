@@ -55,17 +55,10 @@ class dhcp::params {
       }
       $servicename = 'dhcpd'
       $root_group  = 'root'
-      if $facts['os']['release']['full'] =~ /^[0-6]\./ {
-        $bootfiles = {
-          '00:07' => 'grub/grubx64.efi',
-          '00:09' => 'grub/grubx64.efi',
-        }
-      } else {
-        $bootfiles = {
-          '00:06' => 'grub2/shim.efi',
-          '00:07' => 'grub2/shim.efi',
-          '00:09' => 'grub2/shim.efi',
-        }
+      $bootfiles = {
+        '00:06' => 'grub2/shim.efi',
+        '00:07' => 'grub2/shim.efi',
+        '00:09' => 'grub2/shim.efi',
       }
     }
 
