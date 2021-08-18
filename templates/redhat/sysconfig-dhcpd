@@ -1,2 +1,0 @@
-# Command line options here
-DHCPDARGS=" <%= @dhcp_interfaces.join(' ') %>"
