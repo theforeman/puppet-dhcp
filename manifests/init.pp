@@ -1,14 +1,16 @@
 # Manage an ISC DHCP server
 class dhcp (
   Array[String] $dnsdomain = $dhcp::params::dnsdomain,
+  Array[String] $v6_dnsdomain = $dnsdomain,
   Array[String] $nameservers = [],
+  Array[String] $v6_nameservers = [],
   Boolean $failover = false,
   Optional[Boolean] $bootp = undef,
   Array[String] $ntpservers = [],
   Optional[Array[String]] $interfaces = undef,
-  Optional[Array[String]] $interfaces6 = undef,
+  Optional[Array[String]] $v6_interfaces = undef,
   String $interface = 'NOTSET',
-  String $interface6 = 'NOTSET',
+  String $v6_interface = 'NOTSET',
   Integer[0] $default_lease_time = 43200,
   Integer[0] $max_lease_time = 86400,
   String $dnskeyname = 'rndc-key',
@@ -30,8 +32,10 @@ class dhcp (
   Optional[Stdlib::Filemode] $conf_dir_mode = $dhcp::params::conf_dir_mode,
   String $packagename = $dhcp::params::packagename,
   String $servicename = $dhcp::params::servicename,
+  String $v6_servicename = $dhcp::params::v6_servicename,
   $option_static_route = undef,
   Variant[Array[String], Optional[String]] $options = undef,
+  Variant[Array[String], Optional[String]] $v6_options = undef,
   Boolean $authoritative = false,
   String $dhcp_root_user = 'root',
   String $dhcp_root_group = $dhcp::params::root_group,
@@ -43,9 +47,9 @@ class dhcp (
   Hash[String, Hash] $pools = {},
   Hash[String, Hash] $hosts = {},
   Variant[Array[String], Optional[String]] $includes = undef,
-  Variant[Array[String], Optional[String]] $includes6 = undef,
+  Variant[Array[String], Optional[String]] $v6_includes = undef,
   String $config_comment = 'dhcpd.conf',
-  String $config_comment6 = 'dhcpd6.conf',
+  String $v6_config_comment = 'dhcpd6.conf',
 ) inherits dhcp::params {
 
   # In case people set interface instead of interfaces work around
@@ -59,12 +63,12 @@ class dhcp (
     $dhcp_interfaces = $interfaces
   }
   # Same for v6, except optional
-  if $interface6 != 'NOTSET' and $interfaces6 == undef {
-    $dhcp_interfaces6 = [ $interface6 ]
+  if $v6_interface != 'NOTSET' and $v6_interfaces == undef {
+    $dhcp6_interfaces = [ $v6_interface ]
   } else {
-    $dhcp_interfaces6 = $interfaces6
+    $dhcp6_interfaces = $v6_interfaces
   }
-  $v6 = ($dhcp_interfaces6 != undef)
+  $v6 = ($dhcp6_interfaces != undef)
 
   # See https://tools.ietf.org/html/draft-ietf-dhc-failover-12 for why BOOTP is
   # not supported in the failover protocol. Relay agents *can* be made to work
@@ -172,6 +176,10 @@ class dhcp (
   }
 
   if $v6 {
+    if $v6_servicename == 'NI' {
+      fail('IPv6 support not yet implemented for this OS')
+    }
+
     concat { "${dhcp_dir}/dhcpd6.conf":
       owner   => $dhcp_root_user,
       group   => $dhcp_root_group,
@@ -192,8 +200,8 @@ class dhcp (
       order   => '20',
     }
 
-    if ($servicename6 != $servicename) {
-      service { $servicename6:
+    if ($v6_servicename != $servicename) {
+      service { $v6_servicename:
         ensure => running,
         enable => true,
       }

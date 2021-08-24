@@ -16,7 +16,7 @@ class dhcp::params {
       $conf_dir_mode = '0755'
       $packagename = 'isc-dhcp-server'
       $servicename = 'isc-dhcp-server'
-      $servicename6 = 'isc-dhcp-server'
+      $v6_servicename = 'isc-dhcp-server'
       $root_group = 'root'
       $bootfiles = {
         '00:06' => 'grub2/bootia32.efi',
@@ -31,6 +31,7 @@ class dhcp::params {
       $conf_dir_mode = undef
       $packagename = 'isc-dhcp44-server'
       $servicename = 'isc-dhcpd'
+      $v6_servicename = 'NI'
       $root_group  = 'wheel'
       $bootfiles   = {}
     }
@@ -41,6 +42,7 @@ class dhcp::params {
       $conf_dir_mode = undef
       $packagename = 'dhcp'
       $servicename = 'dhcpd4'
+      $v6_servicename = 'NI'
       $root_group  = 'root'
       $bootfiles   = {}
     }
@@ -55,6 +57,7 @@ class dhcp::params {
         $packagename = 'dhcp'
       }
       $servicename = 'dhcpd'
+      $v6_servicename = 'NI'
       $root_group  = 'root'
       $bootfiles = {
         '00:06' => 'grub2/shim.efi',

@@ -1,7 +1,7 @@
-<% if @includes6.is_a? Array -%>
-<% @includes6.each do |include| -%>
+<% if @v6_includes.is_a? Array -%>
+<% @v6_includes.each do |include| -%>
 include "<%= include %>";
 <% end -%>
-<% elsif @includes6 && !@includes6.strip.empty? -%>
-include "<%= @includes6 %>";
+<% elsif @v6_includes && !@v6_includes.strip.empty? -%>
+include "<%= @v6_includes %>";
 <% end -%>

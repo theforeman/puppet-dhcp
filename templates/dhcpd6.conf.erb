@@ -1,3 +1,18 @@
-<% @config_comment6.split("\n").each do |line| -%>
+<% @v6_config_comment.split("\n").each do |line| -%>
 <%= "# #{line}" %>
+<% end -%>
+
+<% unless @v6_dnsdomain.nil? || @v6_dnsdomain.empty? -%>
+option dhcp6.domain-search "<%= @v6_dnsdomain.first %>";
+<% end -%>
+<% if @v6_nameservers and !@v6_nameservers.empty? -%>
+option dhcp6.name-servers <%= @v6_nameservers.join( ', ') %>;
+<% end -%>
+
+<% if @v6_options.is_a? Array -%>
+<% @v6_options.each do |option| -%>
+option <%= option %>;
+<% end -%>
+<% elsif @v6_options && !@v6_options.strip.empty? -%>
+  option <%= @v6_options %>;
 <% end -%>

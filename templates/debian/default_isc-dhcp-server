@@ -15,4 +15,4 @@ DHCPDv6_CONF=<%= @dhcp_dir %>/dhcpd6.conf
 # On what interfaces should the DHCP server (dhcpd) serve DHCP requests?
 #	Separate multiple interfaces with spaces, e.g. "eth0 eth1".
 INTERFACESv4="<%= @dhcp_interfaces.join(' ') %>"
-INTERFACESv6="<%= @dhcp_interfaces6.join(' ') %>"
+INTERFACESv6="<%= @dhcp6_interfaces.join(' ') %>"
