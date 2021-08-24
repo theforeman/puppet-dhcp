@@ -2,11 +2,19 @@
 <%= "# #{line}" %>
 <% end -%>
 
-<% unless @v6_dnsdomain.nil? || @v6_dnsdomain.empty? -%>
-option dhcp6.domain-search "<%= @v6_dnsdomain.first %>";
+<% if @v6_authoritative -%>
+# Make the server authoritative for the network segments that
+# are configured, and tell it to send DHCPNAKs to bogus requests
+authoritative;
+<% else %>
+not authoritative;
 <% end -%>
+
 <% if @v6_nameservers and !@v6_nameservers.empty? -%>
 option dhcp6.name-servers <%= @v6_nameservers.join( ', ') %>;
+<% end -%>
+<% unless @v6_dnsdomain.nil? || @v6_dnsdomain.empty? -%>
+option dhcp6.domain-search "<%= @v6_dnsdomain.join(' ') %>";
 <% end -%>
 
 <% if @v6_options.is_a? Array -%>
@@ -16,3 +24,7 @@ option <%= option %>;
 <% elsif @v6_options && !@v6_options.strip.empty? -%>
   option <%= @v6_options %>;
 <% end -%>
+
+log-facility <%= @v6_logfacility %>;
+
+include "<%= @dhcp_dir %>/dhcpd6.hosts";

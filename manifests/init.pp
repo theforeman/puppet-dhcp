@@ -26,6 +26,7 @@ class dhcp (
   Optional[Integer[0]] $mtu  = undef,
   Hash[String, String] $bootfiles = $dhcp::params::bootfiles,
   String $logfacility = 'local7',
+  String $v6_logfacility = $logfacility,
   Boolean $dhcp_monitor = true,
   Stdlib::Absolutepath $dhcp_dir = $dhcp::params::dhcp_dir,
   Boolean $manage_dhcp_dir = $dhcp::params::manage_dhcp_dir,
@@ -37,6 +38,7 @@ class dhcp (
   Variant[Array[String], Optional[String]] $options = undef,
   Variant[Array[String], Optional[String]] $v6_options = undef,
   Boolean $authoritative = false,
+  Boolean $v6_authoritative = $authoritative,
   String $dhcp_root_user = 'root',
   String $dhcp_root_group = $dhcp::params::root_group,
   Boolean $ddns_updates = false,
@@ -167,14 +169,6 @@ class dhcp (
     order   => '01',
   }
 
-  create_resources('dhcp::pool', $pools)
-  create_resources('dhcp::host', $hosts)
-
-  service { $servicename:
-    ensure => running,
-    enable => true,
-  }
-
   if $v6 {
     if $v6_servicename == 'NI' {
       fail('IPv6 support not yet implemented for this OS')
@@ -185,7 +179,7 @@ class dhcp (
       group   => $dhcp_root_group,
       mode    => '0644',
       require => Package[$packagename],
-      notify  => Service[$servicename6],
+      notify  => Service[$v6_servicename],
     }
 
     concat::fragment { 'dhcp6.conf+01_main.dhcp6':
@@ -200,11 +194,34 @@ class dhcp (
       order   => '20',
     }
 
-    if ($v6_servicename != $servicename) {
-      service { $v6_servicename:
-        ensure => running,
-        enable => true,
-      }
+    concat { "${dhcp_dir}/dhcpd6.hosts":
+      owner   => $dhcp_root_user,
+      group   => $dhcp_root_group,
+      mode    => '0644',
+      require => Package[$packagename],
+      notify  => Service[$v6_servicename],
+    }
+
+    concat::fragment { 'dhcp6.hosts+01_main.hosts':
+      target  => "${dhcp_dir}/dhcpd6.hosts",
+      content => "# static DHCP hosts\n",
+      order   => '01',
     }
   }
+
+  create_resources('dhcp::pool', $pools)
+  create_resources('dhcp::host', $hosts)
+
+  service { $servicename:
+    ensure => running,
+    enable => true,
+  }
+
+  if $v6 and ($v6_servicename != $servicename) {
+    service { $v6_servicename:
+      ensure => running,
+      enable => true,
+    }
+  }
+
 }
