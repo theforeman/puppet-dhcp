@@ -6,7 +6,9 @@ class dhcp (
   Optional[Boolean] $bootp = undef,
   Array[String] $ntpservers = [],
   Optional[Array[String]] $interfaces = undef,
+  Optional[Array[String]] $interfaces6 = undef,
   String $interface = 'NOTSET',
+  String $interface6 = 'NOTSET',
   Integer[0] $default_lease_time = 43200,
   Integer[0] $max_lease_time = 86400,
   String $dnskeyname = 'rndc-key',
@@ -53,6 +55,14 @@ class dhcp (
     fail ("You need to set \$interfaces in ${module_name}")
   } else {
     $dhcp_interfaces = $interfaces
+  }
+  # Same for v6
+  if $interface6 != 'NOTSET' and $interfaces6 == undef {
+    $dhcp_interfaces6 = [ $interface6 ]
+  } elsif $interface6 == 'NOTSET' and $interfaces6 == undef {
+    fail ("You need to set \$interfaces6 in ${module_name}")
+  } else {
+    $dhcp_interfaces6 = $interfaces6
   }
 
   # See https://tools.ietf.org/html/draft-ietf-dhc-failover-12 for why BOOTP is

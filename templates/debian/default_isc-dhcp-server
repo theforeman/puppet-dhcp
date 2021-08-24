@@ -2,7 +2,7 @@
 
 # Path to dhcpd's config file (default: /etc/dhcp/dhcpd.conf).
 DHCPDv4_CONF=<%= @dhcp_dir %>/dhcpd.conf
-#DHCPDv6_CONF=/etc/dhcp/dhcpd6.conf
+DHCPDv6_CONF=<%= @dhcp_dir %>/dhcpd6.conf
 
 # Path to dhcpd's PID file (default: /var/run/dhcpd.pid).
 #DHCPDv4_PID=/var/run/dhcpd.pid
@@ -15,4 +15,4 @@ DHCPDv4_CONF=<%= @dhcp_dir %>/dhcpd.conf
 # On what interfaces should the DHCP server (dhcpd) serve DHCP requests?
 #	Separate multiple interfaces with spaces, e.g. "eth0 eth1".
 INTERFACESv4="<%= @dhcp_interfaces.join(' ') %>"
-INTERFACESv6=""
+INTERFACESv6="<%= @dchp_interfaces6.join(' ') %>"
