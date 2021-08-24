@@ -1,12 +1,16 @@
 # Manage an ISC DHCP server
 class dhcp (
   Array[String] $dnsdomain = $dhcp::params::dnsdomain,
+  Array[String] $v6_dnsdomain = $dnsdomain,
   Array[String] $nameservers = [],
+  Array[String] $v6_nameservers = [],
   Boolean $failover = false,
   Optional[Boolean] $bootp = undef,
   Array[String] $ntpservers = [],
   Optional[Array[String]] $interfaces = undef,
+  Optional[Array[String]] $v6_interfaces = undef,
   String $interface = 'NOTSET',
+  String $v6_interface = 'NOTSET',
   Integer[0] $default_lease_time = 43200,
   Integer[0] $max_lease_time = 86400,
   String $dnskeyname = 'rndc-key',
@@ -22,15 +26,19 @@ class dhcp (
   Optional[Integer[0]] $mtu  = undef,
   Hash[String, String] $bootfiles = $dhcp::params::bootfiles,
   String $logfacility = 'local7',
+  String $v6_logfacility = $logfacility,
   Boolean $dhcp_monitor = true,
   Stdlib::Absolutepath $dhcp_dir = $dhcp::params::dhcp_dir,
   Boolean $manage_dhcp_dir = $dhcp::params::manage_dhcp_dir,
   Optional[Stdlib::Filemode] $conf_dir_mode = $dhcp::params::conf_dir_mode,
   String $packagename = $dhcp::params::packagename,
   String $servicename = $dhcp::params::servicename,
+  String $v6_servicename = $dhcp::params::v6_servicename,
   $option_static_route = undef,
   Variant[Array[String], Optional[String]] $options = undef,
+  Variant[Array[String], Optional[String]] $v6_options = undef,
   Boolean $authoritative = false,
+  Boolean $v6_authoritative = $authoritative,
   String $dhcp_root_user = 'root',
   String $dhcp_root_group = $dhcp::params::root_group,
   Boolean $ddns_updates = false,
@@ -41,7 +49,9 @@ class dhcp (
   Hash[String, Hash] $pools = {},
   Hash[String, Hash] $hosts = {},
   Variant[Array[String], Optional[String]] $includes = undef,
+  Variant[Array[String], Optional[String]] $v6_includes = undef,
   String $config_comment = 'dhcpd.conf',
+  String $v6_config_comment = 'dhcpd6.conf',
 ) inherits dhcp::params {
 
   # In case people set interface instead of interfaces work around
@@ -54,6 +64,13 @@ class dhcp (
   } else {
     $dhcp_interfaces = $interfaces
   }
+  # Same for v6, except optional
+  if $v6_interface != 'NOTSET' and $v6_interfaces == undef {
+    $dhcp6_interfaces = [ $v6_interface ]
+  } else {
+    $dhcp6_interfaces = $v6_interfaces
+  }
+  $v6 = ($dhcp6_interfaces != undef)
 
   # See https://tools.ietf.org/html/draft-ietf-dhc-failover-12 for why BOOTP is
   # not supported in the failover protocol. Relay agents *can* be made to work
@@ -132,12 +149,10 @@ class dhcp (
     order   => '01',
   }
 
-  if $includes {
-    concat::fragment { 'dhcp.conf+20_includes':
-      target  => "${dhcp_dir}/dhcpd.conf",
-      content => template('dhcp/dhcpd.conf.includes.erb'),
-      order   => '20',
-    }
+  concat::fragment { 'dhcp.conf+20_includes':
+    target  => "${dhcp_dir}/dhcpd.conf",
+    content => template('dhcp/dhcpd.conf.includes.erb'),
+    order   => '20',
   }
 
   concat { "${dhcp_dir}/dhcpd.hosts":
@@ -154,6 +169,46 @@ class dhcp (
     order   => '01',
   }
 
+  if $v6 {
+    if $v6_servicename == 'NI' {
+      fail('IPv6 support not yet implemented for this OS')
+    }
+
+    concat { "${dhcp_dir}/dhcpd6.conf":
+      owner   => $dhcp_root_user,
+      group   => $dhcp_root_group,
+      mode    => '0644',
+      require => Package[$packagename],
+      notify  => Service[$v6_servicename],
+    }
+
+    concat::fragment { 'dhcp6.conf+01_main.dhcp6':
+      target  => "${dhcp_dir}/dhcpd6.conf",
+      content => template('dhcp/dhcpd6.conf.erb'),
+      order   => '01',
+    }
+
+    concat::fragment { 'dhcp6.conf+20_includes':
+      target  => "${dhcp_dir}/dhcpd6.conf",
+      content => template('dhcp/dhcpd6.conf.includes.erb'),
+      order   => '20',
+    }
+
+    concat { "${dhcp_dir}/dhcpd6.hosts":
+      owner   => $dhcp_root_user,
+      group   => $dhcp_root_group,
+      mode    => '0644',
+      require => Package[$packagename],
+      notify  => Service[$v6_servicename],
+    }
+
+    concat::fragment { 'dhcp6.hosts+01_main.hosts':
+      target  => "${dhcp_dir}/dhcpd6.hosts",
+      content => "# static DHCP hosts\n",
+      order   => '01',
+    }
+  }
+
   create_resources('dhcp::pool', $pools)
   create_resources('dhcp::host', $hosts)
 
@@ -161,4 +216,12 @@ class dhcp (
     ensure => running,
     enable => true,
   }
+
+  if $v6 and ($v6_servicename != $servicename) {
+    service { $v6_servicename:
+      ensure => running,
+      enable => true,
+    }
+  }
+
 }
