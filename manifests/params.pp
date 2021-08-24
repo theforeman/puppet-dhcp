@@ -16,6 +16,7 @@ class dhcp::params {
       $conf_dir_mode = '0755'
       $packagename = 'isc-dhcp-server'
       $servicename = 'isc-dhcp-server'
+      $servicename6 = 'isc-dhcp-server'
       $root_group = 'root'
       $bootfiles = {
         '00:06' => 'grub2/bootia32.efi',

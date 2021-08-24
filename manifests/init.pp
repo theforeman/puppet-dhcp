@@ -43,7 +43,9 @@ class dhcp (
   Hash[String, Hash] $pools = {},
   Hash[String, Hash] $hosts = {},
   Variant[Array[String], Optional[String]] $includes = undef,
+  Variant[Array[String], Optional[String]] $includes6 = undef,
   String $config_comment = 'dhcpd.conf',
+  String $config_comment6 = 'dhcpd6.conf',
 ) inherits dhcp::params {
 
   # In case people set interface instead of interfaces work around
@@ -56,14 +58,13 @@ class dhcp (
   } else {
     $dhcp_interfaces = $interfaces
   }
-  # Same for v6
+  # Same for v6, except optional
   if $interface6 != 'NOTSET' and $interfaces6 == undef {
     $dhcp_interfaces6 = [ $interface6 ]
-  } elsif $interface6 == 'NOTSET' and $interfaces6 == undef {
-    fail ("You need to set \$interfaces6 in ${module_name}")
   } else {
     $dhcp_interfaces6 = $interfaces6
   }
+  $v6 = ($dhcp_interfaces6 != undef)
 
   # See https://tools.ietf.org/html/draft-ietf-dhc-failover-12 for why BOOTP is
   # not supported in the failover protocol. Relay agents *can* be made to work
@@ -142,12 +143,10 @@ class dhcp (
     order   => '01',
   }
 
-  if $includes {
-    concat::fragment { 'dhcp.conf+20_includes':
-      target  => "${dhcp_dir}/dhcpd.conf",
-      content => template('dhcp/dhcpd.conf.includes.erb'),
-      order   => '20',
-    }
+  concat::fragment { 'dhcp.conf+20_includes':
+    target  => "${dhcp_dir}/dhcpd.conf",
+    content => template('dhcp/dhcpd.conf.includes.erb'),
+    order   => '20',
   }
 
   concat { "${dhcp_dir}/dhcpd.hosts":
@@ -170,5 +169,34 @@ class dhcp (
   service { $servicename:
     ensure => running,
     enable => true,
+  }
+
+  if $v6 {
+    concat { "${dhcp_dir}/dhcpd6.conf":
+      owner   => $dhcp_root_user,
+      group   => $dhcp_root_group,
+      mode    => '0644',
+      require => Package[$packagename],
+      notify  => Service[$servicename6],
+    }
+
+    concat::fragment { 'dhcp6.conf+01_main.dhcp6':
+      target  => "${dhcp_dir}/dhcpd6.conf",
+      content => template('dhcp/dhcpd6.conf.erb'),
+      order   => '01',
+    }
+
+    concat::fragment { 'dhcp6.conf+20_includes':
+      target  => "${dhcp_dir}/dhcpd6.conf",
+      content => template('dhcp/dhcpd6.conf.includes.erb'),
+      order   => '20',
+    }
+
+    if ($servicename6 != $servicename) {
+      service { $servicename6:
+        ensure => running,
+        enable => true,
+      }
+    }
   }
 }

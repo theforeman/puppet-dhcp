@@ -1,0 +1,7 @@
+<% if @includes6.is_a? Array -%>
+<% @includes6.each do |include| -%>
+include "<%= include %>";
+<% end -%>
+<% elsif @includes6 && !@includes6.strip.empty? -%>
+include "<%= @includes6 %>";
+<% end -%>
