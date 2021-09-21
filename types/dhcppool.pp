@@ -12,8 +12,8 @@
 #   Custom parameters, added verbatim to the pool block
 type Dhcp::DhcpPool = Struct[
   {
-    'range'                => Variant[Array[Dhcp::Range], Optional[Dhcp::Range], Enum[''], Boolean],
+    'range'                => Optional[Variant[Array[Dhcp::Range], Dhcp::Range, Enum[''], Boolean]],
     Optional['failover']   => Optional[String],
-    Optional['parameters'] => Variant[Array[String], Optional[String]],
+    Optional['parameters'] => Optional[Variant[Array[String], String]],
   }
 ]
