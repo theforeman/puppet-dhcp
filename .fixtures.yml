@@ -5,4 +5,4 @@ fixtures:
       puppet_version: '>= 6.0.0'
     concat:      'https://github.com/puppetlabs/puppetlabs-concat'
     stdlib:      'https://github.com/puppetlabs/puppetlabs-stdlib.git'
-    systemd:     'https://github.com/camptocamp/puppet-systemd'
+    systemd:     'https://github.com/voxpupuli/puppet-systemd'
