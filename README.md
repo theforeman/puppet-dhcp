@@ -72,27 +72,29 @@ For the support of static routes (RFC3442):
 ### dhcp::subnet
 To create a subnet with multiple pools, use dhcp::subnet.
 
-    dhcp::subnet{ 'ops.dc1.example.net':
-      network => '10.0.1.0',
-      mask    => '255.255.255.0',
-      pools   => [
-        {
-          range      => '10.0.1.101 10.0.1.110',
-          parameters => [
-            'allow members of "group1"',
-            'next-server 10.1.1.1',
-          ],
-        },
-        {
-          range      => '10.0.1.111 10.0.1.120',
-          parameters => [
-            'allow members of "group2"',
-            'next-server 10.1.1.2',
-          ],
-        },
+```puppet
+dhcp::subnet{ 'ops.dc1.example.net':
+  network => '10.0.1.0',
+  mask    => '255.255.255.0',
+  pools   => [
+    {
+      range      => '10.0.1.101 10.0.1.110',
+      parameters => [
+        'allow members of "group1"',
+        'next-server 10.1.1.1',
       ],
-      gateway => '10.0.1.1',
-    }
+    },
+    {
+      range      => '10.0.1.111 10.0.1.120',
+      parameters => [
+        'allow members of "group2"',
+        'next-server 10.1.1.2',
+      ],
+    },
+  ],
+  gateway => '10.0.1.1',
+}
+```
 
 ### dhcp::host
 Create host reservations.
