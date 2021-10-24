@@ -1,5 +1,26 @@
 # Changelog
 
+## [8.0.0](https://github.com/theforeman/puppet-dhcp/tree/8.0.0) (2021-10-29)
+
+[Full Changelog](https://github.com/theforeman/puppet-dhcp/compare/7.0.0...8.0.0)
+
+**Breaking changes:**
+
+- Drop EL6 support [\#198](https://github.com/theforeman/puppet-dhcp/pull/198) ([ekohl](https://github.com/ekohl))
+- Drop Debian 8 support and update default template [\#197](https://github.com/theforeman/puppet-dhcp/pull/197) ([ekohl](https://github.com/ekohl))
+
+**Implemented enhancements:**
+
+- Depend on camptocamp/systemd ~\> 3.1 [\#202](https://github.com/theforeman/puppet-dhcp/pull/202) ([ekohl](https://github.com/ekohl))
+
+**Fixed bugs:**
+
+- Ensure systemd drop-in happens before service [\#199](https://github.com/theforeman/puppet-dhcp/pull/199) ([ekohl](https://github.com/ekohl))
+
+**Closed issues:**
+
+- Use of notify\_service requires systemd dependency version bump [\#201](https://github.com/theforeman/puppet-dhcp/issues/201)
+
 ## [7.0.0](https://github.com/theforeman/puppet-dhcp/tree/7.0.0) (2021-07-23)
 
 [Full Changelog](https://github.com/theforeman/puppet-dhcp/compare/6.2.0...7.0.0)
