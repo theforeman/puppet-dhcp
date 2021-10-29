@@ -14,6 +14,7 @@ Installs and manages a DHCP server.
 
 ## Features
 * Multiple subnet support
+* Support for multiple pools within a subnet
 * Host reservations
 * Secure dynamic DNS updates when combined with Bind
 * Failover support
@@ -35,6 +36,8 @@ Define the server and the zones it will be responsible for.
     }
 
 ### dhcp::pool
+To create a subnet with a single pool, use dhcp::pool.
+
 Define the pool attributes
 
     dhcp::pool{ 'ops.dc1.example.net':
@@ -65,6 +68,33 @@ For the support of static routes (RFC3442):
       static_routes =>  [ { 'mask' => '32', 'network' => '169.254.169.254', 'gateway' => $ip },
                           { 'mask' => '0',                                  'gateway' => $gw } ],
     }
+
+### dhcp::subnet
+To create a subnet with multiple pools, use dhcp::subnet.
+
+```puppet
+dhcp::subnet{ 'ops.dc1.example.net':
+  network => '10.0.1.0',
+  mask    => '255.255.255.0',
+  pools   => [
+    {
+      range      => '10.0.1.101 10.0.1.110',
+      parameters => [
+        'allow members of "group1"',
+        'next-server 10.1.1.1',
+      ],
+    },
+    {
+      range      => '10.0.1.111 10.0.1.120',
+      parameters => [
+        'allow members of "group2"',
+        'next-server 10.1.1.2',
+      ],
+    },
+  ],
+  gateway => '10.0.1.1',
+}
+```
 
 ### dhcp::host
 Create host reservations.

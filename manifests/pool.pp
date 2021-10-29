@@ -19,10 +19,25 @@ define dhcp::pool (
   Optional[String] $raw_prepend = undef,
 ) {
 
-  concat::fragment { "dhcp.conf+70_${name}.dhcp":
-    target  => "${dhcp::dhcp_dir}/dhcpd.conf",
-    content => template('dhcp/dhcpd.pool.erb'),
-    order   => "70-${name}",
+  dhcp::subnet { $name:
+    network        => $network,
+    mask           => $mask,
+    pools          => [{
+        range      => $range,
+        failover   => $failover,
+        parameters => $pool_parameters,
+    }],
+    gateway        => $gateway,
+    options        => $options,
+    parameters     => $parameters,
+    mtu            => $mtu,
+    nameservers    => $nameservers,
+    pxeserver      => $pxeserver,
+    pxefilename    => $pxefilename,
+    domain_name    => $domain_name,
+    static_routes  => $static_routes,
+    search_domains => $search_domains,
+    raw_append     => $raw_append,
+    raw_prepend    => $raw_prepend,
   }
-
 }
