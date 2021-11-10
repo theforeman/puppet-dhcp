@@ -57,7 +57,7 @@ class dhcp::params {
         $packagename = 'dhcp'
       }
       $servicename = 'dhcpd'
-      $v6_servicename = 'NI'
+      $v6_servicename = 'dhcpd6'
       $root_group  = 'root'
       $bootfiles = {
         '00:06' => 'grub2/shim.efi',
