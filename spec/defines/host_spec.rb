@@ -60,6 +60,40 @@ describe 'dhcp::host' do
 
         it_behaves_like "a concat template"
       end
+
+      describe 'raw_prepend parameter' do
+        let(:params) { super().merge(raw_prepend: 'fixed-address6 FE80:0000:0000:0000:903A:1C1A:E802:11E4;') }
+
+        let(:expected_content) do
+          <<~CONTENT
+            host myhost {
+              fixed-address6 FE80:0000:0000:0000:903A:1C1A:E802:11E4;
+              hardware ethernet   01:02:03:04:05:06;
+              fixed-address       10.0.0.100;
+              ddns-hostname       "myhost";
+            }
+          CONTENT
+        end
+
+        it_behaves_like "a concat template"
+      end
+
+      describe 'raw_append parameter' do
+        let(:params) { super().merge(raw_append: 'dhcp-client-identifier "spec";') }
+
+        let(:expected_content) do
+          <<~CONTENT
+            host myhost {
+              hardware ethernet   01:02:03:04:05:06;
+              fixed-address       10.0.0.100;
+              ddns-hostname       "myhost";
+              dhcp-client-identifier "spec";
+            }
+          CONTENT
+        end
+
+        it_behaves_like "a concat template"
+      end
     end
   end
 end

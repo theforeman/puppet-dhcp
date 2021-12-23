@@ -8,10 +8,18 @@
 #
 # @param comment
 #   An optional comment for the host
+#
+# @param raw_append
+#   Host configuration to append as-is
+#
+# @param raw_prepend
+#   Host configuration to prepend as-is
 define dhcp::host (
   String $ip,
   Dhcp::Macaddress $mac,
   Optional[String] $comment=undef,
+  Optional[String] $raw_append = undef,
+  Optional[String] $raw_prepend = undef,
 ) {
 
   $host = $name
