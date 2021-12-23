@@ -2,7 +2,13 @@
 # <%= @comment %>
 <% end -%>
 host <%= @host %> {
+<% if @raw_prepend -%>
+  <%= @raw_prepend %>
+<% end -%>
   hardware ethernet   <%= @mac %>;
   fixed-address       <%= @ip %>;
   ddns-hostname       "<%= @name %>";
+<% if @raw_append -%>
+  <%= @raw_append %>
+<% end -%>
 }
