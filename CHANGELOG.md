@@ -1,5 +1,16 @@
 # Changelog
 
+## [8.1.0](https://github.com/theforeman/puppet-dhcp/tree/8.1.0) (2022-02-03)
+
+[Full Changelog](https://github.com/theforeman/puppet-dhcp/compare/8.0.0...8.1.0)
+
+**Implemented enhancements:**
+
+- Add Debian 11 and Ubuntu 20.04 support [\#208](https://github.com/theforeman/puppet-dhcp/pull/208) ([ekohl](https://github.com/ekohl))
+- add support for raw configuration for host declarations. [\#206](https://github.com/theforeman/puppet-dhcp/pull/206) ([UiP9AV6Y](https://github.com/UiP9AV6Y))
+- puppetlabs/stdlib: Allow 8.x [\#204](https://github.com/theforeman/puppet-dhcp/pull/204) ([bastelfreak](https://github.com/bastelfreak))
+- Add support for multiple pools in a subnet [\#164](https://github.com/theforeman/puppet-dhcp/pull/164) ([peterverraedt](https://github.com/peterverraedt))
+
 ## [8.0.0](https://github.com/theforeman/puppet-dhcp/tree/8.0.0) (2021-10-29)
 
 [Full Changelog](https://github.com/theforeman/puppet-dhcp/compare/7.0.0...8.0.0)
@@ -62,6 +73,7 @@
 **Breaking changes:**
 
 - Use modern facts [\#175](https://github.com/theforeman/puppet-dhcp/issues/175)
+- Default nameservers to an empty array [\#171](https://github.com/theforeman/puppet-dhcp/pull/171) ([jhoblitt](https://github.com/jhoblitt))
 
 **Implemented enhancements:**
 
@@ -92,10 +104,6 @@
 
 [Full Changelog](https://github.com/theforeman/puppet-dhcp/compare/5.0.0...5.0.1)
 
-**Breaking changes:**
-
-- Default nameservers to an empty array [\#171](https://github.com/theforeman/puppet-dhcp/pull/171) ([jhoblitt](https://github.com/jhoblitt))
-
 **Merged pull requests:**
 
 - allow newer puppetlabs-concat version [\#157](https://github.com/theforeman/puppet-dhcp/pull/157) ([mmoll](https://github.com/mmoll))
@@ -108,6 +116,7 @@
 **Breaking changes:**
 
 - drop Puppet 4 [\#152](https://github.com/theforeman/puppet-dhcp/pull/152) ([mmoll](https://github.com/mmoll))
+- drop EOL OSes [\#151](https://github.com/theforeman/puppet-dhcp/pull/151) ([mmoll](https://github.com/mmoll))
 
 **Implemented enhancements:**
 
