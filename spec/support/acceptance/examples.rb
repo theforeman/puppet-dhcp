@@ -1,5 +1,7 @@
 shared_examples 'a DHCP server' do
   service_name = case fact('osfamily')
+                 when 'Archlinux'
+                   'dhcpd4'
                  when 'Debian'
                    'isc-dhcp-server'
                  else
