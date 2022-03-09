@@ -2,6 +2,7 @@ require 'spec_helper_acceptance'
 
 describe 'Simple installation' do
   interface = 'eth0'
+  config_file = fact('osfamily') == 'Archlinux' ? '/etc/dhcpd.conf' : '/etc/dhcp/dhcpd.conf'
 
   it_behaves_like 'an idempotent resource' do
     let(:manifest) do
@@ -27,7 +28,8 @@ describe 'Simple installation' do
 
   it_behaves_like 'a DHCP server'
 
-  describe file("/etc/dhcp/dhcpd.conf") do
+  describe file(config_file) do
+    it { is_expected.to be_file }
     its(:content) { should_not match %r{option domain-name-servers } }
   end
 
