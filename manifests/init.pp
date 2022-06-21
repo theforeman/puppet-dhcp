@@ -1,4 +1,7 @@
 # Manage an ISC DHCP server
+#
+# @param option_static_route
+#   When enabled it sets the options rfc3442-classless-static-routes and ms-classless-static-routes
 class dhcp (
   Array[String] $dnsdomain = $dhcp::params::dnsdomain,
   Array[String] $nameservers = [],
@@ -28,7 +31,7 @@ class dhcp (
   Optional[Stdlib::Filemode] $conf_dir_mode = $dhcp::params::conf_dir_mode,
   String $packagename = $dhcp::params::packagename,
   String $servicename = $dhcp::params::servicename,
-  $option_static_route = undef,
+  Boolean $option_static_route = false,
   Variant[Array[String], Optional[String]] $options = undef,
   Boolean $authoritative = false,
   String $dhcp_root_user = 'root',
