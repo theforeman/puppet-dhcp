@@ -18,7 +18,6 @@ define dhcp::pool (
   Optional[String] $raw_append = undef,
   Optional[String] $raw_prepend = undef,
 ) {
-
   dhcp::subnet { $name:
     network        => $network,
     mask           => $mask,

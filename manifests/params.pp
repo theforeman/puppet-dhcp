@@ -1,7 +1,6 @@
 # Default parameters
 # @api private
 class dhcp::params {
-
   if fact('networking.domain') {
     $dnsdomain = [$facts['networking']['domain']]
   } else {

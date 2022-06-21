@@ -21,7 +21,6 @@ define dhcp::host (
   Optional[String] $raw_append = undef,
   Optional[String] $raw_prepend = undef,
 ) {
-
   $host = $name
 
   concat::fragment { "dhcp.hosts+10_${name}.hosts":
