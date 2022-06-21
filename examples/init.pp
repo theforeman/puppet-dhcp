@@ -18,7 +18,7 @@ class { 'dhcp::failover':
   peer_address => '10.1.1.20',
 }
 
-dhcp::pool{ 'example.com':
+dhcp::pool { 'example.com':
   network => '10.1.1.0',
   mask    => '255.255.255.0',
   range   => '10.1.1.100 10.1.1.200',

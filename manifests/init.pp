@@ -44,12 +44,11 @@ class dhcp (
   Variant[Array[String], Optional[String]] $includes = undef,
   String $config_comment = 'dhcpd.conf',
 ) inherits dhcp::params {
-
   # In case people set interface instead of interfaces work around
   # that. If they set both, use interfaces and the user is a unwise
   # and deserves what they get.
   if $interface != 'NOTSET' and $interfaces == undef {
-    $dhcp_interfaces = [ $interface ]
+    $dhcp_interfaces = [$interface]
   } elsif $interface == 'NOTSET' and $interfaces == undef {
     fail ("You need to set \$interfaces in ${module_name}")
   } else {
@@ -88,7 +87,7 @@ class dhcp (
   # Only debian and ubuntu have this style of defaults for startup.
   case $facts['os']['family'] {
     'Debian': {
-      file{ '/etc/default/isc-dhcp-server':
+      file { '/etc/default/isc-dhcp-server':
         ensure  => file,
         owner   => 'root',
         group   => 'root',

@@ -41,7 +41,6 @@ class dhcp::failover (
   Variant[Integer[0], String] $load_balance = 3,
   Optional[String] $omapi_key = undef,
 ) {
-
   include dhcp
 
   concat::fragment { 'dhcp.conf+10_failover.dhcp':
