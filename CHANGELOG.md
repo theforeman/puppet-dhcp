@@ -1,5 +1,15 @@
 # Changelog
 
+## [8.2.0](https://github.com/theforeman/puppet-dhcp/tree/8.2.0) (2022-08-04)
+
+[Full Changelog](https://github.com/theforeman/puppet-dhcp/compare/8.1.0...8.2.0)
+
+**Implemented enhancements:**
+
+- Update to voxpupuli-test 5 [\#214](https://github.com/theforeman/puppet-dhcp/pull/214) ([ekohl](https://github.com/ekohl))
+- Remove nameserver sorting for dhcp subnet configurations [\#213](https://github.com/theforeman/puppet-dhcp/pull/213) ([jan-win1993](https://github.com/jan-win1993))
+- Support CentOS 9 [\#209](https://github.com/theforeman/puppet-dhcp/pull/209) ([ekohl](https://github.com/ekohl))
+
 ## [8.1.0](https://github.com/theforeman/puppet-dhcp/tree/8.1.0) (2022-02-03)
 
 [Full Changelog](https://github.com/theforeman/puppet-dhcp/compare/8.0.0...8.1.0)
