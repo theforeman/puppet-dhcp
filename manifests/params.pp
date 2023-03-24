@@ -17,9 +17,9 @@ class dhcp::params {
       $servicename = 'isc-dhcp-server'
       $root_group = 'root'
       $bootfiles = {
-        '00:06' => 'grub2/bootia32.efi',
-        '00:07' => 'grub2/bootx64.efi',
-        '00:09' => 'grub2/bootx64.efi',
+        '00:06' => 'grub2/grubia32.efi',
+        '00:07' => 'grub2/grubx64.efi',
+        '00:09' => 'grub2/grubx64.efi',
       }
     }
 
