@@ -1,6 +1,3 @@
-[![Puppet Forge](https://img.shields.io/puppetforge/v/theforeman/dhcp.svg)](https://forge.puppetlabs.com/theforeman/dhcp)
-[![Build Status](https://travis-ci.org/theforeman/puppet-dhcp.svg?branch=master)](https://travis-ci.org/theforeman/puppet-dhcp)
-
 # DHCP module for Puppet
 
 DHCP module for theforeman. Based on original DHCP module by ZLeslie, thanks
