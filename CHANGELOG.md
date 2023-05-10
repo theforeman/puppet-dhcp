@@ -1,5 +1,24 @@
 # Changelog
 
+## [9.0.0](https://github.com/theforeman/puppet-dhcp/tree/9.0.0) (2023-05-15)
+
+[Full Changelog](https://github.com/theforeman/puppet-dhcp/compare/8.2.0...9.0.0)
+
+**Breaking changes:**
+
+- Drop Debian 9, Ubuntu 16.04, Fedora 31/32; Add Fedora 37/38 [\#220](https://github.com/theforeman/puppet-dhcp/pull/220) ([ekohl](https://github.com/ekohl))
+- Refs [\#36345](https://projects.theforeman.org/issues/36345) - Raise minimum Puppet version to 7.0.0 [\#219](https://github.com/theforeman/puppet-dhcp/pull/219) ([ekohl](https://github.com/ekohl))
+- debian grub2: update efi file name to align with symlink name [\#217](https://github.com/theforeman/puppet-dhcp/pull/217) ([jklare](https://github.com/jklare))
+
+**Implemented enhancements:**
+
+- Mark compatible with puppetlabs/concat 8.x [\#218](https://github.com/theforeman/puppet-dhcp/pull/218) ([ekohl](https://github.com/ekohl))
+- bump puppet/systemd to \< 5.0.0 [\#216](https://github.com/theforeman/puppet-dhcp/pull/216) ([jhoblitt](https://github.com/jhoblitt))
+
+**Merged pull requests:**
+
+- Drop badges in README [\#221](https://github.com/theforeman/puppet-dhcp/pull/221) ([ekohl](https://github.com/ekohl))
+
 ## [8.2.0](https://github.com/theforeman/puppet-dhcp/tree/8.2.0) (2022-08-04)
 
 [Full Changelog](https://github.com/theforeman/puppet-dhcp/compare/8.1.0...8.2.0)
