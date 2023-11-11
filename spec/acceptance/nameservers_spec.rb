@@ -2,7 +2,7 @@ require 'spec_helper_acceptance'
 
 describe 'with empty nameservers list' do
   interface = 'eth0'
-  config_file = fact('osfamily') == 'Archlinux' ? '/etc/dhcpd.conf' : '/etc/dhcp/dhcpd.conf'
+  config_file = fact('os.family') == 'Archlinux' ? '/etc/dhcpd.conf' : '/etc/dhcp/dhcpd.conf'
 
   it_behaves_like 'an idempotent resource' do
     let(:manifest) do
