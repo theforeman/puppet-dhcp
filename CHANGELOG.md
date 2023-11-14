@@ -1,5 +1,15 @@
 # Changelog
 
+## [9.1.0](https://github.com/theforeman/puppet-dhcp/tree/9.1.0) (2023-11-14)
+
+[Full Changelog](https://github.com/theforeman/puppet-dhcp/compare/9.0.0...9.1.0)
+
+**Implemented enhancements:**
+
+- Mark compatible with puppet/systemd 5.x & 6.x [\#227](https://github.com/theforeman/puppet-dhcp/pull/227) ([ekohl](https://github.com/ekohl))
+- allow stdlib 9.x [\#226](https://github.com/theforeman/puppet-dhcp/pull/226) ([jhoblitt](https://github.com/jhoblitt))
+- Add Puppet 8 support [\#222](https://github.com/theforeman/puppet-dhcp/pull/222) ([ekohl](https://github.com/ekohl))
+
 ## [9.0.0](https://github.com/theforeman/puppet-dhcp/tree/9.0.0) (2023-05-15)
 
 [Full Changelog](https://github.com/theforeman/puppet-dhcp/compare/8.2.0...9.0.0)
