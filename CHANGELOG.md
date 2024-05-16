@@ -1,5 +1,15 @@
 # Changelog
 
+## [9.2.0](https://github.com/theforeman/puppet-dhcp/tree/9.2.0) (2024-05-16)
+
+[Full Changelog](https://github.com/theforeman/puppet-dhcp/compare/9.1.0...9.2.0)
+
+**Implemented enhancements:**
+
+- Allow puppet/systemd 7.x [\#232](https://github.com/theforeman/puppet-dhcp/pull/232) ([evgeni](https://github.com/evgeni))
+- Add support for Debian 12 [\#231](https://github.com/theforeman/puppet-dhcp/pull/231) ([evgeni](https://github.com/evgeni))
+- Add Ubuntu 22.04 support [\#230](https://github.com/theforeman/puppet-dhcp/pull/230) ([evgeni](https://github.com/evgeni))
+
 ## [9.1.0](https://github.com/theforeman/puppet-dhcp/tree/9.1.0) (2023-11-14)
 
 [Full Changelog](https://github.com/theforeman/puppet-dhcp/compare/9.0.0...9.1.0)
