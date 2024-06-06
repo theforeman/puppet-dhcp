@@ -1,4 +1,4 @@
-if $facts['os']['name'] == 'CentOS' {
+if $facts['os']['family'] == 'RedHat' and $facts['os']['name'] != 'Fedora' {
   package { 'epel-release':
     ensure => installed,
     before => Package['dhcping'],
