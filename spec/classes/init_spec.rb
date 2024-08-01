@@ -534,6 +534,20 @@ describe 'dhcp' do
           it { is_expected.to compile.and_raise_error(%r{dnsupdateserver or nameservers parameter is required to enable ddns}) }
         end
       end
+
+      describe "with shared_network" do
+          let(:params) { super().merge(shared_network: "shared") }
+
+          let(:expected_content) do
+            <<~CONTENT
+              shared-network shared {
+            CONTENT
+          end
+
+          it do
+            is_expected.to contain_concat__fragment('dhcp.conf+75-start_shared.dhcp').with_content(expected_content)
+          end
+      end
     end
   end
 end
