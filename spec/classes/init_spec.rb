@@ -69,19 +69,19 @@ describe 'dhcp' do
 
         it { is_expected.not_to contain_concat__fragment('dhcp.conf+20_includes') }
 
-        if facts[:osfamily] == 'RedHat'
+        if facts[:os]['family'] == 'RedHat'
           it { is_expected.to contain_systemd__dropin_file('interfaces.conf') }
         else
           it { is_expected.not_to contain_systemd__dropin_file('interfaces.conf') }
         end
 
-        if facts[:osfamily] == 'Debian'
+        if facts[:os]['family'] == 'Debian'
           it { is_expected.to contain_file('/etc/default/isc-dhcp-server') }
         else
           it { is_expected.not_to contain_file('/etc/default/isc-dhcp-server') }
         end
 
-        if ['FreeBSD', 'DragonFly'].include?(facts[:osfamily])
+        if ['FreeBSD', 'DragonFly'].include?(facts[:os]['family'])
           it { is_expected.to contain_augeas('set listen interfaces') }
         else
           it { is_expected.not_to contain_augeas('set listen interfaces') }
