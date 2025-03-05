@@ -1,35 +1,35 @@
 require 'spec_helper'
 
 describe 'dhcp::host' do
+  let :title do 'myhost' end
+
+  let :params do {
+    :ip  => '10.0.0.100',
+    :mac => '01:02:03:04:05:06',
+  } end
+
+  let :pre_condition do
+    "class { '::dhcp': interfaces => ['eth0']}"
+  end
+
+  let(:fragment_name) do
+    'dhcp.hosts+10_myhost.hosts'
+  end
+
+  shared_examples "a concat template" do
+    it { is_expected.to compile.with_all_deps }
+
+    it do
+      is_expected.to contain_concat__fragment(fragment_name).with_content(expected_content)
+    end
+  end
+
   on_supported_os.each do |os, facts|
-    let :title do 'myhost' end
-
-    let :params do {
-      :ip  => '10.0.0.100',
-      :mac => '01:02:03:04:05:06',
-    } end
-
-    let :facts do
-      facts
-    end
-
-    let :pre_condition do
-      "class { '::dhcp': interfaces => ['eth0']}"
-    end
-
-    let(:fragment_name) do
-      'dhcp.hosts+10_myhost.hosts'
-    end
-
-    shared_examples "a concat template" do
-      it { is_expected.to compile.with_all_deps }
-
-      it do
-        is_expected.to contain_concat__fragment(fragment_name).with_content(expected_content)
-      end
-    end
-
     context "on #{os}" do
+      let :facts do
+        facts
+      end
+
       describe 'minimal parameters' do
         let(:expected_content) do
           <<~CONTENT
