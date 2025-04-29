@@ -75,7 +75,7 @@ class dhcp (
   }
 
   package { $packagename:
-    ensure   => installed,
+    ensure => installed,
   }
 
   if $manage_dhcp_dir {
