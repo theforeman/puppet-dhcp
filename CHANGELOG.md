@@ -1,5 +1,18 @@
 # Changelog
 
+## [9.3.0](https://github.com/theforeman/puppet-dhcp/tree/9.3.0) (2025-05-09)
+
+[Full Changelog](https://github.com/theforeman/puppet-dhcp/compare/9.2.0...9.3.0)
+
+**Implemented enhancements:**
+
+- Allow puppet/systemd 8.x [\#241](https://github.com/theforeman/puppet-dhcp/pull/241) ([badenerb](https://github.com/badenerb))
+- Add AlmaLinux 8 & 9 support [\#234](https://github.com/theforeman/puppet-dhcp/pull/234) ([archanaserver](https://github.com/archanaserver))
+
+**Merged pull requests:**
+
+- Fix space\_before\_arrow lint check [\#242](https://github.com/theforeman/puppet-dhcp/pull/242) ([evgeni](https://github.com/evgeni))
+
 ## [9.2.0](https://github.com/theforeman/puppet-dhcp/tree/9.2.0) (2024-05-16)
 
 [Full Changelog](https://github.com/theforeman/puppet-dhcp/compare/9.1.0...9.2.0)
