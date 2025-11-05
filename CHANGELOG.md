@@ -1,5 +1,13 @@
 # Changelog
 
+## [9.4.0](https://github.com/theforeman/puppet-dhcp/tree/9.4.0) (2025-11-05)
+
+[Full Changelog](https://github.com/theforeman/puppet-dhcp/compare/9.3.0...9.4.0)
+
+**Implemented enhancements:**
+
+- Allow puppet/systemd 9.x [\#244](https://github.com/theforeman/puppet-dhcp/pull/244) ([evgeni](https://github.com/evgeni))
+
 ## [9.3.0](https://github.com/theforeman/puppet-dhcp/tree/9.3.0) (2025-05-09)
 
 [Full Changelog](https://github.com/theforeman/puppet-dhcp/compare/9.2.0...9.3.0)
