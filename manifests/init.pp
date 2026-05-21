@@ -37,6 +37,7 @@ class dhcp (
   String $dhcp_root_user = 'root',
   String $dhcp_root_group = $dhcp::params::root_group,
   Boolean $ddns_updates = false,
+  Boolean $update_static_leases = true,
   Optional[String] $ddns_domainname = undef,
   Optional[String] $ddns_rev_domainname = undef,
   Enum['none', 'interim', 'standard'] $ddns_update_style = 'interim',

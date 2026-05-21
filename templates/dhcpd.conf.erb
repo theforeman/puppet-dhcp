@@ -26,7 +26,7 @@ not authoritative;
 <% if (@dnsupdatekey && !@dnsupdatekey.empty?) || @ddns_updates -%>
 ddns-updates on;
 ddns-update-style <%= @ddns_update_style %>;
-update-static-leases on;
+update-static-leases <%= @update_static_leases ? { true => 'on', false => 'off' } %>;
 use-host-decl-names on;
 <% if @client_updates == true -%>
 allow client-updates;
