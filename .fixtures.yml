@@ -1,6 +1,8 @@
 fixtures:
   repositories:
-    augeas_core: 'https://github.com/puppetlabs/puppetlabs-augeas_core'
+    augeas_core:
+      repo: 'https://github.com/puppetlabs/puppetlabs-augeas_core'
+      ref: 'v1.5.0'
     concat:      'https://github.com/puppetlabs/puppetlabs-concat'
     stdlib:      'https://github.com/puppetlabs/puppetlabs-stdlib.git'
     systemd:     'https://github.com/voxpupuli/puppet-systemd'
