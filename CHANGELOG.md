@@ -1,5 +1,13 @@
 # Changelog
 
+## [9.5.0](https://github.com/theforeman/puppet-dhcp/tree/9.5.0) (2026-05-25)
+
+[Full Changelog](https://github.com/theforeman/puppet-dhcp/compare/9.4.0...9.5.0)
+
+**Implemented enhancements:**
+
+- puppetlabs/concat: Allow 10.x [\#247](https://github.com/theforeman/puppet-dhcp/pull/247) ([bastelfreak](https://github.com/bastelfreak))
+
 ## [9.4.0](https://github.com/theforeman/puppet-dhcp/tree/9.4.0) (2025-11-05)
 
 [Full Changelog](https://github.com/theforeman/puppet-dhcp/compare/9.3.0...9.4.0)
