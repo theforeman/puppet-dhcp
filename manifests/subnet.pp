@@ -45,6 +45,8 @@
 #   Partial that is appended to the dhcpd.conf (before the final `}`)
 # @param raw_prepend
 #   Partial that is prepended to the dhcpd.conf (after the first `{`)
+# @param order
+#   Fragment order in the dhcpd.conf
 define dhcp::subnet (
   Stdlib::IP::Address::Nosubnet $network,
   Stdlib::IP::Address::Nosubnet $mask,
@@ -61,10 +63,11 @@ define dhcp::subnet (
   Variant[Array[String], Optional[String]] $search_domains = undef,
   Optional[String] $raw_append = undef,
   Optional[String] $raw_prepend = undef,
+  Integer[1] $order = 70,
 ) {
-  concat::fragment { "dhcp.conf+70_${name}.dhcp":
+  concat::fragment { "dhcp.conf+${order}_${name}.dhcp":
     target  => "${dhcp::dhcp_dir}/dhcpd.conf",
     content => template('dhcp/dhcpd.subnet.erb'),
-    order   => "70-${name}",
+    order   => "${order}-${name}",
   }
 }

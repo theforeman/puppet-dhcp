@@ -2,6 +2,8 @@
 #
 # @param option_static_route
 #   When enabled it sets the options rfc3442-classless-static-routes and ms-classless-static-routes
+# @param shared_network
+#   When used it configure subnet in shared-network statement, it is used to inform the DHCP server that it share the same physical network
 class dhcp (
   Array[String] $dnsdomain = $dhcp::params::dnsdomain,
   Array[String] $nameservers = [],
@@ -46,6 +48,7 @@ class dhcp (
   Hash[String, Hash] $hosts = {},
   Variant[Array[String], Optional[String]] $includes = undef,
   String $config_comment = 'dhcpd.conf',
+  Optional[Hash[String, Hash]] $shared_networks = undef,
 ) inherits dhcp::params {
   # In case people set interface instead of interfaces work around
   # that. If they set both, use interfaces and the user is a unwise
@@ -155,6 +158,10 @@ class dhcp (
     target  => "${dhcp_dir}/dhcpd.hosts",
     content => "# static DHCP hosts\n",
     order   => '01',
+  }
+
+  if $shared_networks {
+    create_resources('dhcp::sharednet', $shared_networks)
   }
 
   create_resources('dhcp::subnet', $subnets)
