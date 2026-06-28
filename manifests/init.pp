@@ -37,7 +37,11 @@ class dhcp (
   String $dhcp_root_user = 'root',
   String $dhcp_root_group = $dhcp::params::root_group,
   Boolean $ddns_updates = false,
-  Boolean $update_static_leases = true,
+  # @param update_static_leases
+  #   Whether to update static leases in DDNS. Valid values: 'on', 'off'.
+  #   Setting to 'off' prevents DNS records from being modified for static leases.
+  #   Default: 'on'
+  Enum['on', 'off'] $update_static_leases = 'on',
   Optional[String] $ddns_domainname = undef,
   Optional[String] $ddns_rev_domainname = undef,
   Enum['none', 'interim', 'standard'] $ddns_update_style = 'interim',
