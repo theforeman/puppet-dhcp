@@ -2,6 +2,11 @@
 #
 # @param option_static_route
 #   When enabled it sets the options rfc3442-classless-static-routes and ms-classless-static-routes
+# @param update_static_leases
+#   Whether to update static leases in DDNS. Valid values: 'on', 'off'.
+#   Setting to 'off' prevents DNS records from being modified for static leases.
+#   Default: 'on'
+
 class dhcp (
   Array[String] $dnsdomain = $dhcp::params::dnsdomain,
   Array[String] $nameservers = [],
@@ -37,10 +42,6 @@ class dhcp (
   String $dhcp_root_user = 'root',
   String $dhcp_root_group = $dhcp::params::root_group,
   Boolean $ddns_updates = false,
-  # @param update_static_leases
-  #   Whether to update static leases in DDNS. Valid values: 'on', 'off'.
-  #   Setting to 'off' prevents DNS records from being modified for static leases.
-  #   Default: 'on'
   Enum['on', 'off'] $update_static_leases = 'on',
   Optional[String] $ddns_domainname = undef,
   Optional[String] $ddns_rev_domainname = undef,
