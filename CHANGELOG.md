@@ -1,6 +1,14 @@
 # Changelog
 
-## [9.5.0](https://github.com/theforeman/puppet-dhcp/tree/9.5.0) (2026-05-25)
+## [9.6.0](https://github.com/theforeman/puppet-dhcp/tree/9.6.0) (2026-07-28)
+
+[Full Changelog](https://github.com/theforeman/puppet-dhcp/compare/9.5.0...9.6.0)
+
+**Implemented enhancements:**
+
+- enable toggle for update-static-leases param for ddns enabled config [\#248](https://github.com/theforeman/puppet-dhcp/pull/248) ([ikonia](https://github.com/ikonia))
+
+## [9.5.0](https://github.com/theforeman/puppet-dhcp/tree/9.5.0) (2026-05-26)
 
 [Full Changelog](https://github.com/theforeman/puppet-dhcp/compare/9.4.0...9.5.0)
 
@@ -15,6 +23,10 @@
 **Implemented enhancements:**
 
 - Allow puppet/systemd 9.x [\#244](https://github.com/theforeman/puppet-dhcp/pull/244) ([evgeni](https://github.com/evgeni))
+
+**Merged pull requests:**
+
+- Release 9.4.0 [\#245](https://github.com/theforeman/puppet-dhcp/pull/245) ([ehelms](https://github.com/ehelms))
 
 ## [9.3.0](https://github.com/theforeman/puppet-dhcp/tree/9.3.0) (2025-05-09)
 
