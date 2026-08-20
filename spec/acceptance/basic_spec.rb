@@ -32,14 +32,4 @@ describe 'Simple installation' do
     it { is_expected.to be_file }
     its(:content) { should_not match %r{option domain-name-servers } }
   end
-
-  ip = fact("networking.interfaces.#{interface}.ip")
-  mac = fact("networking.interfaces.#{interface}.mac")
-
-  describe command("dhcping -c #{ip} -h #{mac} -s #{ip}") do
-    its(:stdout) {
-      pending('This is broken in docker containers')
-      is_expected.to match("Got answer from: #{ip}")
-    }
-  end
 end

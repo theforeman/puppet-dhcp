@@ -28,16 +28,6 @@ describe 'with empty nameservers list' do
     it { is_expected.to be_file }
     its(:content) { should_not match %r{option domain-name-servers } }
   end
-
-  ip = fact("networking.interfaces.#{interface}.ip")
-  mac = fact("networking.interfaces.#{interface}.mac")
-
-  describe command("dhcping -c #{ip} -h #{mac} -s #{ip}") do
-    its(:stdout) {
-      pending('This is broken in docker containers')
-      is_expected.to match("Got answer from: #{ip}")
-    }
-  end
 end
 
 describe 'with a non-empty nameservers list' do
@@ -66,15 +56,5 @@ describe 'with a non-empty nameservers list' do
 
   describe file(config_file) do
     its(:content) { should match %r{option domain-name-servers 8.8.8.8, 8.8.4.4;} }
-  end
-
-  ip = fact("networking.interfaces.#{interface}.ip")
-  mac = fact("networking.interfaces.#{interface}.mac")
-
-  describe command("dhcping -c #{ip} -h #{mac} -s #{ip}") do
-    its(:stdout) {
-      pending('This is broken in docker containers')
-      is_expected.to match("Got answer from: #{ip}")
-    }
   end
 end
