@@ -37,7 +37,7 @@ class dhcp (
   String $packagename = $dhcp::params::packagename,
   String $servicename = $dhcp::params::servicename,
   Boolean $option_static_route = false,
-  Variant[Array[String], Optional[String]] $options = undef,
+  Optional[Variant[Array[String],String]] $options = undef,
   Boolean $authoritative = false,
   String $dhcp_root_user = 'root',
   String $dhcp_root_group = $dhcp::params::root_group,
@@ -50,7 +50,7 @@ class dhcp (
   Hash[String, Hash] $subnets = {},
   Hash[String, Hash] $pools = {},
   Hash[String, Hash] $hosts = {},
-  Variant[Array[String], Optional[String]] $includes = undef,
+  Optional[Variant[Array[String], String]] $includes = undef,
   String $config_comment = 'dhcpd.conf',
 ) inherits dhcp::params {
   # In case people set interface instead of interfaces work around
