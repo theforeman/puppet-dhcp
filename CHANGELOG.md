@@ -1,5 +1,18 @@
 # Changelog
 
+## [10.0.0](https://github.com/theforeman/puppet-dhcp/tree/10.0.0) (2026-10-19)
+
+[Full Changelog](https://github.com/theforeman/puppet-dhcp/compare/9.6.0...10.0.0)
+
+**Breaking changes:**
+
+- Switch from puppet to OpenVox 8 [\#253](https://github.com/theforeman/puppet-dhcp/pull/253) ([bastelfreak](https://github.com/bastelfreak))
+
+**Implemented enhancements:**
+
+- Add OpenVox 9 support [\#257](https://github.com/theforeman/puppet-dhcp/pull/257) ([bastelfreak](https://github.com/bastelfreak))
+- puppet/systemd: Allow 10.x & puppetlabs/stdlib: Allow 10.x [\#256](https://github.com/theforeman/puppet-dhcp/pull/256) ([bastelfreak](https://github.com/bastelfreak))
+
 ## [9.6.0](https://github.com/theforeman/puppet-dhcp/tree/9.6.0) (2026-07-28)
 
 [Full Changelog](https://github.com/theforeman/puppet-dhcp/compare/9.5.0...9.6.0)
