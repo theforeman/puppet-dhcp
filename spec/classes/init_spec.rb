@@ -26,6 +26,19 @@ describe 'dhcp' do
         end
       end
 
+      let(:service_name) do
+        case facts[:os]['family']
+        when 'Debian'
+          'isc-dhcp-server'
+        when 'FreeBSD', 'DragonFly'
+          'isc-dhcpd'
+        when 'Archlinux'
+          'dhcpd4'
+        else
+          'dhcpd'
+        end
+      end
+
       describe "without any parameters" do
         let(:expected_content) do
           <<~CONTENT
@@ -64,6 +77,13 @@ describe 'dhcp' do
         it { should compile.with_all_deps }
 
         it do
+          is_expected.to contain_service(service_name).with(
+            ensure: 'running',
+            enable: true,
+          )
+        end
+
+        it do
           is_expected.to contain_concat__fragment(fragment_name).with_content(expected_content)
         end
 
@@ -86,6 +106,36 @@ describe 'dhcp' do
         else
           it { is_expected.not_to contain_augeas('set listen interfaces') }
         end
+      end
+
+      describe 'with a stopped and disabled service' do
+        let(:params) do
+          super().merge(
+            service_ensure: 'stopped',
+            service_enable: false,
+          )
+        end
+
+        it { is_expected.to compile.with_all_deps }
+
+        it do
+          is_expected.to contain_service(service_name).with(
+            ensure: 'stopped',
+            enable: false,
+          )
+        end
+      end
+
+      describe 'with an invalid service state' do
+        let(:params) { super().merge(service_ensure: 'paused') }
+
+        it { is_expected.to compile.and_raise_error(%r{parameter 'service_ensure' expects .*Stdlib::Ensure::Service}) }
+      end
+
+      describe 'with an invalid service enable value' do
+        let(:params) { super().merge(service_enable: 'disabled') }
+
+        it { is_expected.to compile.and_raise_error(%r{parameter 'service_enable' expects a Boolean value}) }
       end
 
       describe "with all parameters" do
