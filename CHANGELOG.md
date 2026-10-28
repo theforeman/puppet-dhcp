@@ -1,5 +1,13 @@
 # Changelog
 
+## [10.1.0](https://github.com/theforeman/puppet-dhcp/tree/10.1.0) (2026-10-28)
+
+[Full Changelog](https://github.com/theforeman/puppet-dhcp/compare/10.0.0...10.1.0)
+
+**Implemented enhancements:**
+
+- puppet/systemd: Allow 11.x [\#259](https://github.com/theforeman/puppet-dhcp/pull/259) ([bastelfreak](https://github.com/bastelfreak))
+
 ## [10.0.0](https://github.com/theforeman/puppet-dhcp/tree/10.0.0) (2026-10-19)
 
 [Full Changelog](https://github.com/theforeman/puppet-dhcp/compare/9.6.0...10.0.0)
