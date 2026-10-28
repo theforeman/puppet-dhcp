@@ -6,6 +6,10 @@
 #   Whether to update static leases in DDNS. Valid values: 'on', 'off'.
 #   Setting to 'off' prevents DNS records from being modified for static leases.
 #   Default: 'on'
+# @param service_ensure
+#   Whether the DHCP service should be running or stopped.
+# @param service_enable
+#   Whether the DHCP service should start at boot.
 
 class dhcp (
   Array[String] $dnsdomain = $dhcp::params::dnsdomain,
@@ -36,6 +40,8 @@ class dhcp (
   Optional[Stdlib::Filemode] $conf_dir_mode = $dhcp::params::conf_dir_mode,
   String $packagename = $dhcp::params::packagename,
   String $servicename = $dhcp::params::servicename,
+  Stdlib::Ensure::Service $service_ensure = 'running',
+  Boolean $service_enable = true,
   Boolean $option_static_route = false,
   Optional[Variant[Array[String],String]] $options = undef,
   Boolean $authoritative = false,
@@ -168,7 +174,7 @@ class dhcp (
   create_resources('dhcp::host', $hosts)
 
   service { $servicename:
-    ensure => running,
-    enable => true,
+    ensure => $service_ensure,
+    enable => $service_enable,
   }
 }
