@@ -65,8 +65,6 @@ option domain-name-servers <%= @nameservers.join( ', ') %>;
 <% end -%>
 <% if @ntpservers and !@ntpservers.empty? -%>
 option ntp-servers <%= @ntpservers.join(', ') %>;
-<% else -%>
-option ntp-servers none;
 <% end -%>
 
 allow booting;

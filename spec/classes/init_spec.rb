@@ -42,7 +42,6 @@ describe 'dhcp' do
             ddns-update-style none;
 
             option domain-name "example.com";
-            option ntp-servers none;
 
             allow booting;
             allow bootp;
@@ -245,7 +244,6 @@ describe 'dhcp' do
 
             option domain-name "example.com";
             option domain-name-servers 8.8.8.8, 8.8.4.4;
-            option ntp-servers none;
 
             allow booting;
             allow bootp;
@@ -302,7 +300,6 @@ describe 'dhcp' do
             }
 
             option domain-name "example.com";
-            option ntp-servers none;
 
             allow booting;
             allow bootp;
@@ -345,7 +342,6 @@ describe 'dhcp' do
             ddns-update-style none;
 
             option domain-name "example.com";
-            option ntp-servers none;
 
             allow booting;
             allow bootp;
@@ -397,7 +393,6 @@ describe 'dhcp' do
               ddns-update-style none;
 
               option domain-name "example.com";
-              option ntp-servers none;
 
               allow booting;
 
@@ -440,7 +435,6 @@ describe 'dhcp' do
               ddns-update-style none;
 
               option domain-name "example.com";
-              option ntp-servers none;
 
               allow booting;
               allow bootp;
@@ -484,7 +478,6 @@ describe 'dhcp' do
               ddns-update-style none;
 
               option domain-name "example.com";
-              option ntp-servers none;
 
               allow booting;
 
