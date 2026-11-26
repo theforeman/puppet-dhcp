@@ -27,6 +27,12 @@ not authoritative;
 ddns-updates on;
 ddns-update-style <%= @ddns_update_style %>;
 update-static-leases <%= @update_static_leases %>;
+<% unless @ddns_ttl.nil? -%>
+ddns-ttl <%= @ddns_ttl %>;
+<% end -%>
+<% unless @update_conflict_detection.nil? -%>
+update-conflict-detection <%= @update_conflict_detection %>;
+<% end -%>
 use-host-decl-names on;
 <% if @client_updates == true -%>
 allow client-updates;

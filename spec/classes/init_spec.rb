@@ -111,6 +111,8 @@ describe 'dhcp' do
             :ddns_domainname => 'example.com',
             :ddns_rev_domainname => 'in-addr.arpa',
             :ddns_update_style => 'standard',
+            :ddns_ttl => 3600,
+            :update_conflict_detection => false,
             :includes => ['myinclude1', 'myinclude2'],
           )
         end
@@ -135,6 +137,8 @@ describe 'dhcp' do
             ddns-updates on;
             ddns-update-style standard;
             update-static-leases on;
+            ddns-ttl 3600;
+            update-conflict-detection false;
             use-host-decl-names on;
 
             ddns-domainname "example.com";

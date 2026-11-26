@@ -6,6 +6,12 @@
 #   Whether to update static leases in DDNS. Valid values: 'on', 'off'.
 #   Setting to 'off' prevents DNS records from being modified for static leases.
 #   Default: 'on'
+# @param ddns_ttl
+#   The TTL, in seconds, to use for DNS records created by DDNS updates.
+#   When unset, the DHCP server calculates the TTL from the lease time.
+# @param update_conflict_detection
+#   Whether to perform DHCID conflict detection for DDNS updates.
+#   When unset, the DHCP server default of true is used.
 
 class dhcp (
   Array[String] $dnsdomain = $dhcp::params::dnsdomain,
@@ -43,6 +49,8 @@ class dhcp (
   String $dhcp_root_group = $dhcp::params::root_group,
   Boolean $ddns_updates = false,
   Enum['on', 'off'] $update_static_leases = 'on',
+  Optional[Integer[0]] $ddns_ttl = undef,
+  Optional[Boolean] $update_conflict_detection = undef,
   Optional[String] $ddns_domainname = undef,
   Optional[String] $ddns_rev_domainname = undef,
   Enum['none', 'interim', 'standard'] $ddns_update_style = 'interim',
